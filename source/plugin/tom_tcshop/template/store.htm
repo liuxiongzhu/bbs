@@ -1,0 +1,273 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{lang tom_tcshop:store_title} - {$__SitesInfo['name']}</title>
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tcshop/images/iconfont/iconfont.css?v={$cssJsVersion}" />
+<link href="source/plugin/tom_tongcheng/images/swiper.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="source/plugin/tom_tcshop/images/shop_style.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tcshop/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/swiper.min.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/global.js?v={$cssJsVersion}"></script>
+<script type="text/javascript" src="source/plugin/tom_tcshop/images/html2canvas.min.js?v={$cssJsVersion}"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/layer_mobile/layer.js?v={$cssJsVersion}"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+<style>
+.layui-m-layer0 .layui-m-layerchild{width: 70%;}
+.layui-m-layercont{padding: 5px 3px;}
+.tcui-actionsheet__cell:before{border:0}
+.tcui-actionsheet__cell{border-bottom:1px solid #EFEFF4;padding:20px 0}
+.tcui-skin_android .tcui-actionsheet__cell{font-size: 18px;color: #505050;}
+<!--{if $__ShowTcqianggou == 0}-->
+.store_top .top-nav a{width: 33%;};
+<!--{/if}-->
+</style>
+</head>
+<body id="shop_details">
+<section class="shop_head tc-template__bg">
+	<div class="search-title">
+    	{lang tom_tcshop:store_title}
+        <a href="javascript:;" style="position:absolute; top:0px; width:60px;" class="back" onclick="location.href='plugin.php?id=tom_tongcheng&site={$site_id}&mod=personal';"><i></i>{lang tom_tcshop:back}</a>
+    </div>
+</section>
+<section class="store_top tc-template__bg">
+    <div class="top-nav clearfix">
+        <!--{if $__ShowTcqianggou == 1}-->
+        <a href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=orderhexiao">
+            <img src="source/plugin/tom_tcshop/images/store/top-nav-1.png">
+            <p>{lang tom_tcshop:store_top_nav_1}</p>
+        </a>
+        <!--{/if}-->
+        <a onclick="getQrcode();" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/top-nav-2.png">
+            <p>{lang tom_tcshop:store_top_nav_2}</p>
+        </a>
+        <a class="show-menu" data-id="order" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/top-nav-3.png">
+            <p>{lang tom_tcshop:store_top_nav_3}</p>
+        </a>
+        <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=money">
+            <img src="source/plugin/tom_tcshop/images/store/top-nav-4.png">
+            <p>{lang tom_tcshop:store_top_nav_4}</p>
+        </a>
+    </div>
+</section>
+<section class="store_nav">
+    <div class="nav-nav clearfix">
+        <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=mylist">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tcshop.png">
+            <p>{lang tom_tcshop:store_nav_tcshop}</p>
+        </a>
+        <!--{if $__ShowTcmall == 1}-->
+        <a class="show-menu" data-id="mall" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tcmall.png">
+            <p>{lang tom_tcshop:store_nav_tcmall}</p>
+        </a>
+        <!--{/if}-->
+        <!--{if $__ShowTcqianggou == 1}-->
+        <a class="show-menu" data-id="qianggou" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tcqianggou.png">
+            <p>{lang tom_tcshop:store_nav_tcqianggou}</p>
+        </a>
+        <!--{/if}-->
+        <!--{if $__ShowTcptuan == 1}-->
+        <a class="show-menu" data-id="ptuan" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tcptuan.png">
+            <p>{lang tom_tcshop:store_nav_tcptuan}</p>
+        </a>
+        <!--{/if}-->
+        <!--{if $__ShowTckjia == 1}-->
+        <a class="show-menu" data-id="kjia" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tckjia.png">
+            <p>{lang tom_tcshop:store_nav_tckjia}</p>
+        </a>
+        <!--{/if}-->
+        <!--{if $__ShowTcyikatong == 1}-->
+        <a class="show-menu" data-id="vip" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tcvip.png">
+            <p>{$tcyikatongConfig['card_name']}</p>
+        </a>
+        <!--{/if}-->
+        <!--{if $__ShowTcqianggou == 1 && $tcqianggouConfig['open_kajuan'] == 1}-->
+        <a class="show-menu" data-id="kaquan" href="javascript:void(0);">
+            <img src="source/plugin/tom_tcshop/images/store/nav-tckaquan.png">
+            <p>{lang tom_tcshop:store_nav_tckaquan}</p>
+        </a>
+        <!--{/if}-->
+    </div>
+</section>
+<section class="store_tongji_title clearfix">
+    <div class="store_tongji_title_pic"><img src="source/plugin/tom_tcshop/images/store/data.gif"></div>
+    <div class="store_tongji_title_txt">{lang tom_tcshop:store_tongji_title}</div>
+</section>
+<section class="store_tongji clearfix">
+    <ul class="clearfix">
+        <li>
+            <a>
+                <p class="title">{lang tom_tcshop:store_tongji_1}</p>
+                <p class="num">{$total_money}</p>
+            </a>
+        </li>
+        <li>
+            <a>
+                <p class="title">{lang tom_tcshop:store_tongji_2}</p>
+                <p class="num">{$total_orders}</p>
+            </a>
+        </li>
+        <li>
+            <a>
+                <p class="title">{lang tom_tcshop:store_tongji_3}</p>
+                <p class="num">{$total_clicks}</p>
+            </a>
+        </li>
+    </ul>
+</section>
+<center style="margin:10px;background:#FFF;border:1px solid #e8e8e8;line-height:2;color:#888;padding:1em">
+    <img src="{$kefuQrcodeSrc}" style="max-width:60%;">
+    <br>{lang tom_tcshop:store_kefu_msg}
+</center>
+<div id="menu-child-order" style="display:none">
+    <!--{if $__ShowTcmall == 1}-->
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=myorder">{lang tom_tcshop:store_menu_mall_orders}</a>
+    <!--{/if}-->
+    <!--{if $__ShowTcqianggou == 1}-->
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=order&type=1">{lang tom_tcshop:store_menu_qianggou_orders}</a>
+    <!--{/if}-->
+    <!--{if $__ShowTcptuan == 1}-->
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcptuan&site={$site_id}&mod=myorder">{lang tom_tcshop:store_menu_ptuan_orders}</a>
+    <!--{/if}-->
+    <!--{if $__ShowTckjia == 1}-->
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tckjia&site={$site_id}&mod=order">{lang tom_tcshop:store_menu_kjia_orders}</a>
+    <!--{/if}-->
+    <!--{if $__ShowTcqianggou == 1}-->
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=order&type=2">{lang tom_tcshop:store_menu_kaquan_orders}</a>
+    <!--{/if}-->
+</div>
+<div id="menu-child-qianggou" style="display:none">
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=myfabu&t_id=1">{lang tom_tcshop:store_menu_qianggou_goods}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=fabu&type=qianggou">{lang tom_tcshop:store_menu_qianggou_fabu}</a>
+</div>
+<div id="menu-child-ptuan" style="display:none">
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcptuan&site={$site_id}&mod=myfabu">{lang tom_tcshop:store_menu_ptuan_goods}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcptuan&site={$site_id}&mod=fabu">{lang tom_tcshop:store_menu_ptuan_fabu}</a>
+</div>
+<div id="menu-child-kjia" style="display:none">
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tckjia&site={$site_id}&mod=myfabu">{lang tom_tcshop:store_menu_kjia_goods}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tckjia&site={$site_id}&mod=fabu">{lang tom_tcshop:store_menu_kjia_fabu}</a>
+</div>
+<div id="menu-child-vip" style="display:none">
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcyikatong&site={$site_id}&mod=mylist">{lang tom_tcshop:store_menu_vip_goods}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcyikatong&site={$site_id}&mod=ruzhu">{lang tom_tcshop:store_menu_vip_fabu}</a>
+</div>
+<div id="menu-child-kaquan" style="display:none">
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=myfabu&t_id=2">{lang tom_tcshop:store_menu_kaquan_goods}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=fabu&type=kaquan">{lang tom_tcshop:store_menu_kaquan_fabu}</a>
+</div>
+<div id="menu-child-mall" style="display:none">
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcshop&site={$site_id}&mod=mallCate">{lang tom_tcshop:store_menu_mall_cate}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=mylist">{lang tom_tcshop:store_menu_mall_goods}</a>
+    <a class="tcui-actionsheet__cell" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=ruzhu">{lang tom_tcshop:store_menu_mall_ruzhu}</a>
+</div>
+<div class="tcui-skin_android" id="menu-sheet" style="display: none;">
+    <div class="tcui-mask"></div>
+    <div class="tcui-actionsheet">
+        <div class="tcui-actionsheet__menu" id="menu-sheet-menu"></div>
+    </div>
+</div>
+{template tom_tcshop:footer}
+<div style="display: none;">{$tongchengConfig['tongji_code']}</div>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+$(function(){
+    var menuActionSheet = $('#menu-sheet');
+    var menuMask = menuActionSheet.find('.tcui-mask');
+    $(".show-menu").on('click', function(){
+        menuActionSheet.fadeIn(200);
+        var menuId = $(this).data('id');
+        var menuHtml = $('#menu-child-' + menuId).html();
+        $('#menu-sheet-menu').html(menuHtml);
+        menuMask.on('click',function () {
+            menuActionSheet.fadeOut(200);
+        });
+    });
+});
+</script>
+<script>
+function getQrcode(){
+    <!--{if $__IsWeixin == 1}-->
+    wx.scanQRCode({
+        needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+        success: function (res) {
+            var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+        }
+    });
+    <!--{else}-->
+    tusi("{lang tom_tcshop:store_qrcode_msg}");
+    return false;
+    <!--{/if}-->
+}
+
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'previewImage',
+      'openLocation',
+      'getLocation',
+      'scanQRCode'
+    ]
+});
+
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () { 
+        },
+        cancel: function () {
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

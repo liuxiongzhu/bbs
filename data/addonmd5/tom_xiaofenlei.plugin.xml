@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[tom_xiaofenlei.plugin]]></item>
+	<item id="RevisionID"><![CDATA[76970]]></item>
+	<item id="SN"><![CDATA[2018033017Gkgz6r22Hg]]></item>
+	<item id="RevisionDateline"><![CDATA[1528855201]]></item>
+	<item id="Data">
+		<item id="/login.inc.php"><![CDATA[2bc87f66287cf8b01cc7d197b1dbfd94]]></item>
+		<item id="/class/wxBizDataCrypt.php"><![CDATA[0620e0a205b0d310ef94bb3f6a731067]]></item>
+		<item id="/class/function.core.php"><![CDATA[2cc87642dc3b15fbab7a2fcfd4519b61]]></item>
+		<item id="/class/tom.upload.php"><![CDATA[0fb1524bb3fe2821cb6a850ff899afd3]]></item>
+		<item id="/class/wxpay/lib/WxPay.Exception.php"><![CDATA[a01275fa3a5f5292c385046a08029129]]></item>
+		<item id="/class/wxpay/lib/WxPay.Notify.php"><![CDATA[38153769df3bc5b5d794410b0f7c39e1]]></item>
+		<item id="/class/wxpay/lib/WxPay.Data.php"><![CDATA[18c22af22a7fcc27ee02527340be9bcc]]></item>
+		<item id="/class/wxpay/lib/WxPay.Api.php"><![CDATA[e415cb09dee7600318a67060117ad49e]]></item>
+		<item id="/class/wxpay/lib/WxPay.Config.php"><![CDATA[096792375c46b62ce2f14a0bae635645]]></item>
+		<item id="/class/wxpay/log.php"><![CDATA[cef86be0c6fd610dab2899536d3b357f]]></item>
+		<item id="/class/wxpay/cert/index.htm"><![CDATA[7215ee9c7d9dc229d2921a40e899ec5f]]></item>
+		<item id="/class/xiao.class.php"><![CDATA[8e9c5a2e74c9f48720b4965b9dd45128]]></item>
+		<item id="/upload.inc.php"><![CDATA[72f92d6941cdeb18fc04ab3c55b6149f]]></item>
+		<item id="/admin.inc.php"><![CDATA[f1ce09aa60320e9436fa60b77e74e7a4]]></item>
+		<item id="/install.php"><![CDATA[9759b1c985ead86aca381a18678e6573]]></item>
+		<item id="/unionError.inc.php"><![CDATA[5c70251d8de90e287128d197233d92f8]]></item>
+		<item id="/tom_xiaofenlei.inc.php"><![CDATA[1b0da1e9ecf713ba6f462042babb00f9]]></item>
+		<item id="/discuz_plugin_tom_xiaofenlei_SC_GBK.xml"><![CDATA[0c2a59835104e27c9c02d87d6579e7f5]]></item>
+		<item id="/discuz_plugin_tom_xiaofenlei_SC_UTF8.xml"><![CDATA[dbb40d5d6890dfa91b6df651a36f46e0]]></item>
+		<item id="/qrcode.inc.php"><![CDATA[09045ae21f52e3df3e8d4911f2d46bb8]]></item>
+		<item id="/uninstall.php"><![CDATA[60f733532c347c09e1b3ea17f521890a]]></item>
+		<item id="/admin/user.php"><![CDATA[78e77a07f1d89124bc40ff7e35d75dfc]]></item>
+		<item id="/data/index.htm"><![CDATA[7215ee9c7d9dc229d2921a40e899ec5f]]></item>
+		<item id="/table/table_tom_xiaofenlei_user.php"><![CDATA[94fbe61b4a656b3baac7d0b8278dfedb]]></item>
+		<item id="/qrcode.func.php"><![CDATA[e19ab3646f4b08ff591b23b6ec1c32d6]]></item>
+		<item id="/upgrade.php"><![CDATA[f393ae66d745a109c0d98f532b3c2112]]></item>
+		<item id="/notify.php"><![CDATA[d7e83fd94b1bb4b09594c207d0aea3ee]]></item>
+		<item id="/logs/index.htm"><![CDATA[7215ee9c7d9dc229d2921a40e899ec5f]]></item>
+		<item id="/pay.inc.php"><![CDATA[052b7510d000032bda8900fd074928aa]]></item>
+		<item id="/title.inc.php"><![CDATA[7e475ab50f0365e8458239277f4d85ae]]></item>
+		<item id="/updb.inc.php"><![CDATA[78150dce222f07b9e458e13e5e5d74fa]]></item>
+		<item id="/class/function.admin.php"><![CDATA[ecc524c7bacdb47f7499409d2c425ef8]]></item>
+		<item id="/class/tom.form.php"><![CDATA[37462cff4fc9116c7a5a963c6409d048]]></item>
+		<item id="/admin/nosites.php"><![CDATA[414e3a091e1fd99b9bfb44542cbead2d]]></item>
+		<item id="/table/table_tom_xiaofenlei_sites.php"><![CDATA[d070260d7969ce165ab1acc8f86741da]]></item>
+	</item>
+</root>

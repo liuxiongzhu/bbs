@@ -1,0 +1,20 @@
+[2018-07-02 10:38:32][debug] start
+[2018-07-02 10:38:32][debug] call back
+[2018-07-02 10:38:32][debug] update order flow:"TC20180702103811-577060"
+[2018-07-02 10:38:32][debug] update order:"TC20180702103811-577060"
+[2018-07-02 10:38:32][debug] success
+[2018-07-02 11:53:08][debug] start
+[2018-07-02 11:53:08][debug] call back
+[2018-07-02 11:53:08][debug] update order flow:"TC20180702115257-274202"
+[2018-07-02 11:53:08][debug] update order:{"id":"47","site_id":"1","user_id":"7","tongcheng_id":"386","tcshop_id":"0","money":"10.00","all_money":"10.00","sx_money":"0.00","hb_count":"50","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180702115257-274202","fenpei_status":"2","send_status":"0","add_time":"1530503576","part1":null,"part2":null,"part3":null}
+[2018-07-02 11:53:08][debug] success
+[2018-07-02 13:37:30][debug] start
+[2018-07-02 13:37:30][debug] call back
+[2018-07-02 13:37:30][debug] update order flow:"TC20180702133705-134436"
+[2018-07-02 13:37:30][debug] update user:"1082"
+[2018-07-02 13:37:31][debug] success
+[2018-07-02 16:15:26][debug] start
+[2018-07-02 16:15:26][debug] call back
+[2018-07-02 16:15:26][debug] update order flow:"TC20180702161515-160737"
+[2018-07-02 16:15:26][debug] update order:{"id":"48","site_id":"1","user_id":"1147","tongcheng_id":"388","tcshop_id":"0","money":"18.00","all_money":"18.00","sx_money":"0.00","hb_count":"30","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180702161515-160737","fenpei_status":"2","send_status":"0","add_time":"1530519315","part1":null,"part2":null,"part3":null}
+[2018-07-02 16:15:26][debug] success

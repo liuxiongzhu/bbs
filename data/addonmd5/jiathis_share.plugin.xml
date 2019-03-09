@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[jiathis_share.plugin]]></item>
+	<item id="RevisionID"><![CDATA[18264]]></item>
+	<item id="SN"><![CDATA[201707080288SKFM4FW9]]></item>
+	<item id="RevisionDateline"><![CDATA[1371453978]]></item>
+	<item id="Data">
+		<item id="/discuz_plugin_jiathis_share_TC_UTF8.xml"><![CDATA[8c30b328a3045583f69529155826665d]]></item>
+		<item id="/discuz_plugin_jiathis_share_TC_BIG5.xml"><![CDATA[5c154454d611ad86a29c027bae52d996]]></item>
+		<item id="/jiathis_share.class.php"><![CDATA[e05e4e44029cdf6a5fc0aeac05e449d6]]></item>
+		<item id="/discuz_plugin_jiathis_share_SC_UTF8.xml"><![CDATA[02244d6885b86c46f38bd2de153fe859]]></item>
+		<item id="/discuz_plugin_jiathis_share_SC_GBK.xml"><![CDATA[9ec1610e7184688171abbdc721dbfd8c]]></item>
+	</item>
+</root>

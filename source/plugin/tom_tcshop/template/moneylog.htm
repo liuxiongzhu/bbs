@@ -1,0 +1,182 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{lang tom_tcshop:moneylog_title} - {$__SitesInfo['name']}</title>
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tcshop/images/iconfont/iconfont.css?v={$cssJsVersion}" />
+<link href="source/plugin/tom_tongcheng/images/swiper.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="source/plugin/tom_tcshop/images/shop_style.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tcshop/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/swiper.min.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/global.js?v={$cssJsVersion}"></script>
+<script type="text/javascript" src="source/plugin/tom_tcshop/images/html2canvas.min.js?v={$cssJsVersion}"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/layer_mobile/layer.js?v={$cssJsVersion}"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+<style>
+.layui-m-layer0 .layui-m-layerchild{width: 70%;}
+.layui-m-layercont{padding: 5px 3px;}
+</style>
+</head>
+<body id="shop_details">
+<section class="shop_head tc-template__bg">
+	<div class="search-title">
+    	{lang tom_tcshop:moneylog_title}
+        <a href="javascript:;" style="position:absolute; top:0px; width:60px;" class="back" onclick="location.href='plugin.php?id=tom_tcshop&site={$site_id}&mod=money';"><i></i>{lang tom_tcshop:back}</a>
+    </div>
+</section>
+<section class="moneylog_box" style="padding-top:0.5em;">
+    <div class="list-box">
+        <!--{loop $moneylogList $key $val}-->
+       <div class="item-box dislay-flex">
+            <div class="item-box_lt">
+                <img src="{$val['businessUserInfo']['picurl']}">
+            </div>
+            <div class="item-box_rt flex">
+                <div class="rt-item list-btn rt-title">
+                    <!--{if $val['type_id'] == 1}-->
+                        <!--{if $val['tixianInfo']['status'] == 1}--><font color="#fd0d0d">{lang tom_tcshop:moneylog_tixian_status_1}</font><!--{/if}-->
+                        <!--{if $val['tixianInfo']['status'] == 2}--><font color="#238206">{lang tom_tcshop:moneylog_tixian_status_2}</font><!--{/if}-->
+                    <!--{/if}-->
+                    <!--{if $val['type_id'] == 2}-->
+                        <!--{if $val['business_id'] == 'tcqianggou'}--><font color="#238206">{lang tom_tcshop:moneylog_tcqianggou}</font><!--{/if}-->
+                        <!--{if $val['business_id'] == 'tckjia'}--><font color="#238206">{lang tom_tcshop:moneylog_tckjia}</font><!--{/if}-->
+                        <!--{if $val['business_id'] == 'tcptuan'}--><font color="#238206">{lang tom_tcshop:moneylog_tcptuan}</font><!--{/if}-->
+                        <!--{if $val['business_id'] == 'tcmall'}--><font color="#238206">{lang tom_tcshop:moneylog_tcmall}</font><!--{/if}-->
+                    <!--{/if}-->
+                    {$val['title']}
+                </div>
+                <div class="rt-item list-btn rt-time"><!--{date($val[log_time], 'u')}--></div>
+                <div class="item-box_hide box_hide">
+                    <!--{if $val['type_id'] == 2}-->
+                    <div class="rt-item"><font class="tc-template__color">{lang tom_tcshop:moneylog_business_nickname}</font>{$val['businessUserInfo']['nickname']}</div>
+                    <div class="rt-item"><font class="tc-template__color">{lang tom_tcshop:moneylog_order_no}</font>{$val['order_no']}</div>
+                    <div class="rt-item"><font class="tc-template__color">{lang tom_tcshop:moneylog_tit}</font>{$val['title']}</div>
+                    <!--{/if}-->
+                    <div class="rt-item"><font class="tc-template__color">{lang tom_tcshop:moneylog_old_money}</font>{$val['old_money']}</div>
+                </div>
+                <!--{if $val['type_id'] == 1}-->
+                <div class="rt-item rt-price"><font color="#238206">-{$val['change_money']}</font></div>
+                <!--{elseif $val['type_id'] == 2}-->
+                <div class="rt-item rt-price"><font color="#fd0d0d">+{$val['change_money']}</font></div>
+                <!--{/if}-->
+                <div class="rt-item rt-btn list-btn"></div>
+            </div>
+        </div>
+        <!--{/loop}-->
+    </div>
+    <div class="pages clearfix" style="margin-bottom: 80px;">
+        <ul class="clearfix">
+          <li style="width: 40%;"><!--{if $page > 1}--><a class="tc-template__border tc-template__color" href="{$prePageUrl}">{lang tom_tongcheng:pre_page}</a><!--{else}--><span>{lang tom_tongcheng:pre_page}</span><!--{/if}--></li>
+          <li style="width: 20%;"><span>{$page}/{$allPageNum}</span></li>
+          <li style="width: 40%;"><!--{if $showNextPage == 1}--><a class="tc-template__border tc-template__color" href="{$nextPageUrl}">{lang tom_tongcheng:next_page}</a><!--{else}--><span>{lang tom_tongcheng:next_page}</span><!--{/if}--></li>
+    </ul>
+        </div>
+</section>
+<div class="moneylog_menu">
+    <div class="menu">
+        <div class="menuBtn">{lang tom_tcshop:moneylog_menu_title}</div>
+        <div class="menuList" style="display: none;">
+            <ul>
+                <li data-type="all">{lang tom_tcshop:moneylog_menu_all}</li>
+                <li data-type="2">{lang tom_tcshop:moneylog_menu_2}</li>
+                <li data-type="1">{lang tom_tcshop:moneylog_menu_1}</li>
+            </ul>
+            <em></em>
+            <span></span> 
+        </div>
+    </div>
+    <div class="balance">{lang tom_tcshop:moneylog_balance}
+        <div class="amount tc-template__color">{$__UserInfo['shop_money']}</div>
+    </div>
+</div>
+<div style="display: none;">{$tongchengConfig['tongji_code']}</div>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+$(function () {
+    $(".moneylog_menu .menu").on("click", function () {
+        $(this).find('.menuList').toggle();
+    });
+    $(".moneylog_menu .menu .menuList ul li").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var _type = $(this).data('type');
+        if (_type) {
+            location.href = 'plugin.php?id=tom_tcshop&site={$site_id}&mod=moneylog&type_id=' + _type;
+        }
+    });
+});
+
+$('.list-btn').click(function(){
+    if($(this).parent('.item-box_rt').find(".item-box_hide").hasClass('box_hide')){
+        $(this).parent('.item-box_rt').find(".item-box_hide").removeClass('box_hide');
+        $(this).parent('.item-box_rt').find(".rt-btn").addClass("on");
+    }else{
+        $(this).parent('.item-box_rt').find(".item-box_hide").addClass('box_hide');
+        $(this).parent('.item-box_rt').find(".rt-btn").removeClass("on");
+    }
+})
+</script>
+
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'previewImage',
+      'openLocation',
+      'getLocation'
+    ]
+});
+
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () { 
+        },
+        cancel: function () {
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[2018-04-14 13:00:38][debug] start
+[2018-04-14 13:00:38][debug] call back
+[2018-04-14 13:00:39][debug] update order flow:"TC20180414130019-239553"
+[2018-04-14 13:00:39][debug] update user:"147"
+[2018-04-14 13:00:39][debug] success
+[2018-04-14 14:46:17][debug] start
+[2018-04-14 14:46:17][debug] call back
+[2018-04-14 14:46:17][debug] update order flow:"TC20180414144559-293160"
+[2018-04-14 14:46:17][debug] update order:"TC20180414144559-293160"
+[2018-04-14 14:46:17][debug] success

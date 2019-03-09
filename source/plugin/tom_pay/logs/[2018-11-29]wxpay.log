@@ -1,0 +1,20 @@
+[2018-11-29 16:09:09][debug] start
+[2018-11-29 16:09:09][debug] call back
+[2018-11-29 16:09:09][debug] update order flow:"TC20181129160856-323250"
+[2018-11-29 16:09:09][debug] update order:"TC20181129160856-323250"
+[2018-11-29 16:09:09][debug] success
+[2018-11-29 16:09:51][debug] start
+[2018-11-29 16:09:51][debug] call back
+[2018-11-29 16:09:52][debug] update order flow:"TC20181129160940-486726"
+[2018-11-29 16:09:52][debug] update order:"TC20181129160940-486726"
+[2018-11-29 16:09:52][debug] success
+[2018-11-29 16:56:20][debug] start
+[2018-11-29 16:56:20][debug] call back
+[2018-11-29 16:56:21][debug] update order flow:"TC20181129165539-157450"
+[2018-11-29 16:56:21][debug] update user:"2735"
+[2018-11-29 16:56:22][debug] success
+[2018-11-29 17:48:54][debug] start
+[2018-11-29 17:48:54][debug] call back
+[2018-11-29 17:48:54][debug] update order flow:"TC20181129174843-290141"
+[2018-11-29 17:48:54][debug] update order:"TC20181129174843-290141"
+[2018-11-29 17:48:54][debug] success

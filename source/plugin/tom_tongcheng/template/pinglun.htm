@@ -1,0 +1,348 @@
+<link href="source/plugin/tom_tongcheng/images/pinglun.css?v={$cssJsVersion}" rel="stylesheet" />
+<section class="info-item info-item-pinglun">
+    <div class="info-item-comment">
+        <div class="comment-title">{lang tom_tongcheng:info_comment_all}<span onClick="comment();">{lang tom_tongcheng:info_comment_pinglun}</span>
+            <!--{if $open_edit_pinglun == 1 && $pinglunList}-->
+            <span>
+                <a id="close_remove" href="javascript:;" onClick="hide_pinglun_remove();">{lang tom_tongcheng:info_comment_edit_close}</a>
+                <a id="show_remove" href="javascript:;" onClick="show_pinglun_remove();">{lang tom_tongcheng:info_comment_edit}</a>
+            </span>
+            <!--{/if}-->
+        </div>
+        <div id="comment-list" data-id="{$tongcheng_id}">
+            <!--{loop $pinglunList $key $value}-->
+            <div class="comment-item clearfix" id="comment-item_{$value['id']}" data-id="{$tongcheng_id}" data-touserid="{$value['userInfo']['id']}" data-tonickname="{$value['userInfo']['nickname']}">
+                <div class="comment-item-avatar"><img src="{$value['userInfo']['picurl']}"></div>
+                <div class="comment-item-content">
+                    <h5><span onClick="comment_reply(this);">{$value['userInfo']['nickname']}</span>
+                        <!--{if $value['touser_id'] > 0}-->
+                        <span class="hf">&nbsp;{lang tom_tongcheng:pinglun_hueifu}{lang tom_tongcheng:pinglun_hueifu_dian}&nbsp;</span><span onClick="comment_reply(this);">{$value['touser_nickname']}</span>
+                        <!--{/if}-->
+                        <span class="right remove" onClick="removePinglun({$value['id']});">{lang tom_tongcheng:info_comment_del}</span>
+                        <span class="right"  onClick="comment_reply(this);">{date($value['ping_time'])}</span>
+                    </h5>
+                    <div class="comment-item-content-text" onClick="comment_reply(this);">{$value['content']}</div>
+                    {$value['reply_list']}
+                </div>
+            </div>
+            <!--{/loop}-->
+        </div>
+        <!--{if $pinglunList}-->
+        <div id="m1" class="no-comment-more"><a href="javascript:;" onClick="loadMore();">{lang tom_tongcheng:info_comment_more}</a></div>
+        <!--{else}-->
+        <div id="m1" class="no-comment-more box_hide"><a href="javascript:;" onClick="loadMore();">{lang tom_tongcheng:info_comment_more}</a></div>
+        <div class="no-comment"><a href="javascript:;">{lang tom_tongcheng:info_no_comment}</a></div>
+        <!--{/if}-->
+        <div id="m2" class="no-comment-more"><a href="javascript:;">{lang tom_tongcheng:info_no_comment_more}</a></div>
+        <div id="m3" class="no-comment-more"><img src="source/plugin/tom_tongcheng/images/loading.gif"><a href="javascript:;">{lang tom_tongcheng:info_comment_loading}</a></div>
+        
+    </div>
+</section>
+<div class="js_dialog" id="pinglun_phone" style="display: none;">
+    <div class="tcui-mask"></div>
+    <div class="tcui-dialog">
+        <div class="tcui-dialog__hd"><strong class="tcui-dialog__title">{lang tom_tongcheng:must_phone_popup_title}</strong></div>
+        <div class="tcui-dialog__bd">{lang tom_tongcheng:must_phone_popup_content_pinglun}</div>
+        <div class="tcui-dialog__ft">
+            <a href="{$phoneUrl}" class="tcui-dialog__btn tcui-dialog__btn_default">{lang tom_tongcheng:must_phone_popup_go}</a>
+            <a href="javascript:;" class="tcui-dialog__btn tcui-dialog__btn_primary">{lang tom_tongcheng:must_phone_popup_cancel}</a>
+        </div>
+    </div>
+</div>
+
+<div class="plugin-info__box">
+    <div class="plugin-reply__visible">
+        <div class="tcui-dialog weui-dialog--visible">
+            <div class="tcui-dialog__hd">
+                <strong class="tcui-dialog__title plugin-reply__title">{lang tom_tongcheng:pinglun_box_title}</strong>
+            </div>
+            <div class="tcui-dialog__bd">
+                <div class="text-border">
+                    <textarea class="tcui-textarea tcui-prompt-input " id="tcui-info-input" placeholder="{lang tom_tongcheng:pinglun_box_text_msg}" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="weui-dialog__ft dislay-flex">
+                <a href="javascript:void(0);" class="tcui-dialog__btn default plugin-info__cancel">{lang tom_tongcheng:index_plugin_cancel}</a>
+                <a href="javascript:void(0);" class="tcui-dialog__btn primary plugin-info__queren tc-template__color">{lang tom_tongcheng:index_plugin_queren}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).on('click', '.tcui-dialog__btn_primary', function(){
+    $(this).parents('.js_dialog').fadeOut(200);
+})
+
+var info_u = navigator.userAgent;  
+var info_isiOS = !!info_u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+var infoPluginTongchengId = 0;
+var infoPluginToUserId = 0;
+var infoPluginToNickname = '';
+$(document).on('click', '.plugin-info__cancel', function () {
+    infoPluginTongchengId = 0;
+    infoPluginToUserId = 0;
+    infoPluginToNickname = '';
+    $('.plugin-info__box .plugin-reply__title').html('{lang tom_tongcheng:pinglun_box_title}');
+    $('.plugin-info__box').hide();
+    $("#tcui-info-input").val('');
+});
+
+function comment(){
+    <!--{if $__UserInfo['id'] <= 0}-->
+    tusi("{lang tom_tongcheng:pinglun_box_no_user_msg}");
+    return false;
+    <!--{/if}-->
+    
+    infoPluginTongchengId = "{$tongcheng_id}";
+    
+    if(info_isiOS){
+        $('.plugin-info__box .plugin-reply__visible').css({
+            'position':'absolute',
+            'height':$(document).height()+'px',
+        });
+        $('.plugin-info__box .weui-dialog--visible').css({
+            'position':'absolute',
+            'top':($(document).scrollTop() + $(window).height()/2.25)+'px',
+        });
+    }
+    $('.plugin-info__box').show();
+    
+}
+
+function comment_reply(obj){
+    <!--{if $__UserInfo['id'] <= 0}-->
+    tusi("{lang tom_tongcheng:pinglun_box_no_user_msg}");
+    return false;
+    <!--{/if}-->
+    var that = obj;
+    infoPluginTongchengId = $(that).parents('.comment-item').data('id');
+    infoPluginToUserId = $(that).parents('.comment-item').data('touserid');
+    infoPluginToNickname = $(that).parents('.comment-item').data('tonickname');
+    
+    $('.plugin-info__box .plugin-reply__title').html('{lang tom_tongcheng:pinglun_hueifu}{lang tom_tongcheng:pinglun_hueifu_dian}'+ infoPluginToNickname);
+
+    if(info_isiOS){
+        $('.plugin-info__box .plugin-reply__visible').css({
+            'position':'absolute',
+            'height':$(document).height()+'px',
+        });
+        $('.plugin-info__box .weui-dialog--visible').css({
+            'position':'absolute',
+            'top':($(document).scrollTop() + $(window).height()/2.25)+'px',
+        });
+    }
+    $('.plugin-info__box').show();
+}
+
+function removeId(id){
+	$("#"+id).remove();
+}
+
+var submintPingLunStatus = 0;
+$(document).on("click", ".plugin-info__queren", function () {
+    
+    <!--{if $showMustPhoneBtn == 1}-->
+    infoPluginTongchengId = 0;
+    infoPluginToUserId = 0;
+    infoPluginToNickname = '';
+    $('.plugin-info__box .plugin-reply__title').html('{lang tom_tongcheng:pinglun_box_title}');
+    $('.plugin-info__box').hide();
+    $("#tcui-info-input").val('');
+    $('#pinglun_phone').show();
+    return false;
+    <!--{/if}-->
+
+    <!--{if $loginStatus == 0}-->
+    tusi("{lang tom_tongcheng:must_weixin_msg}");
+        return false;
+    <!--{/if}-->
+
+    var content = $("#tcui-info-input").val();
+    if(submintPingLunStatus == 1){
+        return false;
+    }
+    if(content == ""){
+        tusi("{lang tom_tongcheng:info_pinglun_no_null}");
+        return false;
+    }
+    submintPingLunStatus = 1;
+    $.ajax({
+        type: "POST",
+        url: "{$addPinglunUrl}",
+        dataType : "json",
+        data: {content:content, tongcheng_id:infoPluginTongchengId, user_id:"{$__UserInfo['id']}", touser_id:infoPluginToUserId},
+        success: function(data){
+            submintPingLunStatus = 0;
+            
+            if(data.status == 200){
+                
+                var pinglunHtml = '<div class="comment-item clearfix" id="comment-item_'+data.pinglun_id+'" data-id="{$tongcheng_id}" data-touserid="{$__UserInfo['id']}" data-tonickname="{$__UserInfo['nickname']}">';
+                pinglunHtml += '<div class="comment-item-avatar"><img src="{$__UserInfo['picurl']}"></div>';
+                pinglunHtml += '<div class="comment-item-content">';
+                pinglunHtml += '<h5><span onClick="comment_reply(this);">{$__UserInfo['nickname']}</span>';
+                pinglunHtml += '<span class="right remove" onClick="removePinglun({$value['id']});">{lang tom_tongcheng:info_comment_del}</span>';
+                pinglunHtml += '<span class="right"  onClick="comment_reply(this);">{lang tom_tongcheng:info_comment_now}</span></h5>';
+                pinglunHtml += '<div class="comment-item-content-text" onClick="comment_reply(this);">' + content + '</div>';
+                pinglunHtml += '</div></div>';
+                
+                $('#comment-list').prepend(pinglunHtml);
+                
+                if($('#m1').hasClass('box_hide')){
+                    $('#m1').removeClass('box_hide');
+                }
+                if($('.no-comment').length > 0){
+                    $('.no-comment').remove();
+                }
+                
+                infoPluginTongchengId = 0;
+                infoPluginToUserId = 0;
+                infoPluginToNickname = '';
+                $('.plugin-info__box .plugin-reply__title').html('{lang tom_tongcheng:pinglun_box_title}');
+                $('.plugin-info__box').hide();
+                $("#tcui-info-input").val('');
+            
+                tusi("{lang tom_tongcheng:info_pinglun_ok}");
+            }else if(data.status == 200200){
+                
+                var pinglunHtml = '<div class="comment-item clearfix" id="comment-item_'+data.pinglun_id+'" data-id="{$tongcheng_id}" data-touserid="{$__UserInfo['id']}" data-tonickname="{$__UserInfo['nickname']}">';
+                pinglunHtml += '<div class="comment-item-avatar"><img src="{$__UserInfo['picurl']}"></div>';
+                pinglunHtml += '<div class="comment-item-content">';
+                pinglunHtml += '<h5><span onClick="comment_reply(this);">{$__UserInfo['nickname']}</span>';
+                pinglunHtml += '<span class="hf">&nbsp;{lang tom_tongcheng:pinglun_hueifu}{lang tom_tongcheng:pinglun_hueifu_dian}&nbsp;</span><span >' + infoPluginToNickname + '</span>';
+                
+                pinglunHtml += '<span class="right remove" onClick="removePinglun({$value['id']});">{lang tom_tongcheng:info_comment_del}</span>';
+                pinglunHtml += '<span class="right"  onClick="comment_reply(this);">{lang tom_tongcheng:info_comment_now}</span></h5>';
+                pinglunHtml += '<div class="comment-item-content-text" onClick="comment_reply(this);">' + content + '</div>';
+                pinglunHtml += '</div></div>';
+                
+                $('#comment-list').prepend(pinglunHtml);
+                
+                infoPluginTongchengId = 0;
+                infoPluginToUserId = 0;
+                infoPluginToNickname = '';
+                $('.plugin-info__box .plugin-reply__title').html('{lang tom_tongcheng:pinglun_box_title}');
+                $('.plugin-info__box').hide();
+                $("#tcui-info-input").val('');
+            
+                tusi("{lang tom_tongcheng:info_pinglun_hueifu_ok}");
+            }else if(data.status == 401){
+                submintPingLunStatus = 0;
+                tusi("{$tongchengConfig['pinglun_next_minute']}{lang tom_tongcheng:info_pinglun_time_error}");
+            }else if(data.status == 505){
+                submintPingLunStatus = 0;
+                tusi("{lang tom_tongcheng:fabu_step2_error_505}"+data.word);
+            }else{
+                tusi("{lang tom_tongcheng:info_pinglun_error}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }
+        }
+    });
+});
+
+$(window).scroll(function () {
+    if(info_isiOS){
+        $('.plugin-info__box .plugin-reply__visible').css({
+            'height':$(document).height()+'px',
+        });
+    }
+})
+
+function show_pinglun_remove(){
+    $('#show_remove').hide();
+    $('#close_remove').show();
+    $('.info-item-pinglun').before('<style id="show_remove_style">.remove{display:inline-block;}</style>');
+}
+
+function hide_pinglun_remove(){
+    $('#close_remove').hide();
+    $('#show_remove').show();
+    $('#show_remove_style').remove();
+}
+
+var pinglun_num = 0;
+<!--{if $open_edit_pinglun == 1}-->
+function removePinglun(ping_id){
+    
+    layer.open({
+        content: '{lang tom_tongcheng:info_pinglun_remove_msg}'
+        ,btn: ['{lang tom_tongcheng:info_pinglun_remove_ok}', '{lang tom_tongcheng:info_pinglun_remove_no}']
+        ,yes: function(index){
+          $.ajax({
+                type: "GET",
+                url: "{$removePinglunUrl}",
+                data: {ping_id:ping_id},
+                success: function(msg){
+                    if(msg == '200'){
+                        pinglun_num++;
+                        $('#comment-item_'+ping_id).remove();
+                        tusi("{lang tom_tongcheng:info_pinglun_remove}");
+                    }else{
+                        tusi("{lang tom_tongcheng:info_pinglun_remove_error}");
+                    }
+                }
+            });
+          layer.close(index);
+        }
+    });
+}
+<!--{/if}-->
+
+<!--{if $open_edit_pinglun == 1}-->
+function removeReply(reply_id){
+    
+    layer.open({
+        content: '{lang tom_tongcheng:info_pinglun_reply_remove_msg}'
+        ,btn: ['{lang tom_tongcheng:info_pinglun_remove_ok}', '{lang tom_tongcheng:info_pinglun_remove_no}']
+        ,yes: function(index){
+          $.ajax({
+                type: "GET",
+                url: "{$removeReplyUrl}",
+                data: {reply_id:reply_id},
+                success: function(msg){
+                    if(msg == '200'){
+                        $('#comment-item-content-text_'+reply_id).remove();
+                        tusi("{lang tom_tongcheng:info_pinglun_reply_remove}");
+                    }else{
+                        tusi("{lang tom_tongcheng:info_pinglun_remove_error}");
+                    }
+                }
+            });
+          layer.close(index);
+        }
+    });
+}
+<!--{/if}-->
+
+var pageIndex = 2;
+var submintLoadStatus = 0;
+function loadMore(){
+    if(submintLoadStatus == 1){
+        return false;
+    }
+    $('#m1').hide();
+    $('#m3').show();
+    submintLoadStatus = 1;
+    $.ajax({
+		type: "GET",
+		url: "{$showPinglunUrl}",
+		data: {loadPage:pageIndex,pinglun_num:pinglun_num},
+		success: function(msg){
+        submintLoadStatus = 0;
+			var data = eval('('+msg+')');
+            if(data == 201){
+                tusi("{lang tom_tongcheng:info_pinglun_no_more}");
+                $('#m3').hide();
+                $('#m2').show();
+            }else{
+                $("#comment-list").append(data);
+                $('#m3').hide();
+                $('#m1').show();
+                pageIndex++;
+                
+            }
+		}
+	})
+}
+
+</script>
+

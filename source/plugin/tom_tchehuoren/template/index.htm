@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta charset="GBK">
+<!--{else}-->
+<meta charset="UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>{lang tom_tchehuoren:index_personal_title}</title>
+<link rel="stylesheet" href="source/plugin/tom_tchehuoren/images/weui.css?v={$cssJsVersion}"/>
+<link rel="stylesheet" href="source/plugin/tom_tchehuoren/images/style.css?v={$cssJsVersion}"/>
+<link rel="stylesheet" href="source/plugin/tom_tchehuoren/images/iconfont/iconfont.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tchehuoren/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tchehuoren/images';
+</script>
+<script src="source/plugin/tom_tchehuoren/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+<style>
+.my_info_box .my_yaoqi_menu .yaoqi_menu a.on{ color:{$tongchengConfig['template_color']}; border-color:{$tongchengConfig['template_color']};}
+.my_info_box .info-title span{ background:{$tongchengConfig['template_color']};}
+.my_info_box .info-title span.info-title__lt:after{ border-color:{$tongchengConfig['template_color']}; }
+.my_info_box .info-title span.info-title__rt:before{ border-color:{$tongchengConfig['template_color']}; }
+</style>
+</head>
+<body>
+<section class="my_header">
+	<div class="header_hd">
+		<div class="header_hd_left">
+			<img src="{$tchehuorenInfo['picurl']}">
+		</div>
+		<div class="header_hd_right">
+			<h4>{$__UserInfo['nickname']}</h4>
+			<p><a href="plugin.php?id=tom_tchehuoren&site={$site_id}&mod=level"><img src="{$dengjiInfo['picurl']}">{lang tom_tchehuoren:index_up_level}</a></p>
+		</div>
+	</div>
+	<div class="header_bd">
+		<div class="header_bd_term">
+			<div class="type_name">{lang tom_tchehuoren:index_today_shouyi}</div>
+			<div class="type_num"><span class="red">{$todayMoney}</span></div>
+		</div>
+		<div class="header_bd_term">
+			<div class="type_name">{lang tom_tchehuoren:index_week_shouyi}</div>
+			<div class="type_num"><span class="red">{$weekMoney}</span></div>
+		</div>
+		<div class="header_bd_term">
+			<div class="type_name">{lang tom_tchehuoren:index_month_shouyi}</div>
+			<div class="type_num"><span class="red">{$monthMoney}</span></div>
+		</div>
+	</div>
+</section>
+<section class="my_info_box">
+	<div class="info-title">
+        <span class="info-title__lt"></span>{lang tom_tchehuoren:index_tuiguang_task}<span class="info-title__rt"></span>
+    </div>
+	<div class="info-tg_task">
+		<!--{if $dengjiInfo['fl_fc_open'] == 1}-->
+        <div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-xinxi__hehuoren"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_fl_tash}</h6>
+				<div class="task_text"><p>{$fl_tuiguang_desc}</p></div>
+                <div class="task_button">
+					<a id="show_haibao" class="button tc-template__bg" href="javascript:void(0);">{lang tom_tchehuoren:index_tg_fl_tash_btn_haibao}</a>
+                    <!--{if $tchehuorenConfig['open_link_share'] == 1}-->
+                    <a class="button_link tc-template__color tc-template__border" onclick="showLinkShare();" href="javascript:void(0);">{lang tom_tchehuoren:index_tg_fl_tash_btn_link}</a>
+                    <!--{/if}-->
+				</div>
+				<p class="task_pormpt">{$fl_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+        <!--{if $dengjiInfo['shop_fc_open'] == 1 && $__ShowTcshop == 1 && $tchehuorenConfig['tcshop_type'] == 1}-->
+		<div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-shop"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_shop_tash}</h6>
+				<div class="task_text"><p>{lang tom_tchehuoren:index_tg_shop_tgm}&nbsp;{$tchehuorenInfo['invite_code']}{$tcshop_ruzhu_discount_msg}</p></div>
+				<p class="task_pormpt">{$shop_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+        <!--{if $dengjiInfo['mall_fc_open'] == 1 && $__ShowTcmall == 1}-->
+		<div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-mall"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_mall_tash}</h6>
+				<div class="task_button">
+					<a class="button  tc-template__bg" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=list&is_tg=1">{lang tom_tchehuoren:index_tg_mall_button}<i class="tciconfont tcicon-bofang"></i></a>
+				</div>
+				<p class="task_pormpt">{$mall_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+        <!--{if $dengjiInfo['qg_fc_open'] == 1 && $__ShowTcqianggou == 1}-->
+		<div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-qianggou"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_qg_tash}</h6>
+				<div class="task_button">
+					<a class="button tc-template__bg" href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=index&tui=1">{lang tom_tchehuoren:index_tg_qg_button}<i class="tciconfont tcicon-bofang"></i></a>
+				</div>
+				<p class="task_pormpt">{$qg_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+        <!--{if $dengjiInfo['pt_fc_open'] == 1 && $__ShowTcptuan == 1}-->
+		<div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-ptuan"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_pt_tash}</h6>
+				<div class="task_button">
+					<a class="button  tc-template__bg" href="plugin.php?id=tom_tcptuan&site={$site_id}&mod=index&tui=1">{lang tom_tchehuoren:index_tg_pt_button}<i class="tciconfont tcicon-bofang"></i></a>
+				</div>
+				<p class="task_pormpt">{$pt_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+        <!--{if $dengjiInfo['114_fc_open'] == 1 && $__ShowTc114 == 1 && $tchehuorenConfig['tc114_type'] == 1}-->
+		<div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-114"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_114_tash}</h6>
+				<div class="task_text"><p>{lang tom_tchehuoren:index_tg_shop_tgm}&nbsp;{$tchehuorenInfo['invite_code']}{$tc114_ruzhu_discount_msg}</p></div>
+				<p class="task_pormpt">{$tc114_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+        <!--{if $tchehuorenConfig['open_subordinate'] == 1 && $tchehuorenConfig['subordinate_type'] == 1}-->
+        <div class="tg_task_term">
+			<div class="task_term_hd">
+				<div class="task_border"><i class="tciconfont tcicon-tuandui"></i></div>
+				<div class="line"></div>
+			</div>
+			<div class="task_term_bd">
+				<h6>{lang tom_tchehuoren:index_tg_tj_tash}
+                    <!--{if $tchehuorenInfo['tj_hehuoren_id'] > 0 }-->
+                    <span class="red">{lang tom_tchehuoren:index_tg_my_tuijianren_1} {$TJtchehuorenInfo['xm']} {lang tom_tchehuoren:index_tg_my_tuijianren_2}</span>
+                    <!--{/if}-->
+                </h6>
+				<div class="task_text"><p>{$subordinate_tuiguang_desc}</p></div>
+				<p class="task_pormpt">{$subordinate_tuiguang_below_desc}</p>
+			</div>
+		</div>
+        <!--{/if}-->
+	</div>
+</section>
+<section class="my_info_box">
+	<div class="my_yaoqi_menu clearfix">
+		<div class="yaoqi_menu menu_button" ><a data-id="shouyi_box" class="on" href="javascript:void(0);">{lang tom_tchehuoren:index_new_shouyi}</a></div>
+        <div class="yaoqi_menu menu_button" ><a data-id="yushouyi_box" href="javascript:void(0);">{lang tom_tchehuoren:index_yuji_shouyi}</a></div>
+        <!--{if $tchehuorenConfig['open_subordinate'] == 1}-->
+		<div class="yaoqi_menu menu_button"><a data-id="xiaodi_box" href="javascript:void(0);">{lang tom_tchehuoren:index_xiaodi_users}</a></div>
+        <!--{/if}-->
+		<div class="yaoqi_menu menu_button"><a data-id="yaoqi_box" href="javascript:void(0);">{lang tom_tchehuoren:index_yaoqin_users}</a></div>
+	</div>
+    <div id="shouyi_box" class="shouyi term_box">
+        <!--{if $shouyiList}-->
+        <div class="shouyi_box">
+            <!--{loop $shouyiList $key $value}-->
+            <div class="shouyi_term clearfix">
+                <div class="shouyi_term_hd">
+                    <p class="name">{$value['userInfo']['nickname']}</p>
+                    <p class="cont">
+                    <!--{if $value['child_hehuoren_id'] > 0}-->
+                    {lang tom_tchehuoren:index_child_hehuoren}
+                    <!--{/if}-->
+                    {$value['type']}
+                    </p>
+                </div>
+                <div class="shouyi_term_bd">
+                    <p class="price"><span class="red">{lang tom_tchehuoren:yuan_ico}{$value['shouyi_price']}</span></p>
+                    <!--{if $value['shouyi_status'] == 1}-->
+                    <p class="status1">{$value['ruzhuang_time']} {lang tom_tchehuoren:ruzhang}</p>
+                    <!--{/if}-->
+                    <!--{if $value['shouyi_status'] == 2}-->
+                    <p class="status2">{lang tom_tchehuoren:ruzhang2}</p>
+                    <!--{/if}-->
+                    <p class="time"><!--{date($value[add_time], 'u')}--></p>
+                </div>
+            </div>
+            <!--{/loop}-->
+        </div>
+        <div class="m1 box_prompt" style="display:block;"><a id="shouyi_more" href="javascript:void(0);">{lang tom_tchehuoren:index_look_more}</a></div>
+        <div class="m2 box_prompt"><a href="javascript:void(0);"><img src="source/plugin/tom_tchehuoren/images/loading.gif">{lang tom_tchehuoren:index_loading}</a></div>
+        <div class="m3 box_prompt"><a href="javascript:void(0);">{lang tom_tchehuoren:index_no_more}</a></div>
+        <!--{else}-->
+        <div class="box_prompt" style="display:block;">{lang tom_tchehuoren:index_no_more}</div>
+        <!--{/if}-->
+    </div>
+    <div id="yushouyi_box" class="shouyi term_box">
+        <!--{if $yushouyiList}-->
+        <div class="yushouyi_box">
+            <!--{loop $yushouyiList $key $value}-->
+            <div class="yushouyi_term clearfix">
+                <div class="yushouyi_term_hd">
+                    <p class="name">{$value['userInfo']['nickname']}</p>
+                    <p class="cont">
+                    <!--{if $value['child_hehuoren_id'] > 0}-->
+                    {lang tom_tchehuoren:index_child_hehuoren}
+                    <!--{/if}-->
+                    {$value['type']}
+                    </p>
+                </div>
+                <div class="yushouyi_term_bd">
+                    <p class="price"><span class="red">{lang tom_tchehuoren:yuan_ico}{$value['shouyi_price']}</span></p>
+                    <p class="status1">{lang tom_tchehuoren:ruzhang_hexiao}</p>
+                    <p class="time"><!--{date($value[add_time], 'u')}--></p>
+                </div>
+            </div>
+            <!--{/loop}-->
+        </div>
+        <div class="m1 box_prompt" style="display:block;"><a id="yushouyi_more" href="javascript:void(0);">{lang tom_tchehuoren:index_look_more}</a></div>
+        <div class="m2 box_prompt"><a href="javascript:void(0);"><img src="source/plugin/tom_tchehuoren/images/loading.gif">{lang tom_tchehuoren:index_loading}</a></div>
+        <div class="m3 box_prompt"><a href="javascript:void(0);">{lang tom_tchehuoren:index_no_more}</a></div>
+        <!--{else}-->
+        <div class="box_prompt" style="display:block;">{lang tom_tchehuoren:index_no_more}</div>
+        <!--{/if}-->
+    </div>
+    <!--{if $tchehuorenConfig['open_subordinate'] == 1}-->
+    <div id="xiaodi_box" class="xiaodi term_box">
+        <!--{if $myUserListTmp}-->
+        <div class="ter_count">{lang tom_tchehuoren:index_xiaodi_num_1}<span class="red">({$myUserCount})</span>{lang tom_tchehuoren:index_xiaodi_num_2}</div>
+        <div class="xiaodi_box">
+            <!--{loop $myUserListTmp $key $value}-->
+            <div class="xiaodi_term">
+                <p>{$value['xm']}  <span><!--{date($value[add_time], 'u')}--></span></p>
+            </div>
+            <!--{/loop}-->
+        </div>
+        <div class="m1 box_prompt" style="display:block;"><a id="xiaodi_more" href="javascript:void(0);">{lang tom_tchehuoren:index_look_more}</a></div>
+        <div class="m2 box_prompt"><a href="javascript:void(0);"><img src="source/plugin/tom_tchehuoren/images/loading.gif">{lang tom_tchehuoren:index_loading}</a></div>
+        <div class="m3 box_prompt"><a href="javascript:void(0);">{lang tom_tchehuoren:index_no_more}</a></div>
+        <!--{else}-->
+        <div class="box_prompt" style="display:block;">{lang tom_tchehuoren:index_no_more}</div>
+        <!--{/if}-->
+    </div>
+    <!--{/if}-->
+    <div id="yaoqi_box" class="yaoqi term_box">
+        <!--{if $myTcUserList}-->
+        <div class="ter_count">{lang tom_tchehuoren:index_fans_num_1}<span class="red">({$myTcUserCount})</span>{lang tom_tchehuoren:index_fans_num_2}</div>
+        <div class="yaoqi_box">
+            <!--{loop $myTcUserList $key $value}-->
+            <div class="yaoqi_term">
+                <p>{$value['nickname']}  <span><!--{date($value[add_time], 'u')}--></span></p>
+            </div>
+            <!--{/loop}-->
+        </div>
+        <div class="m1 box_prompt" style="display:block;"><a id="yaoqi_more" href="javascript:void(0);">{lang tom_tchehuoren:index_look_more}</a></div>
+        <div class="m2 box_prompt"><a href="javascript:void(0);"><img src="source/plugin/tom_tchehuoren/images/loading.gif">{lang tom_tchehuoren:index_loading}</a></div>
+        <div class="m3 box_prompt"><a href="javascript:void(0);">{lang tom_tchehuoren:index_no_more}</a></div>
+        <!--{else}-->
+        <div class="box_prompt" style="display:block;">{lang tom_tchehuoren:index_no_more}</div>
+        <!--{/if}-->
+    </div>
+</section>
+<section class="height50"></section>
+{template tom_tchehuoren:footer}
+
+<section class="index_menu_nav">
+    <a  href="javascript:void(0);" class="nav-area" onclick="guanzu('{$tchehuorenConfig['kefu_qrcode']}','kefu');">{lang tom_tchehuoren:index_kefu_qrcode1} <br/> {lang tom_tchehuoren:index_kefu_qrcode2}</a>
+    <!--{if $tchehuorenConfig['open_group_qrcode'] == 1}-->
+    <a  href="javascript:void(0);" class="nav-area" onclick="guanzu('{$tchehuorenConfig['group_qrcode']}','group');">{lang tom_tchehuoren:index_group_qrcode1} <br/> {lang tom_tchehuoren:index_group_qrcode2}</a>
+    <!--{/if}-->
+    <a  href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=money" class="nav-area" >{lang tom_tchehuoren:index_tixian_btn1} <br/> {lang tom_tchehuoren:index_tixian_btn2}</a>
+    <a  href="javascript:void(0);" class="nav-area index_menu_close" ></a>
+</section>
+<!--{if $subscribeFlag==2}-->
+<section id="subscribe_box" class="info_guanzu_pormpt">
+    <div class="guanzu_pormpt_area guanzu_pormpt_left">
+        <div class="guanzu_text">{lang tom_tchehuoren:index_guanzu_text}</div>
+    </div>
+    <div class="guanzu_pormpt_area guanzu_pormpt_right">
+        <div class="guanzu_button" onclick="guanzu('{$tongchengConfig['fwh_qrcode']}','fwh');">{lang tom_tchehuoren:index_guanzu_btn}</div>
+        <div class="guanzu_close" onclick="$('#subscribe_box').hide();"></div>
+    </div>
+</section>
+<!--{/if}-->
+<div class="js_dialog" id="pic_popup" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__bd">
+            <img id="pic" src="">
+            <p id="text" class="center">{lang tom_tchehuoren:index_guanzu_fwh_msg}</p>
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">{lang tom_tchehuoren:ok}</a>
+        </div>
+    </div>
+</div>
+<form action="" id="haibao_form" method="post" onsubmit="return false;">
+    <input type="hidden" name="formhash" value="{$formhash}">
+    <input type="hidden" name="share_url" value="{$tongchengUrl}">
+</form>
+<div id="dialogs">
+    <div class="js_dialog" id="showHaibaoBox" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__bd" id="id_haibao_img"><img src=""/></div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">{lang tom_tchehuoren:index_haibao_tishi}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingHaibao" style="display:none;">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">
+        <i class="weui-loading weui-icon_toast"></i>
+        <p class="weui-toast__content">{lang tom_tchehuoren:index_haibao_loading}</p>
+    </div>
+</div>
+<!--{if $tchehuorenInfo['status'] == 2}-->
+<div class="js_dialog">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__bd">
+            <img id="pic" src="">
+            <p class="center">{lang tom_tchehuoren:index_user_status_2_msg}</p>
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">{lang tom_tchehuoren:index_user_know_yes}</a>
+        </div>
+    </div>
+</div>
+<!--{/if}-->
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+function showLinkShare(){
+	$('body').append('<div id="share_link_box" onclick="hideLinkShare();" style="z-index:99999999;position:fixed;left:0px;top:0px;width:100%;height:100%;background-color: rgba(0,0,0,0.5);text-align:right;" ontouchmove="return true;" ><img src="source/plugin/tom_tchehuoren/images/sharetips.png" style="margin-top:10px;margin-right:10px;"></div>');
+}
+function hideLinkShare(){
+    $("#share_link_box").remove();
+}
+
+$(document).on('click', '#show_haibao', function(){
+    $('#loadingHaibao').fadeIn(100);
+    $.ajax({
+        type: "POST",
+        url: 'plugin.php?id=tom_tchehuoren:haibao',
+        data: $('#haibao_form').serialize(),
+        success: function(msg){
+            $('#loadingHaibao').fadeOut(100);
+            var dataarr = msg.split('|');
+            dataarr[0] = $.trim(dataarr[0]);
+            if(dataarr[0] == 'OK') {
+                $('#id_haibao_img').css({'padding':'0'}).html('<img style="display:block" src="'+dataarr[1]+'"/>');
+                $('#showHaibaoBox').fadeIn(200);
+            }else if(dataarr[0] == 'QR'){
+                tusi("{lang tom_tchehuoren:index_haibao_not_qrcode}");
+            }else if(dataarr[0] == 'HB'){
+                tusi("{lang tom_tchehuoren:index_haibao_not_haibao}");
+            }else{
+                tusi("{lang tom_tchehuoren:index_haibao_loading_error}");
+            }
+        }
+    });
+})
+$(function(){
+    $(document).on('click', '.weui-dialog__btn', function(){
+        $(this).parents('.js_dialog').fadeOut(200);
+    });
+});
+
+$(document).on('click', '.menu_button a', function(){
+    var id = $(this).data('id');
+    $('.menu_button').find('a').removeClass('on');
+    $(this).addClass('on');
+    $('#'+id).show().siblings('.term_box').hide();
+})
+
+function guanzu(picurl,type){
+    $('#pic').attr('src', picurl);
+    if(type == 'fwh'){
+        $('#pic_popup #text').html('{{lang tom_tchehuoren:index_guanzu_fwh_msg}}');
+    }else if(type == 'group'){
+        $('#pic_popup #text').html('{{lang tom_tchehuoren:index_guanzu_group_msg}}');
+    }else if(type == 'kefu'){
+        $('#pic_popup #text').html('{{lang tom_tchehuoren:index_guanzu_kefu_msg}}');
+    }
+    $('#pic_popup').show();
+}
+
+$(document).on('click', '.index_menu_close', function(){
+    $('.index_menu_nav').fadeOut(200);
+})
+
+var onLoadShouyiStatus = 0;
+var shouyiPage = 2;
+$(document).on('click', '#shouyi_more', function(){
+    if(onLoadShouyiStatus == 1){
+        return false;
+    }
+    onLoadShouyiStatus = 1
+
+    $('#shouyi_box .m1').hide();
+    $('#shouyi_box .m2').show();
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxUrl}",
+        data: { act:"loadMoreShouyi",loadPage:shouyiPage},
+        success: function(msg){
+            var data = eval('('+msg+')');
+            if(data == 205){
+                $('#shouyi_box .m2').hide();
+                $('#shouyi_box .m3').show();
+                return false;
+            }else{
+                onLoadShouyiStatus = 0;
+                $('#shouyi_box .m2').hide();
+                $('#shouyi_box .m1').show();
+                shouyiPage += 1;
+                $(".shouyi_box").append(data);
+                flag = 1;
+            }
+        }
+    })
+})
+
+var onLoadYushouyiStatus = 0;
+var yushouyiPage = 2;
+$(document).on('click', '#yushouyi_more', function(){
+    if(onLoadYushouyiStatus == 1){
+        return false;
+    }
+    onLoadYushouyiStatus = 1
+
+    $('#yushouyi_box .m1').hide();
+    $('#yushouyi_box .m2').show();
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxUrl}",
+        data: { act:"loadMoreYushouyi",loadPage:yushouyiPage},
+        success: function(msg){
+            var data = eval('('+msg+')');
+            if(data == 205){
+                $('#yushouyi_box .m2').hide();
+                $('#yushouyi_box .m3').show();
+                return false;
+            }else{
+                onLoadYushouyiStatus = 0;
+                $('#yushouyi_box .m2').hide();
+                $('#yushouyi_box .m1').show();
+                yushouyiPage += 1;
+                $(".yushouyi_box").append(data);
+                flag = 1;
+            }
+        }
+    })
+})
+
+var onLoadXiaodiStatus = 0;
+var xiaodiPage = 2;
+$(document).on('click', '#xiaodi_more', function(){
+    if(onLoadXiaodiStatus == 1){
+        return false;
+    }
+    onLoadXiaodiStatus = 1
+
+    $('#xiaodi_box .m1').hide();
+    $('#xiaodi_box .m2').show();
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxUrl}",
+        data: { act:"loadMoreXiaodi",loadPage:xiaodiPage},
+        success: function(msg){
+            var data = eval('('+msg+')');
+            if(data == 205){
+                $('#xiaodi_box .m2').hide();
+                $('#xiaodi_box .m3').show();
+                return false;
+            }else{
+                onLoadXiaodiStatus = 0;
+                $('#xiaodi_box .m2').hide();
+                $('#xiaodi_box .m1').show();
+                xiaodiPage += 1;
+                $(".xiaodi_box").append(data);
+                flag = 1;
+            }
+        }
+    })
+})
+
+var onLoadYaoqiStatus = 0;
+var yaoqiPage = 2;
+$(document).on('click', '#yaoqi_more', function(){
+    if(onLoadYaoqiStatus == 1){
+        return false;
+    }
+    onLoadYaoqiStatus = 1
+
+    $('#yaoqi_box .m1').hide();
+    $('#yaoqi_box .m2').show();
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxUrl}",
+        data: { act:"loadMoreYaoqi",loadPage:yaoqiPage},
+        success: function(msg){
+            var data = eval('('+msg+')');
+            if(data == 205){
+                $('#yaoqi_box .m2').hide();
+                $('#yaoqi_box .m3').show();
+                return false;
+            }else{
+                onLoadYaoqiStatus = 0;
+                $('#yaoqi_box .m2').hide();
+                $('#yaoqi_box .m1').show();
+                yaoqiPage += 1;
+                $(".yaoqi_box").append(data);
+                flag = 1;
+            }
+        }
+    })
+})
+</script>
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'previewImage'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () {
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () {
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

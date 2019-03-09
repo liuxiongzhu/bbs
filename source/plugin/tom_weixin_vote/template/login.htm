@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+<title>{lang tom_weixin_vote:login_title}-{$voteConfig['plugin_name']}</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="source/plugin/tom_weixin_vote/images/style.css?v={$cssJsVersion}" rel="stylesheet" type="text/css">
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/jquery.js"></script>
+<base target="_self">
+</head>
+<body>
+<header class="header_style clearfix">
+	<a href="javascript:history.go(-1);"></a>
+	<h1>{lang tom_weixin_vote:login_title}</h1>
+</header>
+<section class="add_form_box clearfix">
+	<div class="add_form_box_main clearfix">
+    	<form action="plugin.php?id=tom_weixin_vote&mod=save" method="post" enctype="multipart/form-data">
+    	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+        	<tr>
+            	<td width="30%"><label class="c1">{lang tom_weixin_vote:add_tel}</label></td>
+            	<td><input type="text" class="input_class" name="bmtel" placeholder="{lang tom_weixin_vote:add_tianxie}{lang tom_weixin_vote:add_tel}"/></td>
+            </tr>
+            <tr>
+            	<td><label class="c1">{lang tom_weixin_vote:add_pwd}</label></td>
+            	<td><input type="text" class="input_class" name="bmpwd" placeholder="{lang tom_weixin_vote:add_tianxie}{lang tom_weixin_vote:add_pwd}"/></td>
+            </tr>
+            <!--{if $err == 1}-->
+            <tr>
+            	<td colspan="2"><label class="c3"><a>{lang tom_weixin_vote:login_error}</a></label></td>
+            </tr>
+            <!--{/if}-->
+            <tr>
+            	<td colspan="2">
+                    <input type="hidden" name="formhash" value="{$formhash}">
+                    <input type="hidden" name="tomhash" value="{$tomhash}">
+                    <input type="hidden" name="vid" value="{$vid}">
+                    <input type="hidden" name="act" value="login">
+                    <input name="dosubmit" class="btn_class" type="submit" value="{lang tom_weixin_vote:login_btn}">
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</section>
+<!--{if $open_tousu == 1}-->
+<section id="tousu" style=" z-index:9999; text-align:center; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border:1px solid #ccc; background:#403e3e; position:fixed; bottom:20%; left:-24px; width:50px; padding:10px 0 10px 12px;"><a style="display:block; color:#fff; font-size:16px; line-height:25px; font-family: fantasy;" href="{$tousuUrl}">{lang tom_weixin_vote:tousu_msg_1}<br/>{lang tom_weixin_vote:tousu_msg_2}</a></section>
+<!--{/if}-->
+</body>
+</html>

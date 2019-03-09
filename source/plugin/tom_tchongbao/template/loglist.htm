@@ -1,0 +1,119 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{$hbUserInfo['nickname']}{lang tom_tchongbao:loglist_user_hb_title}</title>
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tchongbao/images/hb_style.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+</head>
+<body class="body_loglist">
+<!--{if $show_my_hb == 1}-->
+<section class="header-loglist">
+    <div class="back"><a href="{$back}">{lang tom_tchongbao:back}</a></div>
+    <div class="myhongbao">
+        <img src="{$hbUserInfo['picurl']}">
+        <p>{$hbUserInfo['nickname']}{lang tom_tchongbao:loglist_user_hb_title}</p>
+        <p class="price"><span>{$tchongbaoLogInfo['money']}</span>{lang tom_tchongbao:yuan}</p>
+        <p class="hb_prompt"><a href="{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=money">{lang tom_tchongbao:loglist_hb_prompt}</a></p>
+    </div>
+</section>
+<!--{else}-->
+<section class="header-loglist">
+    <div class="back"><a href="javascript:void(0);" onclick="javascript:history.go(-1);">{lang tom_tchongbao:back}</a></div>
+    <div class="myhongbao">
+        <img src="{$hbUserInfo['picurl']}">
+        <p>{$hbUserInfo['nickname']}{lang tom_tchongbao:loglist_user_hb_title}</p>
+    </div>
+</section>
+<!--{/if}-->
+<section class="loglist">
+    <!--{if $tchongbaoInfo['status'] == 1}-->
+    <div class="loglist-title">{lang tom_tchongbao:loglist_list_title_0}{$tchongbaoLogCount}/{$tchongbaoInfo['hb_count']}{lang tom_tchongbao:loglist_list_title_1}{$tchongbaoLogSumMoney}/{$tchongbaoInfo['all_money']}{lang tom_tchongbao:yuan}</div>
+    <!--{else}-->
+    <div class="loglist-title">{$tchongbaoInfo['hb_count']}{lang tom_tchongbao:loglist_hb_count_0}{$times}{lang tom_tchongbao:loglist_hb_count_1}</div>
+    <!--{/if}-->
+    <div class="loglist-list">
+        <!--{if $tchongbaoLogList}-->
+        <ul>
+            <!--{loop $tchongbaoLogList $key $value}-->
+            <li>
+                <div class="log-pic"><img src="{$value['user_picurl']}"></div>
+                <div class="log-content">
+                    <p><a href="{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=home&uid={$value['user_id']}">{$value['nickname']}</a> <span class="price">{$value['money']}{lang tom_tchongbao:yuan}</span></p>
+                    <p class="time">{date($value['log_time'])}</p>
+                </div>
+            </li>
+            <!--{/loop}-->
+        </ul>
+        <!--{else}-->
+        <div class="no-hb-ts">{lang tom_tchongbao:loglist_no_hb_ts}</div>
+        <!--{/if}-->
+    </div>
+</section>
+<div class="site-float" style="font-size: 1em;">
+    <span class="img-dialog" onclick="window.location.href='{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=money';" > {lang tom_tchongbao:loglist_shenqing_tx1} <i></i> {lang tom_tchongbao:loglist_shenqing_tx2} </span>
+</div>    
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'previewImage'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}-{$__SitesInfo['name']}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}', 
+        success: function () {
+            
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}-{$__SitesInfo['name']}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () {
+            
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '{$shareTitle}-{$__SitesInfo['name']}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        success: function () { 
+            
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,34 @@
+<footer class="new-footer">
+    <section class="new-footer__box dislay-flex">
+        <a class="flex footer-box__item" href="{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-nav__index"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_index}</section>
+        </a>
+        <!--{if $__ShowTcshop == 1 }-->
+        <a class="flex footer-box__item " href="{$__TongchengHost}plugin.php?id=tom_tcshop&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-shop"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_shop}</section>
+        </a>
+        <!--{else}-->
+        <a class="flex footer-box__item " href="{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=search&prand={$prand}">
+            <i class="tciconfont tcicon-nav__shoucang"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_search}</section>
+        </a>
+        <!--{/if}-->
+        <a class="flex footer-box__item footer-box__fabu tc-template__color" href="{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=fabu&prand={$prand}">
+            <i class="tciconfont tcicon-fabu"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_fabu}</section>
+        </a>
+        <a class="flex footer-box__item on tc-template__color" href="{$__TongchengHost}plugin.php?id=tom_tchongbao&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-hongbao"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_hongbao}</section>
+        </a>
+        <a class="flex footer-box__item " href="{$__TongchengHost}plugin.php?id=tom_tongcheng&site={$site_id}&mod=personal&prand={$prand}">
+            <font class="iconfont">
+              <!--{if $pmNewNum > 0 }--><i>{$pmNewNum}</i><!--{/if}-->
+            <em class="tciconfont tcicon-nav__my"></em>
+            </font>
+            <section class="text1">{lang tom_tongcheng:footer_nav_personal}</section>
+        </a>
+    </section>
+</footer>

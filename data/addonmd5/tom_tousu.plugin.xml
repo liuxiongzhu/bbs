@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[tom_tousu.plugin]]></item>
+	<item id="RevisionID"><![CDATA[72288]]></item>
+	<item id="SN"><![CDATA[2017072016vM1azeEo0a]]></item>
+	<item id="RevisionDateline"><![CDATA[1490608804]]></item>
+	<item id="Data">
+		<item id="/discuz_plugin_tom_tousu_SC_UTF8.xml"><![CDATA[3d94ea7fd394895fcbe97d353251bb29]]></item>
+		<item id="/discuz_plugin_tom_tousu_SC_GBK.xml"><![CDATA[2171f386bf25ac7af667c1ed0c388164]]></item>
+		<item id="/admin.inc.php"><![CDATA[268adad34b150623cdc904e0c5a75927]]></item>
+		<item id="/install.php"><![CDATA[010d34838bc8a644206d7223e88188ce]]></item>
+		<item id="/uninstall.php"><![CDATA[7e44a62f9be890a72a1273af01a63bdf]]></item>
+		<item id="/tom.func.php"><![CDATA[37a5eb2b95f05423094702f35fad74da]]></item>
+		<item id="/admin/index.php"><![CDATA[2d132710e64747eb57ff1b42e910d969]]></item>
+		<item id="/admin/addon.php"><![CDATA[8f4396fc947ee6db1f6413cc0b109b30]]></item>
+		<item id="/module/index.php"><![CDATA[be28143ce5ef964a780f3c1fba1a99be]]></item>
+		<item id="/module/notice.php"><![CDATA[2eff6fa06c7b40cb965e69461ae85550]]></item>
+		<item id="/module/add.php"><![CDATA[6e99d964325d965392a0100ff9317f18]]></item>
+		<item id="/table/table_tom_tousu.php"><![CDATA[3a67fe370472819fc66eced83514526a]]></item>
+		<item id="/upgrade.php"><![CDATA[14f62a9087b8372d245dab8a093212d9]]></item>
+		<item id="/images/dui.jpg"><![CDATA[c97aed89847aa1f0404ba54ab13446b0]]></item>
+		<item id="/images/style.css"><![CDATA[a574c6fb3ca3a17e66c4b160a4315664]]></item>
+		<item id="/images/jquery.js"><![CDATA[b0dc11d0a434aafe88908c7f33d71095]]></item>
+		<item id="/template/add.htm"><![CDATA[24b4acf7d80edec3e76ef16d80be31fe]]></item>
+		<item id="/template/notice.htm"><![CDATA[0275b51e39a4af5d669da6afaa309fd7]]></item>
+		<item id="/template/index.htm"><![CDATA[7fd6f389da9675739524f8e2c6f41c6e]]></item>
+		<item id="/tom_tousu.inc.php"><![CDATA[f569e4b2ea73319ce046e47c7ed5675d]]></item>
+	</item>
+</root>

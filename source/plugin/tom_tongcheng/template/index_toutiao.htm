@@ -1,0 +1,56 @@
+<section class="toutiao-box index-toutiao__box">
+    <div class="toutiao-box__title tc-template__color"><em class="index_toutiao_title_icon"></em>{lang tom_tongcheng:index_toutiao_title}<a href="plugin.php?id=tom_tctoutiao&site={$site_id}&mod=index">{lang tom_tongcheng:index_toutiao_title_more}<i class="tciconfont tcicon-jiantou__you"></i></a></div>
+    <div class="toutiao-list">
+        <!--{loop $tctoutiaoList $key $value}-->
+        <!--{if $value['template_type'] == 1}-->
+        <a class="toutiao-list__item tuotiao-list__type2 clearfix" href="plugin.php?id=tom_tctoutiao&site={$site_id}&mod=info&aid={$value['id']}">
+            <div class="toutiao-item__content">
+                <div class="title">{$value['title']}</div>
+                <div class="xinxi">
+                    <span>{$value['zuozheInfo']['name']}</span>
+                    <span><i class="tciconfont tcicon-toutiao_yanjing"></i>{$value['clicks']}{lang tom_tongcheng:index_toutiao_kanguo}</span>
+                </div>
+            </div>
+            <div class="toutiao-item__pic toutiao-item__picnum">
+                <div class="item-picnum">
+                    <!--{loop $value['coverList'] $k $v}-->
+                    <img src="{$v}">
+                    <!--{/loop}-->
+                    <!--{if $value['type'] == 3}-->
+                    <div class="bofang"><img src="source/plugin/tom_tctoutiao/images/icon_play.png"></div>
+                    <!--{elseif $value['type'] == 2 && $value['photoCount'] > 0}-->
+                    <div class="picnum"><i class="tciconfont tcicon-tupian"><span>{$value['photoCount']}{lang tom_tongcheng:index_toutiao_tu}</span></i></div>
+                    <!--{/loop}-->
+                </div>
+            </div>
+        </a>
+        <!--{elseif $value['template_type'] == 2}-->
+        <a class="toutiao-list__item tuotiao-list__type1" href="plugin.php?id=tom_tctoutiao&site={$site_id}&mod=info&aid={$value['id']}">
+            <div class="toutiao-item__title">{$value['title']}</div>
+            <div class="toutiao-item__pic2 dislay-flex toutiao-item__picnum">
+                <!--{loop $value['coverList'] $k $v}-->
+                <div class="pic-item flex"><img src="{$v}"></div>
+                <!--{/loop}-->
+                <!--{if $value['type'] == 2 && $value['photoCount'] > 0}-->
+                <div class="picnum"><i class="tciconfont tcicon-tupian"><span>{$value['photoCount']}{lang tom_tongcheng:index_toutiao_tu}</span></i></div>
+                <!--{/if}-->
+            </div>
+            <div class="toutiao-item__xx">
+                <span>{$value['zuozheInfo']['name']}</span>
+                <span><i class="tciconfont tcicon-toutiao_yanjing"></i>{$value['clicks']}{lang tom_tongcheng:index_toutiao_kanguo}</span>
+            </div>
+        </a>
+        <!--{elseif $value['template_type'] == 3}-->
+        <a class="toutiao-list__item tuotiao-list__type4 clearfix" href="plugin.php?id=tom_tctoutiao&site={$site_id}&mod=info&aid={$value['id']}">
+            <div class="toutiao-item__content">
+                <div class="title">{$value['title']}</div>
+                <div class="xinxi">
+                    <span>{$value['zuozheInfo']['name']}</span>
+                    <span><i class="tciconfont tcicon-toutiao_yanjing"></i>{$value['clicks']}{lang tom_tongcheng:index_toutiao_kanguo}</span>
+                </div>
+            </div>
+        </a>
+        <!--{/if}-->
+        <!--{/loop}-->
+    </div>
+</section>

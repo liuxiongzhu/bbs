@@ -1,0 +1,254 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{lang tom_tcshop:mall_cate_title} - {$__SitesInfo['name']}</title>
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tcshop/images/shop_style.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tcshop/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/layer_mobile/layer.js?v={$cssJsVersion}"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+</head>
+<body>
+<header class="header header-index on in2 tc-template__bg">
+   <section class="wrap">
+       <!--{if $__HideHeader == 0 }-->
+        <section class="sec-ico go-back" onclick="location.href='plugin.php?id=tom_tcshop&site={$site_id}&mod=store';">{lang tom_tcshop:back}</section>
+        <!--{/if}-->
+        <h2>{lang tom_tcshop:mall_cate_title}</h2>
+        <!--{if $tcshopInfo }-->
+        <section class="sec-ico btn slide-btn tc-template__bg">
+            <a style="color: #fff;" href="plugin.php?id=tom_tcshop&site={$site_id}&mod=mallCate&tcshop_id={$tcshop_id}">{lang tom_tcshop:mall_cate_add}</a>
+        </section>
+        <!--{/if}-->
+   </section>
+</header>
+<!--{if $_GET['act'] == 'edit' }-->
+<form class="mainer" name="saveForm" id="saveForm" >
+   <section class="wrap edit-form">
+        <section class="edit-item">
+            <section class="input-control ">
+                <span>{lang tom_tcshop:mall_cate_name}</span>
+                <section class="user-fav">
+                    <section class="sec-input">
+                        <input type="text" name="name" id="name" placeholder="{lang tom_tcshop:mall_cate_name_msg}" value="{$cateInfo['name']}" />
+                    </section>
+                    <div class="frt"></div>
+                </section>
+            </section>
+            <section class="input-control ">
+                <span>{lang tom_tcshop:mall_cate_csort}</span>
+                <section class="user-fav">
+                    <section class="sec-input">
+                        <input type="text" name="csort" id="csort" placeholder="{lang tom_tcshop:mall_cate_csort_msg}" value="{$cateInfo['csort']}" />
+                    </section>
+                    <div class="frt"></div>
+                </section>
+            </section>
+        </section>
+   </section>
+   <section class="btn-group-block">
+        <button type="button" id="id_save_btn" class="id_save_btn tc-template__bg">{lang tom_tcshop:mall_cate_edit}</button>
+        <input type="hidden" name="formhash" value="{$formhash}">
+        <input type="hidden" name="tcshop_id" value="{$tcshop_id}">
+        <input type="hidden" name="cate_id" value="{$cate_id}">
+        <div class="clear10"></div>
+   </section>
+</form>
+<!--{else}-->
+<section class="wrap edit-form">
+    <section class="edit-item">
+        <section class="input-control ">
+              <span>{lang tom_tcshop:mall_cate_tcshop}</span>
+              <section class="user-fav">
+                   <section class="sec-input">
+                        <select id="tcshop_id" class="tcui-select" onchange="refreshtcshop();">
+                            <option value="0">{lang tom_tcshop:mall_cate_tcshop_0}</option>
+                            <!--{loop $tcshopList $key $val}-->
+                            <option value="{$val['id']}" <!--{if $val['id']==$tcshop_id }-->selected<!--{/if}-->> {$val['name']}</option>
+                            <!--{/loop}-->
+                        </select>
+                   </section>
+                   <div class="frt">
+                        <div class="right-arrow"></div>
+                   </div>
+              </section>
+         </section>
+    </section>
+</section>
+<!--{if $tcshopInfo }-->
+<form class="mainer" name="addForm" id="addForm" >
+   <section class="wrap edit-form">
+        <section class="edit-item">
+            <section class="input-control ">
+                <span>{lang tom_tcshop:mall_cate_name}</span>
+                <section class="user-fav">
+                    <section class="sec-input">
+                        <input type="text" name="name" id="name" placeholder="{lang tom_tcshop:mall_cate_name_msg}" value="" />
+                    </section>
+                    <div class="frt"></div>
+                </section>
+            </section>
+            <section class="input-control ">
+                <span>{lang tom_tcshop:mall_cate_csort}</span>
+                <section class="user-fav">
+                    <section class="sec-input">
+                        <input type="text" name="csort" id="csort" placeholder="{lang tom_tcshop:mall_cate_csort_msg}" value="" />
+                    </section>
+                    <div class="frt"></div>
+                </section>
+            </section>
+        </section>
+   </section>
+   <section class="btn-group-block">
+        <button type="button" id="id_add_btn" class="id_add_btn tc-template__bg">{lang tom_tcshop:mall_cate_add}</button>
+        <input type="hidden" name="formhash" value="{$formhash}">
+        <input type="hidden" name="tcshop_id" value="{$tcshop_id}">
+        <div class="clear10"></div>
+   </section>
+</form>
+<!--{/if}-->
+<!--{/if}-->
+<!--{if $tcshopInfo && $mallCateList }-->
+<div class="mall_cate_list">
+    <!--{loop $mallCateList $key $val}-->
+    <div class="mall_cate_list_item">
+        <div class="mall_cate_list_item_left">{$val['name']}</div>
+        <div class="mall_cate_list_item_right">
+            <span class="mall_cate_list_item_edit_paixu">{$val['csort']}</span>
+            <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=mallCate&tcshop_id={$tcshop_id}&act=edit&cate_id={$val['id']}" class="mall_cate_list_item_edit_btn tc-template__border tc-template__color">{lang tom_tcshop:mall_cate_list_edit}</a>
+            <a href="javascript:void(0);" onclick="delCate({$val['id']},'{$val['name']}');" class="mall_cate_list_item_del_btn">{lang tom_tcshop:mall_cate_list_del}</a>
+        </div>
+    </div>
+    <!--{/loop}-->
+</div>
+<!--{/if}-->
+<script>
+function refreshtcshop() {
+	location.href = 'plugin.php?id=tom_tcshop&site={$site_id}&mod=mallCate&tcshop_id='+$('#tcshop_id').val();
+}    
+
+var submintStatus = 0;
+$(".id_add_btn").click( function (){
+    if(submintStatus == 1){
+        return false;
+    }
+    loading('{lang tom_tcshop:doing}');
+    submintStatus = 1;
+    $.ajax({
+        type: "POST",
+        url: "{$addUrl}",
+        dataType : "json",
+        data: $('#addForm').serialize(),
+        success: function(data){
+            submintStatus = 0;
+            loading(false);
+            if(data.status == 200) {
+                tusi("{lang tom_tcshop:mall_cate_add_succ}");
+                setTimeout(function(){window.location.href='plugin.php?id=tom_tcshop&site={$site_id}&mod=mallCate&tcshop_id={$tcshop_id}';},1888);
+            }else{
+                tusi("{lang tom_tcshop:mall_cate_add_error}");
+            }
+        }
+    });
+});
+$(".id_save_btn").click( function (){
+    if(submintStatus == 1){
+        return false;
+    }
+    loading('{lang tom_tcshop:doing}');
+    submintStatus = 1;
+    $.ajax({
+        type: "POST",
+        url: "{$saveUrl}",
+        dataType : "json",
+        data: $('#saveForm').serialize(),
+        success: function(data){
+            submintStatus = 0;
+            loading(false);
+            if(data.status == 200) {
+                tusi("{lang tom_tcshop:mall_cate_edit_succ}");
+                setTimeout(function(){window.location.href='plugin.php?id=tom_tcshop&site={$site_id}&mod=mallCate&tcshop_id={$tcshop_id}';},1888);
+            }else{
+                tusi("{lang tom_tcshop:mall_cate_edit_error}");
+            }
+        }
+    });
+});
+
+function delCate(cate_id,cate_name){
+    layer.open({
+        content: '{lang tom_tcshop:mall_cate_del_msg}'+cate_name
+        ,btn: ['{lang tom_tcshop:mall_cate_del_ok}', '{lang tom_tcshop:mall_cate_del_on}']
+        ,yes: function(index){
+          $.ajax({
+                type: "GET",
+                url: "{$delUrl}",
+                data: "cate_id="+cate_id,
+                success: function(msg){
+                    if(msg == '200'){
+                        tusi("{lang tom_tcshop:mall_cate_del_succ}");
+                        setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+                    }else{
+                        tusi("{lang tom_tcshop:mall_cate_del_error}");
+                    }
+                }
+            });
+            layer.close(index);
+        }
+      });
+}
+
+</script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'previewImage',
+      'openLocation', 
+      'getLocation'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () { 
+        },
+        cancel: function () {
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+
+</body>
+</html>

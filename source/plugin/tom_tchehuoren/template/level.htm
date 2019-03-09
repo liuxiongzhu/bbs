@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta charset="GBK">
+<!--{else}-->
+<meta charset="UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>{lang tom_tchehuoren:level_title}</title>
+<link rel="stylesheet" href="source/plugin/tom_tchehuoren/images/weui.css"/>
+<link rel="stylesheet" href="source/plugin/tom_tchehuoren/images/style.css"/>
+<script type="text/javascript" src="source/plugin/tom_tchehuoren/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tchehuoren/images';
+</script>
+<script src="source/plugin/tom_tchehuoren/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+</head>
+<body>
+<section class="header tc-template__bg">
+	<a class="back" href="plugin.php?id=tom_tchehuoren&site={$site_id}&mod=index"><i class="bk"></i>{lang tom_tchehuoren:back}</a>
+	<h5>{lang tom_tchehuoren:level_title}</h5>
+</section>
+<section class="level_box">
+	<table class="level_list">
+        <!--{loop $levelArr $key $value}-->
+		<tr>
+            <!--{loop $value $k $v}-->
+			<td>{$v}</td>
+            <!--{/loop}-->
+		</tr>
+        <!--{/loop}-->
+	</table>
+	<div class="level_pormpt">
+		<p class="text">
+            <span class="red">{lang tom_tchehuoren:level_notes_1}</span>&nbsp;{lang tom_tchehuoren:level_notes_2}
+            <span class="yuan"></span>&nbsp;{lang tom_tchehuoren:level_not_ratio}
+        </p>
+	</div>
+    <!--{if $tchehuorenInfo['kaohe_time'] > 0}-->
+    <section class="level_expire">{lang tom_tchehuoren:level_expire_1}<span class="red">{$myDengjiInfo['name']}</span>{lang tom_tchehuoren:level_expire_2}<span class="red">{$kaoheStartTime}</span>{lang tom_tchehuoren:level_expire_3}<span class="red">{$kaoheEndTime}</span>{lang tom_tchehuoren:level_expire_4}</section>
+    <!--{/if}-->
+    <section class="level_explain">{$dengji_desc}</section>
+</section>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+var onSubmitStatus = 0;
+function up_level(id){
+    if(onSubmitStatus == 1){
+        return false;
+    }
+    onSubmitStatus = 1;
+    $.ajax({
+        type: "POST",
+        url: "{$ajaxUrl}",
+        dataType : "json",
+        data: {act:'up_level',dengji_id:id},
+        success: function(data){
+            loading(false);
+            if(data.status == 200) {
+                tusi("{lang tom_tchehuoren:level_up_level_succ}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 301){
+                tusi("{lang tom_tchehuoren:level_up_level_error_301}{lang tom_tchehuoren:yuan_ico}"+data.money);
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 302){
+                tusi("{lang tom_tchehuoren:level_up_level_error}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 303){
+                tusi("{lang tom_tchehuoren:level_up_level_error_303}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else{
+                tusi("{lang tom_tchehuoren:level_up_level_error}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }
+        }
+    });
+}
+
+</script>
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'previewImage'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () {
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () {
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

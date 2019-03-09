@@ -1,0 +1,41 @@
+<?php if(!defined('IN_DISCUZ')) exit('Access Denied'); ?>
+<section id="open_popup" class="popup_ads" style="display:none;">
+</section>
+<script>
+$(document).ready(function(){
+   $.ajax({
+        type: "GET",
+        url: "<?php echo $ajaxLoadPopupUrl;?>",
+        data: {page:1},
+        success: function(msg){
+            var data = eval('('+msg+')');
+            if(data == 201){
+                return false;
+            }else{
+                $("#open_popup").html(data);
+                $("#open_popup").show();
+            }
+        }
+    });
+});
+function closePopup(id){
+    $("#open_popup").hide();
+    $.ajax({
+        type: "GET",
+        url: "<?php echo $ajaxClosePopupUrl;?>",
+        data: {popup_id:id},
+        success: function(msg){
+        }
+    });
+}
+function likePopup(id,link){
+    $.ajax({
+        type: "GET",
+        url: "<?php echo $ajaxClosePopupUrl;?>",
+        data: {popup_id:id},
+        success: function(msg){
+            window.location = link;
+        }
+    });
+}
+</script>

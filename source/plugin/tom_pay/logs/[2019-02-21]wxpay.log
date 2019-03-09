@@ -1,0 +1,20 @@
+[2019-02-21 11:31:38][debug] start
+[2019-02-21 11:31:38][debug] call back
+[2019-02-21 11:31:38][debug] update order flow:"TC20190221113122-317247"
+[2019-02-21 11:31:38][debug] update order:"TC20190221113122-317247"
+[2019-02-21 11:31:38][debug] success
+[2019-02-21 16:22:13][debug] start
+[2019-02-21 16:22:13][debug] call back
+[2019-02-21 16:22:13][debug] update order flow:"TC20190221162201-454119"
+[2019-02-21 16:22:13][debug] update order:"TC20190221162201-454119"
+[2019-02-21 16:22:13][debug] success
+[2019-02-21 18:25:34][debug] start
+[2019-02-21 18:25:34][debug] call back
+[2019-02-21 18:25:34][debug] update order flow:"TC20190221182525-335296"
+[2019-02-21 18:25:34][debug] update order:{"id":"80","site_id":"1","user_id":"3160","tongcheng_id":"885","tcshop_id":"0","money":"10.00","all_money":"10.00","sx_money":"0.00","hb_count":"30","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20190221182525-335296","fenpei_status":"2","send_status":"0","add_time":"1550744724","part1":null,"part2":null,"part3":null}
+[2019-02-21 18:25:34][debug] success
+[2019-02-21 19:20:28][debug] start
+[2019-02-21 19:20:28][debug] call back
+[2019-02-21 19:20:29][debug] update order flow:"TC20190221192016-175936"
+[2019-02-21 19:20:29][debug] update order:"TC20190221192016-175936"
+[2019-02-21 19:20:29][debug] success

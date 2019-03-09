@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[tom_link.plugin]]></item>
+	<item id="RevisionID"><![CDATA[70816]]></item>
+	<item id="SN"><![CDATA[20180221117ePzxlx3bu]]></item>
+	<item id="RevisionDateline"><![CDATA[1527141601]]></item>
+	<item id="Data">
+		<item id="/admin.inc.php"><![CDATA[ce9f3dfc694af94b0300b15af536717e]]></item>
+		<item id="/install.php"><![CDATA[da78e56ec9a7fabaeb7e1b7b4bcdd1ec]]></item>
+		<item id="/tom_link.inc.php"><![CDATA[32df6d5efd3294e6ad9fd3fece34dd0b]]></item>
+		<item id="/indexa.php"><![CDATA[1e154327a522f11b9df7b9345156462a]]></item>
+		<item id="/config/config.utf8.php"><![CDATA[7e95895cc312252430c8f2f757bb9db9]]></item>
+		<item id="/config/map.php"><![CDATA[e35f8bb4c9c5da150b0fa4e914c6ef4c]]></item>
+		<item id="/config/config.gbk.php"><![CDATA[f33a02f6ff62d3f8abf06b4d8b5bfff4]]></item>
+		<item id="/do.php"><![CDATA[41b5b0aa37a57aa6659337b960207011]]></item>
+		<item id="/discuz_plugin_tom_link_SC_UTF8.xml"><![CDATA[87f00b4fa1e60f6f960251a905921f7d]]></item>
+		<item id="/uninstall.php"><![CDATA[6588162de14aaaf521c40e5924757dc8]]></item>
+		<item id="/tom.func.php"><![CDATA[d8a9e3f3b8e52a8b49d2f7cf04f11b50]]></item>
+		<item id="/admin/index.php"><![CDATA[eacb99bbb3bdeb1ea8aa8ac24bdf7c6d]]></item>
+		<item id="/admin/addon.php"><![CDATA[6b97671e95ddb6fe7486ed078bcce003]]></item>
+		<item id="/data/index.html"><![CDATA[d41d8cd98f00b204e9800998ecf8427e]]></item>
+		<item id="/table/table_tom_link_rule.php"><![CDATA[71c2d1965b8ed5c610f1aaf173744863]]></item>
+		<item id="/upgrade.php"><![CDATA[ee6636de81e0a809cc48957d5936507e]]></item>
+		<item id="/discuz_plugin_tom_link_SC_GBK.xml"><![CDATA[98a765bd23060d31ae1c28c4848b75ba]]></item>
+	</item>
+</root>

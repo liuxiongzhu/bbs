@@ -1,0 +1,20 @@
+[2018-10-20 00:29:56][debug] start
+[2018-10-20 00:29:56][debug] call back
+[2018-10-20 00:29:56][debug] update order flow:"TC20181020002934-219682"
+[2018-10-20 00:29:56][debug] update order:{"id":"71","site_id":"1","user_id":"5","tongcheng_id":"632","tcshop_id":"0","money":"10.00","all_money":"10.00","sx_money":"0.00","hb_count":"20","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20181020002934-219682","fenpei_status":"2","send_status":"0","add_time":"1539966574","part1":null,"part2":null,"part3":null}
+[2018-10-20 00:29:56][debug] success
+[2018-10-20 10:10:56][debug] start
+[2018-10-20 10:10:56][debug] call back
+[2018-10-20 10:10:56][debug] update order flow:"TC20181020101043-386846"
+[2018-10-20 10:10:56][debug] update order:"TC20181020101043-386846"
+[2018-10-20 10:10:56][debug] success
+[2018-10-20 10:45:35][debug] start
+[2018-10-20 10:45:35][debug] call back
+[2018-10-20 10:45:35][debug] update order flow:"TC20181020104525-153239"
+[2018-10-20 10:45:35][debug] update order:"TC20181020104525-153239"
+[2018-10-20 10:45:35][debug] success
+[2018-10-20 22:13:21][debug] start
+[2018-10-20 22:13:21][debug] call back
+[2018-10-20 22:13:22][debug] update order flow:"TC20181020221311-593030"
+[2018-10-20 22:13:22][debug] update order:"TC20181020221311-593030"
+[2018-10-20 22:13:22][debug] success

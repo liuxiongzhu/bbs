@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->	
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{lang tom_tousu:tousu_title}</title>
+<link rel="stylesheet" href="source/plugin/tom_tousu/images/style.css">
+<script src="source/plugin/tom_tousu/images/jquery.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row" style="padding-top:20px;">
+			<div class="col-xs-12 text-center" style="font-size:12px;color:#909497;">
+				<img src="source/plugin/tom_tousu/images/dui.jpg" alt="">
+			</div>
+			<div class="col-xs-12 text-center" style="padding-top:20px;">
+				{lang tom_tousu:notice_tousu_submint}
+			</div>
+			<div class="col-xs-12 text-center" style="color:#999;font-size:14px;padding-top:10px;">
+				{lang tom_tousu:notice_tousu_submint_title}
+			</div>
+			<div class="col-xs-12" style="padding-top:10px;">
+				<button onclick="{$jump_url}" type="button" class="btn btn-success" style="width:100%; outline: none; background-image: -webkit-linear-gradient(top,#5cb85c 0,#419641 100%); background-image: -o-linear-gradient(top,#5cb85c 0,#419641 100%); background-image: -webkit-gradient(linear,left top,left bottom,from(#5cb85c),to(#419641)); background-image: linear-gradient(to bottom,#5cb85c 0,#419641 100%);">{lang tom_tousu:notice_tousu_close}</button>
+			</div>
+		</div>
+	</div>
+    <div id="cli_dialog_div">
+        
+    </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    <!--{if $showBth == 1}-->
+    $.getJSON("{$ajaxUrl}",function(data){});
+    <!--{/if}-->
+});
+    
+</script>
+</body>
+</html>

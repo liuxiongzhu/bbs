@@ -1,0 +1,40 @@
+[2018-03-27 09:52:04][debug] start
+[2018-03-27 09:52:04][debug] call back
+[2018-03-27 09:52:05][debug] update order flow:"TC20180327095153-432030"
+[2018-03-27 09:52:05][debug] update order:"TC20180327095153-432030"
+[2018-03-27 09:52:05][debug] success
+[2018-03-27 10:09:49][debug] start
+[2018-03-27 10:09:49][debug] call back
+[2018-03-27 10:09:49][debug] update order flow:"TC20180327100941-586858"
+[2018-03-27 10:09:49][debug] update order:"TC20180327100941-586858"
+[2018-03-27 10:09:49][debug] success
+[2018-03-27 20:12:40][debug] start
+[2018-03-27 20:12:40][debug] call back
+[2018-03-27 20:12:40][debug] update order flow:"TC20180327201228-633158"
+[2018-03-27 20:12:40][debug] update order:{"id":"3","site_id":"1","user_id":"5","tongcheng_id":"119","tcshop_id":"0","money":"10.00","all_money":"10.00","sx_money":"1.00","hb_count":"50","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180327201228-633158","fenpei_status":"1","send_status":"0","add_time":"1522152748","part1":null,"part2":null,"part3":null}
+[2018-03-27 20:12:40][debug] success
+[2018-03-27 20:19:32][debug] start
+[2018-03-27 20:19:32][debug] call back
+[2018-03-27 20:19:32][debug] update order flow:"TC20180327201913-474455"
+[2018-03-27 20:19:32][debug] update order:{"id":"4","site_id":"1","user_id":"5","tongcheng_id":"120","tcshop_id":"0","money":"16.00","all_money":"16.00","sx_money":"1.60","hb_count":"80","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180327201913-474455","fenpei_status":"1","send_status":"0","add_time":"1522153152","part1":null,"part2":null,"part3":null}
+[2018-03-27 20:19:32][debug] success
+[2018-03-27 20:28:54][debug] start
+[2018-03-27 20:28:54][debug] call back
+[2018-03-27 20:28:54][debug] update order flow:"TC20180327202834-282184"
+[2018-03-27 20:28:54][debug] update order:{"id":"5","site_id":"1","user_id":"5","tongcheng_id":"122","tcshop_id":"0","money":"20.00","all_money":"20.00","sx_money":"2.00","hb_count":"80","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180327202834-282184","fenpei_status":"2","send_status":"0","add_time":"1522153714","part1":null,"part2":null,"part3":null}
+[2018-03-27 20:28:54][debug] success
+[2018-03-27 20:59:44][debug] start
+[2018-03-27 20:59:44][debug] call back
+[2018-03-27 20:59:44][debug] update order flow:"TC20180327205932-573321"
+[2018-03-27 20:59:44][debug] update order:"TC20180327205932-573321"
+[2018-03-27 20:59:44][debug] success
+[2018-03-27 21:23:18][debug] start
+[2018-03-27 21:23:18][debug] call back
+[2018-03-27 21:23:18][debug] update order flow:"TC20180327212307-474476"
+[2018-03-27 21:23:18][debug] update order:{"id":"6","site_id":"1","user_id":"179","tongcheng_id":"125","tcshop_id":"0","money":"9.00","all_money":"9.00","sx_money":"0.90","hb_count":"18","open_kouling":"1","kouling":"\u8425\u4e1a\u4e2d\u7684\u706b\u9505\u5e97\u8f6c\u8ba915916803518","kouling_pormpt":"\u9ece\u8d1d\u5cad\u5174\u5e02\u8def\u4e00\u5df7\u4e94\u53f7","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180327212307-474476","fenpei_status":"2","send_status":"0","add_time":"1522156987","part1":null,"part2":null,"part3":null}
+[2018-03-27 21:23:18][debug] success
+[2018-03-27 23:12:33][debug] start
+[2018-03-27 23:12:33][debug] call back
+[2018-03-27 23:12:33][debug] update order flow:"TC20180327231221-236292"
+[2018-03-27 23:12:33][debug] update order:"TC20180327231221-236292"
+[2018-03-27 23:12:33][debug] success

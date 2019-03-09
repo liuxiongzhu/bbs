@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[dxc_api.plugin]]></item>
+	<item id="RevisionID"><![CDATA[71650]]></item>
+	<item id="SN"><![CDATA[2017092312ja9CgwNIHg]]></item>
+	<item id="RevisionDateline"><![CDATA[1488355205]]></item>
+	<item id="Data">
+		<item id="/discuz_plugin_dxc_api_SC_GBK.xml"><![CDATA[0bdc5b6672ec5b6aeb40aa923ab2b911]]></item>
+		<item id="/discuz_plugin_dxc_api_TC_BIG5.xml"><![CDATA[0936ab7675538e44d25172178f041cef]]></item>
+		<item id="/config.inc.php"><![CDATA[d67363f8ac4dca0300f9be6b345f95fe]]></item>
+		<item id="/discuz_plugin_dxc_api_TC_UTF8.xml"><![CDATA[47084dd488461ff74d02e923129b8033]]></item>
+		<item id="/install.php"><![CDATA[9999f362ec110d85da51315f83bd402a]]></item>
+		<item id="/discuz_plugin_dxc_api_SC_UTF8.xml"><![CDATA[8181c079e611e99f70667b69f8e721c9]]></item>
+		<item id="/lib/article.class.php"><![CDATA[f80b6a17a4554ba74ba20fc563eccb77]]></item>
+		<item id="/lib/dxcsdk.class.php"><![CDATA[6152faa5d5faaf551ec32356bd651de2]]></item>
+		<item id="/lib/function.member.php"><![CDATA[a85b5d0ccecf7ad8d816bb40e416b092]]></item>
+		<item id="/lib/dxcShowHelper.class.php"><![CDATA[7ee41ce017fc379ee4f01c3879df8069]]></item>
+		<item id="/lib/function.global.php"><![CDATA[ea81a3930a679ae38084497dfd69322f]]></item>
+		<item id="/uninstall.php"><![CDATA[0e9c075bc8338fc29a729ed94de8e0ae]]></item>
+		<item id="/data/attach_temp/index.html"><![CDATA[d41d8cd98f00b204e9800998ecf8427e]]></item>
+		<item id="/api_info.inc.php"><![CDATA[fffb77f97fbb34e85edec5cf65cb137b]]></item>
+		<item id="/template/common_set.htm"><![CDATA[0f644efe67eefab4c52710c0846d8bcd]]></item>
+	</item>
+</root>

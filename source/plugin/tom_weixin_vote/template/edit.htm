@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+<title>{lang tom_weixin_vote:edit_title}-{$voteInfo['title']}</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="source/plugin/tom_weixin_vote/images/style.css?v={$cssJsVersion}" rel="stylesheet" type="text/css">
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/jquery-1.8.3.min.js"></script>
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/ajaxfileupload.js"></script>
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/buildfileupload.js"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_weixin_vote/images';
+</script>
+<script src="source/plugin/tom_weixin_vote/images/common.js" type="text/javascript"></script>
+<base target="_self">
+</head>
+<body>
+<header class="header_style clearfix">
+	<a href="plugin.php?id=tom_weixin_vote&mod=index&vid={$vid}"></a>
+    <h1 style="color: {$voteBgColor};">{lang tom_weixin_vote:edit_title}</h1>
+</header>
+<section class="add_my_box clearfix">
+	<a href="plugin.php?id=tom_weixin_vote&mod=info&vid={$vid}&tid={$itemid}" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:edit_my_url}</a>
+</section>
+<section class="add_form_box clearfix">
+	<div class="add_form_box_main clearfix">
+    	<form id="addFrom" action="" method="post" enctype="multipart/form-data" onsubmit="return false;">
+    	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+        	<tr>
+            	<td width="30%"><label class="c1">{lang tom_weixin_vote:edit_bianhao}</label></td>
+            	<td><label class="c4">{$itemInfo['no']}</label></td>
+            </tr>
+        	<tr>
+            	<td width="30%"><label class="c1">{$voteInfo['item_obj_name']}</label></td>
+            	<td><input type="text" class="input_class" name="bmname" value="{$itemInfo['name']}"/></td>
+            </tr>
+            <tr>
+            	<td><label class="c1">{lang tom_weixin_vote:edit_tel}</label></td>
+            	<td><input type="text" class="input_class" name="bmtel" value="{$itemInfo['tel']}"/></td>
+            </tr>
+            <tr>
+            	<td><label class="c1">{lang tom_weixin_vote:edit_desc}</label></td>
+            	<td><textarea class="textarea_class" name="bmdesc" cols="" rows="">{$itemInfo['desc']}</textarea></td>
+            </tr>
+            <tr>
+            	<td><label class="c1">{lang tom_weixin_vote:edit_pic1}<br/>{lang tom_weixin_vote:edit_pic2}{$voteConfig['pic_size_kb']}KB</label></td>
+                <td>
+                    <input type="file" name="filedata1" id="filedata1" class="file_class" accept="image/*" capture="camera" />
+                    <input type="hidden" name="bmpicurl" id="bmpicurl" value=""><br/>
+                    <span id="picSpan"><img width="30" src="{$item_pic_url}"></span>
+                </td>
+            </tr>
+            <tr>
+            	<td colspan="2"><label class="c3" style="min-height:20px;line-height:20px;color: #949090;">{$voteInfo['pic_err_msg']}</label></td>
+            </tr>
+            <!--{if $size == 1}-->
+            <tr>
+            	<td colspan="2"><label class="c3"><a>{lang tom_weixin_vote:over_pic_size}</a></label></td>
+            </tr>
+            <!--{/if}-->
+            <tr>
+            	<td colspan="2">
+                    <input type="hidden" name="formhash" value="{$formhash}">
+                    <input type="hidden" name="tomhash" value="{$tomhash}">
+                    <input type="hidden" name="vid" value="{$vid}">
+                    <input type="hidden" name="itemid" value="{$itemid}">
+                    <input type="hidden" name="act" value="edit">
+                    <!--{if $voteInfo['bm_status'] == 1}-->
+                    <!--{if $voteConfig['noallow_edit_info'] == 1 && $itemInfo['status'] == 0 }-->
+                    <!--{else}-->
+                    <input name="dosubmit" class="id_add_form_btn btn_class" style="background-color: {$voteBgColor};" type="button" value="{lang tom_weixin_vote:edit_btn}">
+                    <!--{/if}-->
+                    <!--{/if}-->
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</section>
+<section class="add_form_box clearfix">
+	<div class="add_form_box_main clearfix">
+    	<form action="plugin.php?id=tom_weixin_vote&mod=save" method="post" enctype="multipart/form-data">
+    	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+            	<td colspan="2"><label class="c2" style="color: {$voteBgColor};">{lang tom_weixin_vote:photo_list_title}</label></td>
+            </tr>
+            <tr>
+            	<td colspan="2">
+                	<ul>
+                        <!--{loop $photoList $key $val}-->
+                    	<li>
+                            <img src="{$val['pic_url']}"/>
+                            <p>
+                                <!--{if $voteInfo['bm_status'] == 1}-->
+                                <!--{if $voteConfig['noallow_edit_info'] == 1 && $itemInfo['status'] == 0 }-->
+                                <!--{else}-->
+                                <a href="{$val['delurl']}" style="font-size: 10em;">[{lang tom_weixin_vote:photo_del}]</a>
+                                <!--{/if}-->
+                                <!--{/if}-->
+                            </p>
+                        </li>
+                        <!--{/loop}-->
+                    </ul>
+                </td>
+            </tr>
+            <!--{if $over_pic_num == 1}-->
+            <!--{else}-->
+            <!--{if $voteInfo['bm_status'] == 1}-->
+            <!--{if $voteConfig['noallow_edit_info'] == 1 && $itemInfo['status'] == 0 }-->
+            <!--{else}-->
+            <tr>
+            	<td><label class="c1">{lang tom_weixin_vote:photo_pic1}<br/>{lang tom_weixin_vote:photo_pic2}{$voteConfig['pic_size_kb']}KB</label></td>
+            	<td><input type="file" name="filedata2" id="filedata2" class="file_class" accept="image/*" capture="camera" /></td>
+            </tr>
+            <!--{/if}-->
+            <!--{/if}-->
+            <!--{/if}-->
+            <tr>
+            	<td colspan="2"><label class="c3" style="min-height:20px;line-height:20px;color: #949090;">{$voteInfo['pic_err_msg']}</label></td>
+            </tr>
+            <!--{if $psize == 1}-->
+            <tr>
+            	<td colspan="2"><label class="c3"><a>{lang tom_weixin_vote:over_pic_size}</a></label></td>
+            </tr>
+            <!--{/if}-->
+            <tr>
+            	<td colspan="2">
+                    <input type="hidden" name="formhash" value="{$formhash}">
+                    <input type="hidden" name="tomhash" value="{$tomhash}">
+                    <input type="hidden" name="vid" value="{$vid}">
+                    <input type="hidden" name="itemid" value="{$itemid}">
+                    <input type="hidden" name="act" value="photo">
+                    <!--{if $over_pic_num == 1}-->
+                    <input name="dosubmit" class="btn_class" type="button" value="{lang tom_weixin_vote:photo_over}">
+                    <!--{else}-->
+                    <input type="hidden" name="dosubmit" class="btn_class" type="submit" value="{lang tom_weixin_vote:photo_btn1}{$voteConfig['pic_num']}{lang tom_weixin_vote:photo_btn2}">
+                    <!--{/if}-->
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</section>
+<!--{if $open_tousu == 1}-->
+<section id="tousu" style=" z-index:9999; text-align:center; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border:1px solid #ccc; background:#403e3e; position:fixed; bottom:20%; left:-24px; width:50px; padding:10px 0 10px 12px;"><a style="display:block; color:#fff; font-size:16px; line-height:25px; font-family: fantasy;" href="{$tousuUrl}">{lang tom_weixin_vote:tousu_msg_1}<br/>{lang tom_weixin_vote:tousu_msg_2}</a></section>
+<!--{/if}-->
+<script>
+$(".id_add_form_btn").click( function () { 
+    
+    $.ajax({
+        type: "GET",
+        url: "{$saveUrl}",
+        data: $('#addFrom').serialize(),
+        success: function(msg){
+            tusi("{lang tom_weixin_vote:edit_success}");
+            setTimeout(function(){document.location.reload();},1888);
+        }
+    });
+});    
+    
+
+$(document).on('change', '#filedata1', function() {
+    loading('{lang tom_weixin_vote:upload_doing}');
+    uploadsuccess = function(data) {
+        if(data == '') {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_error}');
+        }
+        var dataarr = data.split('|');
+        dataarr[0] = $.trim(dataarr[0]);
+        if(dataarr[0] == 'OK') {
+            loading(false);
+            $("#bmpicurl").val(dataarr[2]);
+            $("#picSpan").html('<img width="30" height="30" src="'+dataarr[1]+'">');
+        }else if(dataarr[0] == 'SIZE'){
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_max_size}');
+        } else {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_error}');
+        }
+    };
+    
+    <!--{if $voteConfig['pic_yasu'] == 1}-->
+    $.buildfileupload({
+        uploadurl:'{$uploadUrl1}',
+        files:this.files,
+        uploadformdata:{uid:"1"},
+        uploadinputname:'filedata1',
+        maxfilesize:"2000",
+        success:uploadsuccess,
+        error:function() {
+            loading(false);
+            tusi('{lang tom_weixin_jy:upload_error}');
+        }
+    });
+    <!--{else}-->
+    $.ajaxfileupload({
+        url:'{$uploadUrl1}',
+        data:{uid:"1"},
+        dataType:'text',
+        fileElementId:'filedata1',
+        success:uploadsuccess,
+        error: function() {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_error}');
+        }
+    });
+    <!--{/if}-->
+
+});
+$(document).on('change', '#filedata2', function() {
+    loading('{lang tom_weixin_vote:upload_doing}');
+    uploadsuccess = function(data) {
+        if(data == '') {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_error}');
+        }
+        var dataarr = data.split('|');
+        if(dataarr[0] == 'OK') {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_success}');
+            setTimeout(function(){document.location.reload();},1888);
+        }else if(dataarr[0] == 'SIZE'){
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_max_size}');
+        } else {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_error}');
+        }
+    };
+    
+    <!--{if $voteConfig['pic_yasu'] == 1}-->
+    $.buildfileupload({
+        uploadurl:'{$uploadUrl2}',
+        files:this.files,
+        uploadformdata:{uid:"1"},
+        uploadinputname:'filedata2',
+        maxfilesize:"2000",
+        success:uploadsuccess,
+        error:function() {
+            loading(false);
+            tusi('{lang tom_weixin_jy:upload_error}');
+        }
+    });
+    <!--{else}-->
+    $.ajaxfileupload({
+        url:'{$uploadUrl2}',
+        data:{uid:"1"},
+        dataType:'text',
+        fileElementId:'filedata2',
+        success:uploadsuccess,
+        error: function() {
+            loading(false);
+            tusi('{lang tom_weixin_vote:upload_error}');
+        }
+    });
+    <!--{/if}-->
+
+});
+</script>
+</body>
+</html>

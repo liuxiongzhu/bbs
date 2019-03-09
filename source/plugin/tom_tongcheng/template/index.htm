@@ -1,0 +1,748 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{$__SitesInfo['name']}</title>
+<meta name="keywords" content="{$shareTitle}" />
+<meta name="description" content="{$shareDesc}" />
+<link href="source/plugin/tom_tongcheng/images/swiper.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/tongcheng.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/iconfont/iconfont.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/jquery-popups.css?v={$cssJsVersion}" />
+<!--{if $__ShowTcqianggou == 1}-->
+<link rel="stylesheet" href="source/plugin/tom_tcqianggou/images/cash_list_style.css?v={$cssJsVersion}" />
+<!--{/if}-->
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/swiper.min.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/global.js?v={$cssJsVersion}"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/layer_mobile/layer.js?v={$cssJsVersion}"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/jquery-popups.js?v={$cssJsVersion}"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+<style>
+.layui-m-layer0 .layui-m-layerchild{width: 70%;}
+.layui-m-layercont{padding: 5px 3px;}
+.index-navs .index-nav.active{ border-bottom: 2px solid {$tongchengConfig['template_color']} !important; color: {$tongchengConfig['template_color']} !important;}
+.index-navs .index-nav.active a{ color: {$tongchengConfig['template_color']} !important;}
+.swiper-pagination-bullet-active{ background-color: {$tongchengConfig['template_color']} !important;}
+.noAllowCopy{-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;}
+<!--{if $__Android == 1}-->
+.detail-tags span{padding-top: 3px;}
+<!--{/if}-->
+</style>
+</head>
+<body class="body-bg">
+<div id="sites-lbs" class='pop-ups__container'>
+  <div class="pop-ups__overlay"></div>
+  <div class="pop-ups__modal">
+      <div class="pop-ups__box">
+          <div class="index_lbs_top">{lang tom_tongcheng:lbs_current_sites}{$__SitesInfo['lbs_name']}</div>
+          <section class="index_lbs_sites">
+            <h5>{lang tom_tongcheng:lbs_list_sites}</h5>
+            <div class="index_lbs_sites-list clearfix">
+                <span><a href="plugin.php?id=tom_tongcheng&site=1&mod=index&lbs_no=1">{$tongchengConfig['lbs_name']}</a></span>
+                <!--{loop $hotSitesList $key $val}-->
+                <span><a href="plugin.php?id=tom_tongcheng&site={$val['id']}&mod=index&lbs_no=1">{$val['lbs_name']}</a></span>
+                <!--{/loop}-->
+            </div>
+            <!--{loop $cateSitesList $key $val}-->
+            <h5>{$val['name']}</h5>
+            <div class="index_lbs_sites-list clearfix">
+                <!--{loop $val['sites'] $kk $vv}-->
+                <span><a href="plugin.php?id=tom_tongcheng&site={$vv['id']}&mod=index&lbs_no=1">{$vv['lbs_name']}</a></span>
+                <!--{/loop}-->
+            </div>
+            <!--{/loop}-->
+            </section>
+          <div class="pop-ups__block"></div>
+      </div>
+      <div class="pop-ups__close">
+          <a href="javascript:void(0);" class="tcui-btn tcui-btn_default close-popups">{lang tom_tongcheng:lbs_close_btn}</a>
+      </div>
+  </div>
+</div>
+<div class="swiper-container swiper-container-focuspic">
+    <!--{if $tongchengConfig['index_search_show_type'] == 1}-->
+    <section class="search_pic_box clearfix tc-template__bg">
+    <!--{elseif $tongchengConfig['index_search_show_type'] == 2}-->
+    <section class="search_pic_box search_pic_box_fiexd clearfix">
+    <!--{/if}-->
+        <!--{if $tcadminConfig['open_sites'] == 1}-->
+        <div class="search_pic open-popups" data-target="#sites-lbs">
+            <a href="javascript:void(0);">
+                <i class="lbs_txt">{$__SitesInfo['lbs_name']}</i>
+                <em class="lbs_ico"></em>
+            </a>
+        </div>
+        <!--{else}-->
+        <div class="search_pic"><img src="{$logoSrc}"></div>
+        <!--{/if}-->
+        <!--{if $tongchengConfig['index_search_show_type'] == 1}-->
+        <div class="search_box">
+        <!--{elseif $tongchengConfig['index_search_show_type'] == 2}-->
+        <div class="search_box2">
+        <!--{/if}-->
+            <form  id="search_form" onsubmit="return false;">
+                <input  type="text" name="keyword" placeholder="{lang tom_tongcheng:search_msg}">
+                <input type="hidden" name="formhash" value="{$formhash}">
+                <div class="search_button id_search_btn tc-template__color">{lang tom_tongcheng:search_btn}</div>
+            </form>
+            <script>
+            $(".id_search_btn").click( function (){ 
+                $.ajax({
+                    type: "GET",
+                    url: "{$searchUrl}",
+                    data: $('#search_form').serialize(),
+                    success: function(msg){
+                        window.location = msg;
+                    }
+                });
+            });
+            </script>
+        </div>
+    </section>
+    <!--{if $focuspicList}-->
+    <div class="swiper-wrapper">
+        <!--{loop $focuspicList $key $val}-->
+        <div class="swiper-slide">
+            <a href="{$val['link']}"><img src="{$val['picurl']}" width="100%"></a>
+        </div>
+        <!--{/loop}-->
+    </div>
+    <div class="swiper-pagination swiper-pagination-focuspic"></div>
+    <!--{/if}-->
+</div>
+<section class="mainer" style="margin-top: -4px;">
+   <section class="wrap">
+        <section class="nav-list">
+             <section class="nav-list-tit clearfix">
+                 <section class="nav-list-tit-l clearfix" style="padding-left: 10px;">
+                       <div class="dt_xh2" style="float: left;color: #464443;font-size: 0.9em;width: 100%;">
+                           <i class="icon tciconfont tcicon-tongzhi tc-template__color"></i>
+                                {lang tom_tongcheng:index_clicks_all}&nbsp;<font color="{$tongchengConfig['template_color']}">{$clicksNumTxt}<!--{if $clicksNum > 10000}-->{lang tom_tongcheng:wan}<!--{/if}--> </font>&nbsp; 
+                                {lang tom_tongcheng:index_fabu_all}&nbsp;<font color="{$tongchengConfig['template_color']}">{$fabuNumTxt}<!--{if $fabuNum > 10000}-->{lang tom_tongcheng:wan}<!--{/if}--> </font>&nbsp;
+                                <!--{if $__ShowTcshop == 1}-->
+                                {lang tom_tongcheng:index_ruzhu_all}&nbsp;<font color="{$tongchengConfig['template_color']}">{$ruzhuNumTxt}<!--{if $ruzhuNum > 10000}-->{lang tom_tongcheng:wan}<!--{/if}--> </font>&nbsp;
+                                <!--{/if}-->
+                                <!--{if $__ShowTcshop == 0}-->
+                                {lang tom_tongcheng:index_users_all}&nbsp;<font color="{$tongchengConfig['template_color']}">{$userNumTxt}<!--{if $userNum > 10000}-->{lang tom_tongcheng:wan}<!--{/if}--></font>&nbsp;
+                                <!--{/if}-->
+                       </div>
+                  </section>
+                 <div class="help_title"><a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=help">{lang tom_tongcheng:index_help_title}</a></div>
+             </section>
+             <section class="nav-li swiper-container swiper-container-nav">
+                <div class="swiper-wrapper">
+                    <ul class="swiper-slide">
+                    <!--{loop $navList $key $val}-->
+                        <li>
+                            <a href="{$val['link']}">
+                              <section class="nav-li-pic">
+                                    <img src="{$val['picurl']}"/>
+                              </section>
+                              <p>{$val['title']}</p>
+                            </a>
+                        </li>
+                        <!--{if ($navCount> 10 && $val['i'] == 10) || ($navCount> 20 && $val['i'] == 20) || ($navCount> 30 && $val['i'] == 30) || ($navCount> 40 && $val['i'] == 40) }-->
+                        </ul>
+                        <ul class="swiper-slide">
+                        <!--{/if}-->
+                    <!--{/loop}--> 
+                    </ul>
+                </div>
+                  <!--{if $navCount> 10  }-->
+                 <div class="swiper-pagination swiper-pagination-nav" style="bottom: 5px;"></div>
+                 <!--{/if}-->
+                <section class="clear"></section>
+             </section>
+        </section>
+        <section class="index-scroll-ad">
+            <div class="scroll-ad__lt tc-template__color">{lang tom_tongcheng:index_topnews}</div>
+            <ul>
+                <!--{loop $topnewsList $key $val}-->
+                <li><a href="{$val['link']}" target="_blank">{$val['title']}</a></li>
+                <!--{/loop}--> 
+                <!--{if $__ShowTcshop == 1}-->
+                <!--{loop $newTcshopList $key $val}-->
+                <li><a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=details&dpid={$val['id']}" target="_blank"><font color="#0894fb">{$val['name']}</font> {lang tom_tcshop:index_top_msg}</a></li>
+                <!--{/loop}--> 
+                <!--{/if}-->
+            </ul>
+        </section>
+       <!--{if $colorMenuList}-->
+       <section class="clear5" style="background-color: #fff;"></section>
+       <!--{else}-->
+       <section class="clear5" style="background-color: #fff;margin-bottom: 5px;"></section>
+       <!--{/if}-->
+       <!--{if $colorMenuList}-->
+        <section class="index-color_menu clearfix">
+            <!--{loop $colorMenuList $key $val}-->
+           <a href="{$val[4]}">
+                <div class="color_area " style="background:{$val[3]};">
+                    <div class="color-left">
+                         <p class="title">{$val[0]}</p>
+                         <p class="button">{$val[1]}</p>
+                     </div>
+                     <div class="color-right">
+                         <img src="source/plugin/tom_tongcheng/images/index_nav/{$val[2]}">
+                     </div>
+                </div>
+           </a>
+           <!--{/loop}--> 
+        </section>
+       <!--{/if}-->
+       <!--{if $whiteMenuList}-->
+        <section class="index-white_menu clearfix">
+           <!--{loop $whiteMenuList $key $val}-->
+           <a href="{$val[4]}">
+                <div class="white_area ">
+                    <div class="white-left">
+                         <p class="title">{$val[0]}</p>
+                         <p class="button" style="color:{$val[3]};">{$val[1]}</p>
+                     </div>
+                     <div class="white-right">
+                         <img src="source/plugin/tom_tongcheng/images/index_nav/{$val[2]}">
+                     </div>
+                </div>
+           </a>
+            <!--{/loop}--> 
+        </section>
+        <!--{/if}-->
+        <!--{if $__ShowTctoutiao == 1 && $tctoutiaoConfig['tongcheng_index_num'] > 0}-->
+        {template tom_tongcheng:index_toutiao}
+        <section class="clear5" style="background-color: #fff;margin-bottom: 5px;"></section>
+        <!--{/if}-->
+        <!--{if $__ShowTcshop == 1}-->
+        <!--{if $tcshopList}-->
+        {template tom_tongcheng:index_shop}
+        <!--{/if}-->
+        <!--{/if}-->
+        <section class="tc-sec">
+             <ul class="tab-navs index-navs">
+                  <div class="tab-scroll" >
+                       <li id="index-nav_id_0" class="tab-nav index-nav active" onclick="indexLoadList(0, 1);">{lang tom_tongcheng:index_new_title}</li>
+                       <!--{if $__ShowTcqianggou == 1}-->
+                            <!--{if $showQianggouBtn == 1}-->
+                            <li id="index-nav_id_qg" class="tab-nav index-nav" onclick="indexLoadList(0, 2);">{lang tom_tongcheng:index_new_qianggou_title}</li>
+                            <!--{/if}-->
+                            <!--{if $showCouponBtn == 1}-->
+                            <li id="index-nav_id_coupon" class="tab-nav index-nav" onclick="indexLoadList(0, 3);">{lang tom_tongcheng:index_new_coupon_title}</li>
+                            <!--{/if}-->
+                       <!--{/if}-->
+                       <!--{if $tongchengConfig['open_nearby'] == 1}-->
+                       <li id="index-nav_id_999999" class="tab-nav index-nav" onclick="indexLoadList(999999, 1);">{lang tom_tongcheng:index_nearby_title}</li>
+                       <!--{/if}-->
+                       <!--{loop $modelList $key $val}-->
+                       <li id="index-nav_id_{$val['id']}" class="tab-nav index-nav"><a href="javascript:void(0);" onclick="indexLoadList({$val['id']}, 1);">{$val['name']}</a></li>
+                       <!--{/loop}--> 
+                  </div>
+             </ul>
+            <section class="tc-sec mt0" id="index-list" style="min-height: 400px;">
+                <div class="tcui-loadmore" style="padding:1em"><i class="tcui-loading"></i><span class="tcui-loadmore__tips">{lang tom_tongcheng:list_jiazaiing}</span></div>
+             </section>
+             <section style="display: none;" id="load-html">
+                <div class="tcui-loadmore" style="padding:1em"><i class="tcui-loading"></i><span class="tcui-loadmore__tips">{lang tom_tongcheng:list_jiazaiing}</span></div>
+             </section>
+             <section style="display: none;" id="no-load-html">
+                <div class="tcui-loadmore" style="padding:1em"><span class="tcui-loadmore__tips">{lang tom_tongcheng:no_list_jiazaiing}</span></div>
+             </section>
+             <section  style="display: none;" id="no-list-html">
+                <div class="clear10" style="height:7em;"></div>
+                  <div class="tcui-loadmore tcui-loadmore_line">
+                       <span class="tcui-loadmore__tips">{lang tom_tongcheng:list_no_list}</span>
+                  </div>
+                  <div class="btn-group-block">
+                       <a class="id-fabu-url tc-template__bg" href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=fabu">{lang tom_tongcheng:list_fabu_one}</a>
+                       <div class="clear10" style="height:7em;"></div>
+                  </div>
+             </section>
+        </section>
+   </section>
+</section>
+{template tom_tongcheng:popup}
+<section class="pic_info id-pic-tip box_hide clearfix" style="z-index: 999;height: 2000px;position: fixed;">
+	<div class="pic_info_in id-pic-tip-in" style="top: 0px; height: 550px; background-image: url();"></div>
+</section>
+<div class="site-float">
+    <span class="img-dialog" onclick="dingyue();" > {lang tom_tongcheng:index_dingyue1} <i></i> {lang tom_tongcheng:index_dingyue2} </span>
+    <span class="img-dialog" onclick="kefu();" > {lang tom_tongcheng:index_kefu1} <i></i> {lang tom_tongcheng:index_kefu2} </span>
+</div>
+<!--{if $browser_shouchang_show == 1}-->
+<section id="index_prompt" onClick="hide_shouchang_prompt($__UserInfo['id']);">
+    <div class="prompt-pic"><img src="source/plugin/tom_tongcheng/images/index-tip-bg.png"></div>
+</section>
+<!--{/if}-->
+<section class="back_top">
+    <a href="javascript:void(0);"><img src="source/plugin/tom_tongcheng/images/back_top.png"></a>
+</section>
+<div id="dialogs">
+    <!--BEGIN dialog1-->
+    <div class="js_dialog" id="lbsDialog" style="display: none;">
+        <div class="tcui-mask"></div>
+        <div class="tcui-dialog" id="lbsDialogBox" style="top: 40%;">
+        </div>
+    </div>
+    <!--END dialog1-->
+</div>
+<div class="swiper-container rebox" id="rebox">
+    <div class="swiper-wrapper " id="rebox-wrapper__box">
+    </div>
+    <div class="swiper-pagination rebox-pagination"></div>
+	<div class="swiper-close" id="rebox-close"></div>
+</div>
+{template tom_tongcheng:footer}
+<div style="display: none;">{$tongchengConfig['tongji_code']}</div>
+<script src="source/plugin/tom_tongcheng/images/index.js"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+var index_jm_link = '{$md5HostUrl}';
+var index_top = 'index_scrollTop'+index_jm_link;
+var index_page = 'index_page'+index_jm_link;
+var index_data = 'index_data'+index_jm_link;
+var index_modeId = 'index_modeId'+index_jm_link;
+var index_type = 'index_type'+index_jm_link;
+
+var loadModeId = 0;
+var loadPage = 1;
+var loadType = 1;
+var ajaxLoadListUrl = "{$ajaxLoadListUrl}";
+
+$(document).ready(function(){
+    var swiper1 = new Swiper('.swiper-container-nav', {
+        pagination: '.swiper-pagination-nav',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 5000,
+        autoplayDisableOnInteraction: false
+    });
+    <!--{if $focuspicList}-->
+    var swiper2 = new Swiper('.swiper-container-focuspic', {
+        pagination: '.swiper-pagination-focuspic',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    <!--{/if}-->
+    <!--{if $_GET['must_sites_lbs'] == 1}-->
+    $("#sites-lbs").popup();
+    <!--{/if}-->
+    //loadList('',1);
+    if($("#index-list").length>0){
+        if(sessionStorage.getItem(index_page)){
+            $('#index-list').html(sessionStorage.getItem(index_data));
+            loadPage = sessionStorage.getItem(index_page);
+            loadPage = loadPage*1;
+            loadModeId = sessionStorage.getItem(index_modeId);
+            loadType = sessionStorage.getItem(index_type);
+            loadType = loadType*1;
+            $(document).scrollTop(sessionStorage.getItem(index_top));
+            if(loadType == 1){
+                $('#index-nav_id_'+loadModeId).addClass('active').siblings('.index-nav').removeClass('active');
+            }else if(loadType == 2){
+                ajaxLoadListUrl = '{$ajaxLoadQianggouListUrl}';
+                $('#index-nav_id_qg').addClass('active').siblings('.index-nav').removeClass('active');
+            }else if(loadType == 3){
+                ajaxLoadListUrl = '{$ajaxLoadCouponListUrl}';
+                $('#index-nav_id_coupon').addClass('active').siblings('.index-nav').removeClass('active');
+            }
+        }else{
+            loadList('{$ajaxLoadListUrl}',1);
+        }
+    }
+    
+});
+
+function indexLoadList(modelId ,type){
+    loadModeId = modelId;
+    loadPage = 1;
+    loadType = type;
+    if(loadType == 1){
+        ajaxLoadListUrl = '{$ajaxLoadListUrl}&model_id='+modelId;
+        loadList(ajaxLoadListUrl,1);
+    }else if(loadType == 2){
+        ajaxLoadListUrl = '{$ajaxLoadQianggouListUrl}';
+        loadList(ajaxLoadListUrl,1);
+    }else if(loadType == 3){
+        ajaxLoadListUrl = '{$ajaxLoadCouponListUrl}';
+        loadList(ajaxLoadListUrl,1);
+    }
+}
+
+var loadHtml = $("#load-html").html();
+var noListHtml = $("#no-list-html").html();
+var loadListStatus = 0;
+function loadList(url,Page) {
+    if(loadListStatus == 1){
+        return false;
+    }
+    loadListStatus = 1;
+    $("#index-list").html(loadHtml);
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {page:Page},
+        success: function(msg){
+            loadListStatus = 0;
+            var data = eval('('+msg+')');
+            if(data == 205){
+                $("#index-list").html(noListHtml);
+                $(".id-fabu-url").attr("href",'{$fabuUrl}'+loadModeId);
+                return false;
+            }else{
+                loadPage += 1;
+                $("#index-list").html(data);
+                if(loadType == 2 || loadType == 3){
+                    countDaojishi();
+                }
+            }
+        }
+    });
+}
+
+$(window).scroll(function () {
+    var scrollTop       = $(this).scrollTop();
+    var scrollHeight    = $(document).height();
+    var windowHeight    = $(this).height();
+    if ((scrollTop + windowHeight) >= (scrollHeight * 0.9)) {
+        scrollLoadList(ajaxLoadListUrl);
+    }
+    
+    if ((scrollTop + windowHeight) >= 1000) {
+        $('.back_top').show();
+    }else{
+        $('.back_top').hide();
+    }
+    
+    if ($(window).scrollTop()> 350) {
+        sessionStorage.setItem(index_top, $(window).scrollTop());
+        sessionStorage.setItem(index_data, $('#index-list').html());
+        if(loadPage >= 1){ sessionStorage.setItem(index_page, loadPage); }
+        sessionStorage.setItem(index_modeId, loadModeId);
+        sessionStorage.setItem(index_type, loadType);
+    } else {
+        sessionStorage.removeItem(index_page);
+        sessionStorage.removeItem(index_data);
+        sessionStorage.removeItem(index_top);
+        sessionStorage.removeItem(index_type);
+        sessionStorage.removeItem(index_modeId);
+    }
+});
+
+$(document).on('click','.back_top', function () {
+    $('body,html').animate({scrollTop: 0}, 500);
+    return false;
+});
+
+function scrollLoadList(url) {
+    if(loadListStatus == 1){
+        return false;
+    }
+    if(loadPage > 50){
+        return false;
+    }
+    $('#load-html').show();
+	$('#no-load-html').hide();
+    loadListStatus = 1;
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {page:loadPage},
+        success: function(msg){
+            loadListStatus = 0;
+            var data = eval('('+msg+')');
+            if(data == 205){
+                $('#load-html').hide();
+                $('#no-load-html').show();
+                return false;
+            }else{
+                loadPage += 1;
+                $('#load-html').hide();
+                $("#index-list").append(data);
+                if(loadType == 2 || loadType == 3){
+                    countDaojishi();
+                }
+            }
+        }
+    });
+}
+
+$(function(){
+    $('#dialogs').on('click', '.tcui-dialog__btn', function(){
+        $(this).parents('.js_dialog').fadeOut(200);
+    });
+});
+
+var djsTime;
+function countDaojishi()
+{
+    window.clearInterval(djsTime);
+    djsTime=setInterval(function() {
+        $(".daojishi").each(function() { 
+            var t = $(this).attr('data-time');
+            t = t-100;
+            var d=Math.floor(t/1000/60/60/24);
+            var h=Math.floor(t/1000/60/60%24);
+            var m=Math.floor(t/1000/60%60);
+            var s=Math.floor(t/1000%60);
+            if (t > 0) { 
+                var str = d + "{lang tom_tcqianggou:tian}" + ( h<10?"0"+h:h) + "{lang tom_tcqianggou:hour}" + ( m<10?"0"+m:m) + "{lang tom_tcqianggou:minute}" + ( s<10?"0"+s:s)+"{lang tom_tcqianggou:second}"; 
+            }
+            else { 
+                var str = "{lang tom_tcqianggou:details_end}"; 
+            } 
+            $(this).attr('data-time',t);
+            $(this).html(str); 		
+        })
+    },100);
+}
+
+$(document).ready(function(){
+   $.get("{$ajaxCommonClicksUrl}");
+});
+
+var scrollRunStatus = 0;
+$(window).scroll(function () {
+    var runScrollTop       = $(this).scrollTop();
+    if(runScrollTop > 100 && scrollRunStatus == 0){
+       scrollRunStatus = 1;
+       console.log('runScrollTop:'+runScrollTop);
+       $.get("{$ajaxUpdateTopstatusUrl}");
+       $.get("{$ajaxAutoClickUrl}");
+       $.get("{$ajaxAutoZhuanfaUrl}");
+    }
+});
+
+function dingyue(){
+    layer.open({
+        content: '<img src="{$__SitesInfo['dingyue_qrcode']}"><p>{lang tom_tongcheng:index_ts_guanz_msg}<p/>'
+        ,btn: '{lang tom_tongcheng:index_kefu_ok}'
+      });
+}
+function kefu(){
+    layer.open({
+        content: '<img src="{$kefuQrcodeSrc}"><p>{lang tom_tongcheng:index_ts_kefu_msg}<p/>'
+        ,btn: '{lang tom_tongcheng:index_kefu_ok}'
+      });
+}
+
+$(function() {
+    setInterval(function() {
+        var e = $(".index-scroll-ad ul");
+        e.scrollTo({
+            to: e.find("li").eq(0).height(),
+            durTime: 800,
+            delay: 80,
+            callback: function() {
+                var a = e.find("li").eq(0),
+                i = a.clone(!0);
+                e.scrollTop(0),
+                a.remove(),
+                e.append(i)
+            }
+        })
+    },
+    2e3)
+});
+
+$(document).on("click", ".index-nav",function() {
+    var e = $(this),
+    a = e.parent();
+    a.find(".active").removeClass("active"),
+    e.addClass("active");
+    var i = e.data("id");
+});
+
+function hide_shouchang_prompt(uid){
+    $('#index_prompt').hide();
+    $.ajax({
+		type: "GET",
+		url: "{$ajaxShouchangUrl}",
+		data: {user_id:uid},
+		success: function(msg){
+            
+		}
+	})
+    
+}
+</script>
+{template tom_tongcheng:list_sub}
+<!-- lbs start -->
+<!--{if $tcadminConfig['open_sites_lbs'] > 1 || $haveModelDingwei == 1 }-->
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={$tongchengConfig['baidu_js_ak']}"></script>
+<form name="lbsForm" id="lbsForm">
+    <input type="hidden" id="id_city" name="city" value="" />
+    <input type="hidden" id="id_district" name="district" value="" />
+    <input type="hidden" name="formhash" value="{$formhash}" />
+</form>
+<script>
+var gc = new BMap.Geocoder();
+function getaddress(lat, lng) {
+    <!--{if $tcadminConfig['open_sites_lbs'] > 1}-->
+    var point = new BMap.Point(lng, lat);
+    gc.getLocation(point, function (rs) {
+        var addComp = rs.addressComponents;
+        <!--{if $lbs_show == 1}-->
+        alert(addComp.city +','+ addComp.district);
+        <!--{/if}-->
+        $('#id_city').val(addComp.city);
+        $('#id_district').val(addComp.district);
+        $.ajax({
+            type: "GET",
+            url: "{$ajaxLbsCheckUrl}",
+            data: $('#lbsForm').serialize(),
+            success: function(msg){
+                var data = eval('('+msg+')');
+                if(data == 100){
+                    return false;
+                }else{
+                    $("#lbsDialogBox").html(data);
+                    $("#lbsDialog").show();
+                }
+            }
+        });
+    });
+    <!--{else}-->
+    return false;
+    <!--{/if}-->
+}
+function closeLbs(){
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxLbsCloseUrl}",
+        data: "u=1",
+        success: function(msg){
+        }
+    });
+}
+</script>
+<!--{if $__IsWeixin == 1}-->
+<script>
+function getaddresswx(lat, lng) {
+    var point = new BMap.Point(lng, lat);
+    var convertor = new BMap.Convertor();
+    var pointArr = [];
+    pointArr.push(point);
+    convertor.translate(pointArr, 1, 5, function(data) {
+        if (data.status === 0) {
+            $.get("{$ajaxUpdateLbsUrl}&latitude="+data.points[0].lat+"&longitude="+data.points[0].lng);
+            getaddress(data.points[0].lat, data.points[0].lng);
+        } else {
+            getaddress(lat, lng);
+        }
+    });
+}
+</script>
+<!--{else}-->
+<!--{if $tongchengConfig['open_moblie_https_location'] == 1}-->
+<script>
+$(document).ready(function(){
+   h5Geolocation();
+});
+function h5Geolocation(){
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(
+			function(position) {  
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				var point = new BMap.Point(lng, lat);
+				var convertor = new BMap.Convertor();
+				var pointArr = [];
+				pointArr.push(point);
+				convertor.translate(pointArr, 1, 5, function(data) {
+                    if (data.status === 0) {
+                        latitude = data.points[0].lat;
+                        longitude = data.points[0].lng;
+					} else {
+                        latitude = lat;
+                        longitude = lng;
+					}
+                    $.get("{$ajaxUpdateLbsUrl}&latitude="+latitude+"&longitude="+longitude);
+                    getaddress(latitude, longitude);
+				});
+			 },
+			function(error) {
+			}
+		)
+	}else{
+		tusi('{lang tom_tongcheng:info_hb_err_moblie_no_location}');
+	}
+}
+</script>
+<!--{/if}-->
+<!--{/if}-->
+<!--{/if}-->
+<!-- lbs end -->
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'previewImage',
+      'openLocation', 
+      'getLocation'
+    ]
+});
+wx.ready(function () {
+    <!--{if $tcadminConfig['open_sites_lbs'] > 1  || $haveModelDingwei == 1 }-->
+    <!--{if $__IsWeixin == 1}-->
+    wx.getLocation({
+        type: 'wgs84',
+        success: function(res) {
+            getaddresswx(res.latitude, res.longitude);
+        }
+    });
+    <!--{/if}-->
+    <!--{/if}-->
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () {
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () {
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

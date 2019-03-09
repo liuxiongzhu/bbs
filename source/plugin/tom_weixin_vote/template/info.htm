@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+<title>{$shareTitle}</title>
+<meta name="description" content="{$shareDesc}" />
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="source/plugin/tom_weixin_vote/images/style.css?v={$cssJsVersion}" rel="stylesheet" type="text/css">
+<link href="source/plugin/tom_weixin_vote/images/swiper.min.css" rel="stylesheet" />
+<script type="text/javascript" src="source/plugin/tom_weixin_vote/images/swiper.min.js"></script>
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/jquery.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_weixin_vote/images';
+</script>
+<script src="source/plugin/tom_weixin_vote/images/common.js" type="text/javascript"></script>
+<style>
+.codepop {position: absolute;left: 0px;top: 0px; z-index:1;}
+.codepop_bg {position: fixed;left: 0px;top: 0px;background-color: #000;opacity: 0.5;width: 100%;height: 100%;}
+.codepop_up {display: block;width: 90%;margin: auto;position: fixed;left: 0px;right: 0px;box-sizing: border-box;top: 30%;padding: 15px 10px;background-color: #FD6305;border-radius: 5px;text-align: center;color: #FFF;font-size: 16px;}
+</style>
+<base target="_self">
+</head>
+<body>
+<section class="top_box clearfix box_hide"><img src="{$share_logo}"></section>
+<!--{if $voteInfo['focus_status'] == 0}-->
+<section class="top_box clearfix"><img src="{$vote_pic_url}" width="100%"></section>
+<!--{else}-->
+<section class="top_box clearfix">
+    <div id="focus" class="slide-box swiper-container" style="margin-bottom: 10px;">
+        <div class="slide-list swiper-wrapper clearfix">
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url1']}-->{$voteInfo['focus_pic_url1']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic1}"></a></div>
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url2']}-->{$voteInfo['focus_pic_url2']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic2}"></a></div>
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url3']}-->{$voteInfo['focus_pic_url3']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic3}"></a></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<!--{/if}-->
+<section class="info_title clearfix">{$shareTitle}</section>
+<section class="info_top clearfix">
+	<table width="100%">
+    	<tr>
+        	<td width="40%" height="120"><div class="pic" style="background-image:url({$item_pic_url})"></div></td>
+            <td>
+            	<div class="info">
+                	<p><span>{lang tom_weixin_vote:info_bianhao}{lang tom_weixin_vote:info_fenge}</span>{$itemInfo['no']}</p>
+                    <p><span>{$voteInfo['item_obj_name']}{lang tom_weixin_vote:info_fenge}</span>{$itemInfo['name']}</p>
+                    <p><span>{lang tom_weixin_vote:info_piaoshu}{lang tom_weixin_vote:info_fenge}</span>{$itemInfo['num']}</p>
+                    <p>
+                        <!--{if $voteInfo['close_webtp'] == 1}-->
+                        <!--{if $showBtnBox == 1}-->
+                        <a href="javascript:void(0);" class="a_tp_btn" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:info_tp_btn}</a>
+                        <!--{/if}-->
+                        <!--{if $showBtnBox == 2}-->
+                        <!--{if $voteConfig['open_check_code']==1 }-->
+                        <a href="javascript:void(0);" class="a_tp_btn22" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:info_tp_btn}</a>
+                        <!--{else}-->
+                        <a href="javascript:void(0);" class="a_tp_btn2" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:info_tp_btn}</a>
+                        <!--{/if}-->
+                        <!--{/if}-->
+                        <!--{if $showBtnBox == 3}-->
+                        <a href="javascript:void(0);" onclick="showguanzu();" class="a_tp_btn3" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:info_tp_btn}</a>
+                        <!--{/if}-->
+                        <!--{if $showBtnBox == 4}-->
+                        <a href="javascript:void(0);" class="a_tp_btn4" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:info_nostart}</a>
+                        <!--{/if}-->
+                        <!--{if $showBtnBox == 5}-->
+                        <a href="javascript:void(0);" class="a_tp_btn5" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:info_over}</a>
+                        <!--{/if}-->
+                        <!--{/if}-->
+                        <!--<a href="javascript:void(0);" onclick="showShareGuide();" style="background-color:#feb624">123456</a>-->
+                        <!--info_help-->
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</section>
+<div class="bianhao_box_main clearfix box_hide">
+  {$voteConfig['xz_area_msg']}
+</div>
+<!--{if $voteInfo['open_bianhao'] == 1}-->
+<section class="bianhao_box clearfix">
+    <div class="bianhao_box_title clearfix" style="background-color: {$voteBgColor};">
+    	{lang tom_weixin_vote:info_bianhao_title}
+    </div>
+    <div class="bianhao_box_main clearfix" style="border: 1px solid {$voteBgColor};">
+    	{$bianhao_desc}
+    </div>
+</section>
+<!--{/if}-->
+<!--{if $show_add_link == 1}-->
+<section class="bm_box clearfix">
+	<div class="bm_box_main clearfix" >
+    	<a href="plugin.php?id=tom_weixin_vote&mod=add&vid={$vid}" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:index_add_title}</a>
+    </div>
+</section>
+<!--{/if}-->
+<section class="common_title clearfix">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:info_about_title}</span>
+    </div>
+</section>
+<section class="about_box clearfix">
+	<div class="about_box_main clearfix">
+    	{$itemdesc}<br/><hr/>
+        <!--{loop $photoList $key $val}-->
+        <p align="center"><img src="{$val['pic_url']}" /></p><hr/>
+        <!--{/loop}-->
+    </div>
+</section>
+<section class="common_title clearfix" id="prize">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:index_prize_title}</span>
+    </div>
+</section>
+<section class="content_box clearfix">
+	<div class="content_box_main clearfix">
+    	{$prize_txt}
+    </div>
+</section>
+<section class="common_title clearfix">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:index_about_title}</span>
+    </div>
+</section>
+<section class="content_box clearfix">
+	<div class="content_box_main clearfix">
+    	{$content}
+    </div>
+</section>
+<section class="common_title clearfix">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:info_ads_title}</span>
+    </div>
+</section>
+<section class="shop_item clearfix">
+	<div class="shop_item_main clearfix">
+    	{$adsText}
+    </div>
+</section>
+<section class="tp_box clearfix box_hide">
+	<div class="tp_box_main clearfix " style="background-color: {$voteBgColor};">
+    	<div class="msg_box">{$voteConfig['tp_msg']}</div>
+    	<div class="form_box">
+            <form id="tp_form">
+        	<table width="100%">
+            	<tr>
+                	<td colspan="2" width="100%"><input class="input_class" name="tpxm" id="tpxm" placeholder="{lang tom_weixin_vote:info_tp_xm}" type="text"/></td>
+                </tr>
+                <tr>
+                	<td colspan="2"  width="100%">
+                        <input class="input_class" name="tptel" id="tptel" placeholder="{lang tom_weixin_vote:info_tp_tel}" type="text"/>
+                        <input type="hidden" name="formhash" value="{$formhash}">
+                        <input type="hidden" name="tomhash" value="{$tomhash}">
+                        <input type="hidden" name="vid" value="{$vid}">
+                        <input type="hidden" name="tid" value="{$tid}">
+                        <input type="hidden" name="act" value="tpadd">
+                        <!--{if $showUserId == 1}-->
+                        <input type="hidden" name="userid" value="{$cookieUserid}">
+                        <!--{else}-->
+                        <input type="hidden" name="userid" value="0">
+                        <!--{/if}-->
+                    </td>
+                </tr>
+                <tr>
+                	<td width="50%" align="center"><a class="a_class tp_form_btn" href="javascript:void(0);">{lang tom_weixin_vote:info_tp_ok}</a></td>
+                    <td width=""><a class="a_class a_tp_close" href="javascript:void(0);" style="background-color:#CCC">{lang tom_weixin_vote:info_tp_no}</a></td>
+                </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+    <div class="close_box tp_close_box"></div>
+</section>
+<section class="search_box clearfix box_hide">
+	<div class="search_box_main clearfix" style="background-color: {$voteBgColor};">
+    	<div class="form_box">
+            <form action="" id="search_form" method="post" onsubmit="return false;">
+        	<table width="100%">
+            	<tr>
+                    <td width=""><input class="input_class" type="text" name="keywords" placeholder="{lang tom_weixin_vote:search_place}"/></td>
+                    <td width="70">
+                        <input type="hidden" name="formhash" value="{$formhash}">
+                        <input type="hidden" name="vid" value="{$vid}">
+                        <input name="dosubmit" class="a_class id_search_btn" type="button" value="{lang tom_weixin_vote:search_btn}">
+                    </td>
+                </tr>
+            </table>
+            </form>
+            <script>
+            $(".id_search_btn").click( function () { 
+                $.ajax({
+                    type: "GET",
+                    url: "{$searchUrl}",
+                    data: $('#search_form').serialize(),
+                    success: function(msg){
+                        window.location = msg;
+                    }
+                });
+            });
+            </script>
+        </div>
+    </div>
+    <div class="close_box search_close_box"></div>
+</section>
+<!--{if $voteInfo['cj_status'] == 1}-->
+<section class="dialog_box clearfix box_hide">
+    <div class="dialog_box_main clearfix" style="border: 2px solid {$voteBgColor};">
+    	<div class="dialog_box_main_title2">{lang tom_weixin_vote:info_tp_success}</div>
+        <div class="dialog_box_main_box"><img src="source/plugin/tom_weixin_vote/images/gxcj.png" width="280" height="130"></div>
+  		<div class="dialog_box_main_btn clearfix ">
+        	<li class="w1"><a class="color1" href="{$ajaxCjUrl}">{lang tom_weixin_vote:info_tp_lq}</a></li>
+            <li class="w1"><a class="color2" href="javascript:void(0);" onclick="document.location.reload();">{lang tom_weixin_vote:info_tp_no}</a></li>
+        </div>
+    </div>
+</section>
+<!--{/if}-->
+<section>
+  <div class="pop box_hide" id="guanzhu">
+    <div class="mengceng"></div>
+    <div class="pop_up" style="background-color:{$voteBgColor};">
+      <p class="tit_p">{lang tom_weixin_vote:info_guanzu_title}</p>
+      <p class="tit_txt"><!--{if $vote_guanzu_qrcode }--><img src="{$vote_guanzu_qrcode}" style="width:160px; margin:auto;"><br/><!--{/if}-->{$guanzu_desc}</p>
+      <!--{if $voteInfo['guanzu_url'] }--><a href="{$voteInfo['guanzu_url']}" class="gz_btn">{lang tom_weixin_vote:info_guanzu_btn}</a> </div><!--{/if}-->
+  </div>
+</section>
+<!--{if $showBtnBox == 2 && $voteConfig['open_check_code']==1 }-->
+<div class="codepop" id="codeBox" style="display:none;">
+    <div class="codepop_bg"></div>
+    <div class="codepop_up" style="width:310px; top:40%;">
+        <script src="http://api.geetest.com/get.php?gt={$voteConfig['check_code_id']}&width=280" type="text/javascript" type="text/javascript"></script>
+    </div>
+</div>
+<!--{/if}-->
+<!-- footer start-->
+<section class="footer_block clearfix "></section>
+<footer class="footer_main clearfix">
+	<ul class="clearfix">
+    	<li class="footer_nav_index"><a href="plugin.php?id=tom_weixin_vote&mod=index&vid={$vid}&nav=1"><span class="nav">{lang tom_weixin_vote:nav_index}</span></a></li>
+        <li class="footer_nav_search"><a href="javascript:void(0);"><span class="nav">{lang tom_weixin_vote:nav_search}</span></a></li>
+        <li class="footer_nav_ph"><a href="plugin.php?id=tom_weixin_vote&mod=phb&vid={$vid}&nav=1"><span class="nav">{lang tom_weixin_vote:nav_phb}</span></a></li>
+        <li class="footer_nav_gz"><a href="plugin.php?id=tom_weixin_vote&mod=add&vid={$vid}"><span class="nav">{lang tom_weixin_vote:nav_bm}</span></a></li>
+    </ul>
+</footer>
+<!-- footer end-->
+<!--{if $open_tousu == 1}-->
+<section id="tousu" style=" z-index:9999; text-align:center; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border:1px solid #ccc; background:#403e3e; position:fixed; bottom:20%; left:-24px; width:50px; padding:10px 0 10px 12px;"><a style="display:block; color:#fff; font-size:16px; line-height:25px; font-family: fantasy;" href="{$tousuUrl}">{lang tom_weixin_vote:tousu_msg_1}<br/>{lang tom_weixin_vote:tousu_msg_2}</a></section>
+<!--{/if}-->
+<script type="text/javascript">
+$(document).ready(function(){
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+});
+
+function showguanzu(){
+    $("#guanzhu").removeClass('box_hide');
+}
+
+function showShareGuide(){
+	$('body').append('<section class="top_box clearfix box_hide"><img src="{$share_logo}"></section><div id="share_guide_box" onclick="hideShareGuide();" style="position:fixed;z-index:9999999;left:0px;top:0px;width:100%;height:100%;background-color: rgba(0,0,0,0.8);text-align:right;" ontouchmove="return true;" ><img src="source/plugin/tom_weixin_vote/images/share.png" style="margin-top:10px;margin-right:10px;"></div>');
+}
+function hideShareGuide(){
+    $("#share_guide_box").remove();
+}
+
+$(".a_tp_btn").on("click", function(event){
+    $(window).scrollTop(0);
+    $(".tp_box").removeClass('box_hide');
+});
+
+$(".a_tp_close").on("click", function(event){
+    $(".tp_box").addClass('box_hide');
+});
+
+$(".tp_close_box").on("click", function(event){
+    $(".tp_box").addClass('box_hide');
+});
+
+$(".footer_nav_search").on("click", function(event){
+    $(window).scrollTop(0);
+    $(".search_box").removeClass('box_hide');
+});
+
+$(".search_close_box").on("click", function(event){
+    $(".search_box").addClass('box_hide');
+});
+
+var submintTpformStatus = 0;
+$(".tp_form_btn").click( function () { 
+    var tpxm = $("#tpxm").val();
+    var tptel = $("#tptel").val();
+    if(submintTpformStatus == 1){
+        return false;
+    }
+    if(tpxm == ""){
+        tusi("{lang tom_weixin_vote:info_must_xm}");
+        return false;
+    }
+    
+    if(tptel == '' || !checkMobile(tptel)){
+        tusi("{lang tom_weixin_vote:info_must_tel}");
+        return false;
+    }
+    submintTpformStatus = 1;
+    loading('{lang tom_weixin_vote:tp_doing}');
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxUrl}",
+        dataType : "json",
+        data: $('#tp_form').serialize(),
+        success: function(data){
+            loading(false);
+            submintTpformStatus = 0;
+            if(data.status == 100) {
+                tusi("{lang tom_weixin_vote:info_tp_yjtp}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 200){
+                if(data.cj == 1){
+                    $(".tp_box").addClass('box_hide');
+                    $(".dialog_box").removeClass('box_hide');
+                }else{
+                    tusi("{lang tom_weixin_vote:info_tp_success}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }
+            }else if(data.status == 201){
+                tusi("{lang tom_weixin_vote:info_tp_err201}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 202){
+                tusi("{lang tom_weixin_vote:info_tp_err202}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 301){
+                //tusi("{lang tom_weixin_vote:info_tp_err301}");
+                //setTimeout(function(){document.location.reload();},1888);
+                showguanzu();
+            }else if(data.status == 302){
+                tusi("{lang tom_weixin_vote:info_tp_err302}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 303){
+                tusi("{lang tom_weixin_vote:info_tp_err303}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 304){
+                tusi("{lang tom_weixin_vote:info_tp_err304}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 305){
+                tusi("{lang tom_weixin_vote:info_tp_err305}");
+                $(".tp_box").addClass('box_hide');
+                $(".bianhao_box_main").removeClass('box_hide');
+            }else if(data.status == 306){
+                tusi("{lang tom_weixin_vote:info_tp_err306}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else{
+                tusi("{lang tom_weixin_vote:info_tp_err}");
+                setTimeout(function(){document.location.reload();},1888);
+            }
+        }
+    });
+});
+
+var submintTpStatus = 0;
+$(".a_tp_btn2").click( function () { 
+    if(submintTpStatus == 1){
+        return false;
+    }
+    submintTpStatus = 1;
+    loading('{lang tom_weixin_vote:tp_doing}');
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxTpUrl}",
+        dataType : "json",
+        data: "",
+        success: function(data){
+            loading(false);
+            submintTpStatus = 0;
+            if(data.status == 100) {
+                tusi("{lang tom_weixin_vote:info_tp_yjtp}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 200){
+                if(data.cj == 1){
+                    $(".tp_box").addClass('box_hide');
+                    $(".dialog_box").removeClass('box_hide');
+                }else{
+                    tusi("{lang tom_weixin_vote:info_tp_success}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }
+            }else if(data.status == 201){
+                tusi("{lang tom_weixin_vote:info_tp_err201}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 202){
+                tusi("{lang tom_weixin_vote:info_tp_err202}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 302){
+                tusi("{lang tom_weixin_vote:info_tp_err302}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 301){
+                //tusi("{lang tom_weixin_vote:info_tp_err301}");
+                //setTimeout(function(){document.location.reload();},1888);
+                showguanzu();
+            }else if(data.status == 303){
+                tusi("{lang tom_weixin_vote:info_tp_err303}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 304){
+                tusi("{lang tom_weixin_vote:info_tp_err304}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else if(data.status == 305){
+                tusi("{lang tom_weixin_vote:info_tp_err305}");
+                $(".tp_box").addClass('box_hide');
+                $(".bianhao_box_main").removeClass('box_hide');
+            }else if(data.status == 306){
+                tusi("{lang tom_weixin_vote:info_tp_err306}");
+                setTimeout(function(){document.location.reload();},1888);
+            }else{
+                tusi("{lang tom_weixin_vote:info_tp_err}");
+                setTimeout(function(){document.location.reload();},1888);
+            }
+        }
+    });
+});
+
+<!--{if $showBtnBox == 2}-->
+$(".a_tp_btn22").click( function () { 
+    $('#codeBox').show();
+});
+function gt_custom_ajax(result, selector, message) {
+    if (result){
+        $('#codeBox').hide();
+        loading('{lang tom_weixin_vote:tp_doing}');
+        $.ajax({
+            type: "GET",
+            url: "{$ajaxTpUrl}",
+            dataType : "json",
+            data: "",
+            success: function(data){
+                loading(false);
+                submintTpStatus = 0;
+                if(data.status == 100) {
+                    tusi("{lang tom_weixin_vote:info_tp_yjtp}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 200){
+                    if(data.cj == 1){
+                        $(".tp_box").addClass('box_hide');
+                        $(".dialog_box").removeClass('box_hide');
+                    }else{
+                        tusi("{lang tom_weixin_vote:info_tp_success}");
+                        setTimeout(function(){document.location.reload();},1888);
+                    }
+                }else if(data.status == 201){
+                    tusi("{lang tom_weixin_vote:info_tp_err201}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 202){
+                    tusi("{lang tom_weixin_vote:info_tp_err202}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 302){
+                    tusi("{lang tom_weixin_vote:info_tp_err302}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 301){
+                    tusi("{lang tom_weixin_vote:info_tp_err301}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 303){
+                    tusi("{lang tom_weixin_vote:info_tp_err303}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 304){
+                    tusi("{lang tom_weixin_vote:info_tp_err304}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else if(data.status == 305){
+                    tusi("{lang tom_weixin_vote:info_tp_err305}");
+                    $(".tp_box").addClass('box_hide');
+                    $(".bianhao_box_main").removeClass('box_hide');
+                }else if(data.status == 306){
+                    tusi("{lang tom_weixin_vote:info_tp_err306}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }else{
+                    tusi("{lang tom_weixin_vote:info_tp_err}");
+                    setTimeout(function(){document.location.reload();},1888);
+                }
+            }
+        });
+    }else{
+        if(message == "Fail") {}
+        if(message == "Abuse" || message == "Forbidden") { }
+  	}
+  	$('.gt_refresh_button')[0].click(); 
+}
+<!--{/if}-->
+
+function checkMobile(s){
+	var regu =/^[1][3|8|4|5|7][0-9]{9}$/;
+	var re = new RegExp(regu);
+	if (re.test(s)) {
+		return true;
+	}else{
+		return false;
+	}
+} 
+
+$(document).ready(function(){
+  $.get("{$ajaxClicksUrl}");
+});
+
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[2018-04-04 00:16:18][debug] start
+[2018-04-04 00:16:18][debug] call back
+[2018-04-04 00:16:18][debug] update order flow:"TC20180404001605-504661"
+[2018-04-04 00:16:18][debug] update user:"7"
+[2018-04-04 00:16:19][debug] success
+[2018-04-04 00:20:22][debug] start
+[2018-04-04 00:20:22][debug] call back
+[2018-04-04 00:20:22][debug] update order flow:"TC20180404002011-264607"
+[2018-04-04 00:20:22][debug] update order:{"id":"13","site_id":"1","user_id":"7","tongcheng_id":"166","tcshop_id":"0","money":"2.00","all_money":"2.00","sx_money":"0.00","hb_count":"10","open_kouling":"2","kouling":"","kouling_pormpt":"","status":"1","only_show":"1","pay_status":"1","order_no":"TC20180404002011-264607","fenpei_status":"2","send_status":"0","add_time":"1522772411","part1":null,"part2":null,"part3":null}
+[2018-04-04 00:20:22][debug] success

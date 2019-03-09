@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+<title>{$voteInfo['title']}</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="source/plugin/tom_weixin_vote/images/style.css?v={$cssJsVersion}" rel="stylesheet" type="text/css">
+<link href="source/plugin/tom_weixin_vote/images/music/music.css" rel="stylesheet" type="text/css">
+<link href="source/plugin/tom_weixin_vote/images/swiper.min.css" rel="stylesheet" />
+<script type="text/javascript" src="source/plugin/tom_weixin_vote/images/swiper.min.js"></script>
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/jquery.js"></script>
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/jquery.grid-a-licious.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script type="text/javascript">var usiteurl = "{$uSiteUrl}";var plugin_id="tom_weixin_vote";var check_r="1";</script>
+<base target="_self">
+</head>
+<body>
+<!--{if $voteInfo['mp3_link']}-->
+<script src="source/plugin/tom_weixin_vote/images/music/music.js"></script>
+<div class="music_play_yinfu" id="music_audio_btn" style="display: block;">
+    <div id="music_yinfu" class="music_rotate"></div>
+    <audio preload="auto" autoplay="autoplay" id="music_media" src="{$voteInfo['mp3_link']}" loop></audio>
+</div>
+<!--{/if}-->
+<!--{if $voteInfo['focus_status'] == 0}-->
+<section class="top_box clearfix"><img src="{$vote_pic_url}" width="100%"></section>
+<!--{else}-->
+<section class="top_box clearfix">
+    <div id="focus" class="slide-box swiper-container" style="margin-bottom: 10px;">
+        <div class="slide-list swiper-wrapper clearfix">
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url1']}-->{$voteInfo['focus_pic_url1']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic1}"></a></div>
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url2']}-->{$voteInfo['focus_pic_url2']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic2}"></a></div>
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url3']}-->{$voteInfo['focus_pic_url3']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic3}"></a></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<!--{/if}-->
+<section class="tongji_box clearfix">
+	<ul class="clearfix">
+    	<li>
+        	<p>{lang tom_weixin_vote:index_item_count}</p>
+            <p>{$itemCount}</p>
+            <span></span>
+        </li>
+        <li>
+            <p>{lang tom_weixin_vote:index_all_num}</p>
+            <p>{$allNum}</p>
+            <span></span>
+        </li>
+        <li>
+            <p>{lang tom_weixin_vote:index_clicks}</p>
+            <p>{$voteInfo['clicks']}</p>
+        </li>
+  </ul>
+</section>
+
+<section class="index_nav clearfix">
+    <div class="index_nav_btns clearfix">
+        <a href="plugin.php?id=tom_weixin_vote&mod=phb&vid={$vid}&nav=1">{lang tom_weixin_vote:index_phb_title}</a>
+        <a href="#prize">{lang tom_weixin_vote:index_prize_title}</a>
+        <a href="plugin.php?id=tom_weixin_vote&mod=add&vid={$vid}">{lang tom_weixin_vote:index_add_title}</a>
+    </div>
+</section>
+
+<section class="index_search_box clearfix">
+	<div class="index_search_box_main clearfix">
+    	<div class="form_box">
+            <form action="" id="search_form2" method="post" onsubmit="return false;">
+        	<table width="100%">
+                <tr>
+                    <td width=""><input class="input_class" style="border: 1px solid {$voteBgColor};" type="text" name="keywords" placeholder="{lang tom_weixin_vote:search_place}"/></td>
+                    <td width="70">
+                        <input type="hidden" name="formhash" value="{$formhash}">
+                        <input type="hidden" name="vid" value="{$vid}">
+                        <input name="dosubmit" class="a_class id_search_btn2" style="background-color: {$voteBgColor};" type="button" value="{lang tom_weixin_vote:search_btn}">
+                    </td>
+                </tr>
+            </table>
+            </form>
+            <script>
+            $(".id_search_btn2").click( function () { 
+                $.ajax({
+                    type: "GET",
+                    url: "{$searchUrl}",
+                    data: $('#search_form2').serialize(),
+                    success: function(msg){
+                        window.location = msg;
+                    }
+                });
+            });
+            </script>
+        </div>
+    </div>
+</section>
+<section class="index_time_box clearfix">
+    <div class="index_time_box_main clearfix">
+        <div class="index_time_box_pp_time">
+            {lang tom_weixin_vote:index_time_title}<span id="ti_time_day">--</span>{lang tom_weixin_vote:index_day_title}<span id="ti_time_hour">--</span>{lang tom_weixin_vote:index_hour_title}<span id="ti_time_min">--</span>{lang tom_weixin_vote:index_minute_title}<span id="ti_time_sec">--</span>{lang tom_weixin_vote:index_second_title}
+        </div>
+    </div>
+</section>
+<section class="title_box clearfix">
+	<div class="title_box_main clearfix">
+    	<span>{$voteInfo['title']}</span>
+    </div>
+</section>
+<section class="time_box clearfix">
+	<div class="time_box_main clearfix">
+    	<span>{$start_time} {lang tom_weixin_vote:index_zhi} {$end_time}</span>
+    </div>
+</section>
+<section class="list_box clearfix">
+	<div id="list_box">
+        <!--{loop $itemList $key $val}-->
+    	<div class="list_item">
+        	<a href="{$val['url']}">
+              <img src="{$val['pic_url']}"/>
+              <div class="title"><span class="xs">{lang tom_weixin_vote:index_xuanshou}</span>{$val['name']}</div>
+              <div class="msg_box">
+                    <span class="bianhao">{$val['no']}{lang tom_weixin_vote:index_hao}</span>
+                    <span class="num">{$val['num']}{lang tom_weixin_vote:index_piao}</span>
+              </div>
+            <div class="btn_box">
+                  <span class="btn" style="background-color: {$voteBgColor};">{lang tom_weixin_vote:index_tp}</span>
+            </div>
+            </a>
+        </div>
+        <!--{/loop}-->
+    </div>
+    <div class="pages clearfix">
+    	<ul class="clearfix">
+          <li style="width: 30%;"><!--{if $page > 1}--><a href="{$prePageUrl}">{lang tom_weixin_vote:index_pre}</a><!--{else}--><span>{lang tom_weixin_vote:index_pre}</span><!--{/if}--></li>
+          <li style="width: 40%;"><span>{$page}/{$allPageNum}</span></li>
+          <li style="width: 30%;"><!--{if $showNextPage == 1}--><a href="{$nextPageUrl}">{lang tom_weixin_vote:index_next}</a><!--{else}--><span>{lang tom_weixin_vote:index_next}</span><!--{/if}--></li>
+      	</ul>
+    </div>
+</section>
+<section class="common_title clearfix" id="prize">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:index_prize_title}</span>
+    </div>
+</section>
+<section class="content_box clearfix">
+	<div class="content_box_main clearfix">
+    	{$prize_txt}
+    </div>
+</section>
+<section class="common_title clearfix">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:index_about_title}</span>
+    </div>
+</section>
+<section class="content_box clearfix">
+	<div class="content_box_main clearfix">
+    	{$content}
+    </div>
+</section>
+<section class="common_title clearfix">
+	<div class="common_title_main clearfix" style="background-color: {$voteBgColor};">
+    	<span>{lang tom_weixin_vote:info_ads_title}</span>
+    </div>
+</section>
+<section class="shop_item clearfix">
+	<div class="shop_item_main clearfix">
+    	{$adsText}
+    </div>
+</section>
+<section class="search_box clearfix box_hide">
+	<div class="search_box_main clearfix" style="background-color: {$voteBgColor};">
+    	<div class="form_box">
+            <form action="" id="search_form" method="post" onsubmit="return false;">
+        	<table width="100%">
+            	<tr>
+                    <td width=""><input class="input_class" type="text" name="keywords" placeholder="{lang tom_weixin_vote:search_place}"/></td>
+                    <td width="70">
+                        <input type="hidden" name="formhash" value="{$formhash}">
+                        <input type="hidden" name="vid" value="{$vid}">
+                        <input name="dosubmit" class="a_class id_search_btn" type="button" value="{lang tom_weixin_vote:search_btn}">
+                    </td>
+                </tr>
+            </table>
+            </form>
+            <script>
+            $(".id_search_btn").click( function () { 
+                $.ajax({
+                    type: "GET",
+                    url: "{$searchUrl}",
+                    data: $('#search_form').serialize(),
+                    success: function(msg){
+                        window.location = msg;
+                    }
+                });
+            });
+            </script>
+        </div>
+    </div>
+    <div class="close_box search_close_box"></div>
+</section>
+<!-- footer start-->
+<section class="footer_block clearfix "></section>
+<footer class="footer_main clearfix">
+	<ul class="clearfix">
+    	<li class="footer_nav_index"><a href="plugin.php?id=tom_weixin_vote&mod=index&vid={$vid}&nav=1"><span class="nav">{lang tom_weixin_vote:nav_index}</span></a></li>
+        <li class="footer_nav_search"><a href="javascript:void(0);"><span class="nav">{lang tom_weixin_vote:nav_search}</span></a></li>
+        <li class="footer_nav_ph"><a href="plugin.php?id=tom_weixin_vote&mod=phb&vid={$vid}&nav=1"><span class="nav">{lang tom_weixin_vote:nav_phb}</span></a></li>
+        <li class="footer_nav_gz"><a href="plugin.php?id=tom_weixin_vote&mod=add&vid={$vid}"><span class="nav">{lang tom_weixin_vote:nav_bm}</span></a></li>
+    </ul>
+</footer>
+<!-- footer end-->
+<!--{if $open_tousu == 1}-->
+<section id="tousu" style=" z-index:9999; text-align:center; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border:1px solid #ccc; background:#403e3e; position:fixed; bottom:20%; left:-24px; width:50px; padding:10px 0 10px 12px;"><a style="display:block; color:#fff; font-size:16px; line-height:25px; font-family: fantasy;" href="{$tousuUrl}">{lang tom_weixin_vote:tousu_msg_1}<br/>{lang tom_weixin_vote:tousu_msg_2}</a></section>
+<!--{/if}-->
+<script src="source/plugin/tom_weixin_vote/images/index.js"></script>
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+});
+    
+
+$(document).ready(function () {
+    $("#list_box").gridalicious({
+        gutter: 5,         //padding
+        width: 160,			//width
+        animate: true,
+        animationOptions: {
+                speed: 150,
+                duration: 400,
+                complete: onComplete
+        }
+    });
+    function onComplete(data) {};
+});
+$(".footer_nav_search").on("click", function(event){
+    $(window).scrollTop(0);
+    $(".search_box").removeClass('box_hide');
+});
+
+$(".search_close_box").on("click", function(event){
+    $(".search_box").addClass('box_hide');
+});
+
+var contentOpen = 0;
+$(".content_title").on("click", function(event){
+    if(contentOpen == 1){
+        contentOpen = 0;
+        $(".content_box").addClass('box_hide');
+    }else{
+        contentOpen = 1;
+        $(".content_box").removeClass('box_hide');
+    }
+});
+
+$(document).ready(function(){
+  $.get("{$ajaxClicksUrl}");
+});
+
+var intDiff = parseInt({$daojishiTimes});
+function timer(intDiff){
+    window.setInterval(function(){
+    var day=0,
+        hour=0,
+        minute=0,
+        second=0;  
+    if(intDiff > 0){
+        day = Math.floor(intDiff / (60 * 60 * 24));
+        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+    }
+    if (minute <= 9) minute = '0' + minute;
+    if (second <= 9) second = '0' + second;
+    $('#ti_time_day').html(day+'');
+    $('#ti_time_hour').html(hour+'');
+    $('#ti_time_min').html(minute+'');
+    $('#ti_time_sec').html(second+'');
+    intDiff--;
+    }, 1000);
+} 
+$(function(){
+    timer(intDiff);
+});
+
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage'
+    ]
+});
+wx.ready(function () {
+    <!--{if $voteInfo['mp3_link']}-->
+    var audio2 = $('#music_media');
+    audio2[0].play();
+    <!--{/if}-->
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+
+</body>
+</html>

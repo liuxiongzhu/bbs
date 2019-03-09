@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X3.1]]></item>
+	<item id="Time"><![CDATA[2015-07-07 23:49]]></item>
+	<item id="From"><![CDATA[DEVELOP (http://www.tomwx.cn)]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[TOMÎ¢ÐÅ]]></item>
+			<item id="identifier"><![CDATA[tom]]></item>
+			<item id="description"><![CDATA[TOMÎ¢ÐÅ²å¼þ¹ÜÀí¹¤¾ß]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[tom/]]></item>
+			<item id="copyright"><![CDATA[TOMÎ¢ÐÅ£¨www.tomwx.cn£©]]></item>
+			<item id="version"><![CDATA[6.0]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[index]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[Ê×Ò³]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[1]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[language]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[ÓïÑÔ°üÐÞ¸Ä]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[2]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X2.5,X3,X3.1,X3.2]]></item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="act_success"><![CDATA[²Ù×÷³É¹¦]]></item>
+				<item id="language_help_title"><![CDATA[ÓïÑÔ°üÐÞ¸Ä°ïÖú]]></item>
+				<item id="language_help_1"><![CDATA[Èç¹ûÄãÒªÐÞ¸ÄTOMÎ¢ÐÅ²å¼þÖÐÄÄÒ»¶ÎÎÄ×Ö£¬Äã¿ÉÒÔÍ¨¹ýÕâ±ß£¬Ò»°ãÄãµ½Ä£°åÓïÑÔ°üÀïÐÞ¸Ä¾ÍÐÐÁË¡£</font>]]></item>
+				<item id="language_help_2"><![CDATA[<font color="#FF0000">ÓïÑÔ°üÊôÓÚÏµÍ³µ×²ãÄÚÈÝ£¬ÐÞ¸ÄÓÐ·çÏÕ£¬ÄúÐèÒª×ÔÐÐ³Ðµ£·çÏÕ£¬½¨Òé²Ù×÷Ç°±¸·ÝÊý¾Ý¿â</font>]]></item>
+				<item id="language_help_3"><![CDATA[<font color="#FF0000"><b>Èç¹ûÄãµÚÒ»´ÎÊ¹ÓÃ±¾ÓïÑÔ°üÐÞ¸Ä¹¤¾ß£¬ÎªÁË°²È«£¬Äã±ØÐëÏÈ±¸·ÝÂÛÌ³Êý¾Ý¿â£¬È»ºóÔÚÐÞ¸Ä²Ù×÷¡£</b></font>]]></item>
+				<item id="language_help_4"><![CDATA[<b>Ê¹ÓÃÖÐÓÐÈÎºÎÎÊÌâ£¬ÇëÁªÏµTOMÎ¢ÐÅÆóÒµQQ£¨800046233£©£¬×ÉÑ¯TOM¿Í·þ¡£</b>]]></item>
+				<item id="plugin_list_title"><![CDATA[²å¼þÁÐ±í]]></item>
+				<item id="name"><![CDATA[²å¼þÃû³Æ]]></item>
+				<item id="directory"><![CDATA[²å¼þÄ¿Â¼]]></item>
+				<item id="handle"><![CDATA[²Ù×÷]]></item>
+				<item id="edit_script_lang"><![CDATA[ÐÞ¸Ä½Å±¾ÓïÑÔ°ü]]></item>
+				<item id="edit_template_lang"><![CDATA[ÐÞ¸ÄÄ£°åÓïÑÔ°ü]]></item>
+				<item id="error301"><![CDATA[ÐÞ¸ÄÊ§°Ü£¬¿ÉÄÜÎÄ¼þÃ»ÓÐÐÞ¸ÄÈ¨ÏÞ]]></item>
+			</item>
+		</item>
+	</item>
+</root>

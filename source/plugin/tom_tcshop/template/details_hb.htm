@@ -1,0 +1,241 @@
+<!--{if $__ShowTchongbao == 1 && $tchongbaoInfo['status'] == 1 && $show_hongbao_button == 1 && $lqHongbaoStatus == 0}-->
+<section class="info-hongbao">
+    <div class="hongbao-button" style="bottom: 51px;">
+        <a href="javascript:;" onClick="hongbaoFilter();">{lang tom_tongcheng:info_hb_lq}</a>
+    </div>
+</section>
+<!--{/if}-->
+<!--{if $__ShowTchongbao == 1 && $tchongbaoInfo['only_show'] == 1}-->
+<section class="info-hongbao-box">
+    <div class="hongbao-box">
+        <div class="shop-pic" style="margin-top: 40px">
+            <img src="{$sendHongbaoUserInfo['picurl']}">
+            <p>{$sendHongbaoUserInfo['nickname']}</p>
+            <p>{lang tom_tongcheng:info_hb_to_me}</p>
+        </div>
+        <!--{if $tchongbaoInfo['open_kouling'] == 1}-->
+        <!--{else}-->
+        <div class="bongbao-title" style="height: 40px;"></div>
+        <!--{/if}-->
+        <form id="qiang_hongbao_form" onsubmit="return false;">
+            <!--{if $tchongbaoInfo['open_kouling'] == 1}-->
+            <input type="text" id="kouling" name="kouling" value="" placeholder="{lang tom_tongcheng:info_hb_input_kouling}">
+            <!--{/if}-->
+            <input type="hidden" name="formhash" value="{$formhash}">
+            <input type="hidden" name="site" value="{$site_id}">
+            <input type="hidden" name="tcshop_id" value="{$tcshop_id}">
+            <input type="hidden" name="act" value="open_tcshop_hb">
+            <input type="hidden" name="hongbao_id" value="{$tchongbaoInfo['id']}">
+            <input type="hidden" id="longitude" name="longitude" value="{$longitude}">
+            <input type="hidden" id="latitude" name="latitude" value="{$latitude}">
+        </form>
+        <div class="hongbao-button" id="open_hb"><img src="source/plugin/tom_tchongbao/images/hongbao_qiang.png"></div>
+        <!--{if $tchongbaoInfo['open_kouling'] == 1}-->
+        <p class="kouling_pormpt"><span>{lang tom_tongcheng:info_hb_kouling_pormpt}</span>{$tchongbaoInfo['kouling_pormpt']}</p>
+        <!--{/if}-->
+        <div class="hongbao-close" onClick="hongbaoBoxHide();"></div>
+    </div>
+</section>
+<!--{if $tchongbaoConfig['mp3_link']}-->
+<script src="source/plugin/tom_tchongbao/images/music/music.js"></script>
+<div class="music_play_yinfu" id="music_audio_btn" style="display: none;">
+    <div id="music_yinfu" class="music_rotate"></div>
+    <audio id="music_media" controls="controls" src="{$tchongbaoConfig['mp3_link']}" ></audio>
+</div>
+<!--{/if}-->
+<div id="loadingToast" class="loading-toast">
+    <div class="tcui-mask_transparent"></div>
+    <div class="tcui-toast">
+        <i class="tcui-loading tcui-icon_toast"></i>
+        <p class="tcui-toast__content"></p>
+    </div>
+</div>
+<div id="toast" style="display: none;">
+    <div class="tcui-mask_transparent"></div>
+    <div class="tcui-toast">
+        <i class="tcui-icon-success-no-circle tcui-icon_toast"></i>
+        <p class="tcui-toast__content">{lang tom_tcshop:details_hb_qiangover}</p>
+    </div>
+</div>
+<script type="text/javascript">
+<!--{if $__ShowTchongbao == 1 && $lqHongbaoStatus != 1 && $tchongbaoInfo['status'] == 1 && $openLocaltionDistance == 1 && $hongbaoLocationStatus == 0}-->
+    $('#loadingToast .tcui-toast .tcui-toast__content').html("{lang tom_tongcheng:locationing}");
+    $('#loadingToast').show();
+<!--{/if}-->
+<!--{if $tchongbaoInfo['status'] == 2 && $lastLogTime > TIMESTAMP}-->
+$(function(){
+    $('#toast').fadeIn(100);
+    setTimeout(function () {
+        $('#toast').fadeOut(100);
+    }, 2000);
+});
+<!--{/if}-->
+$(document).ready(function(){
+    <!--{if $tchongbaoConfig['mp3_link']}-->
+    var audio2 = $('#music_media');
+    audio2[0].pause();
+    <!--{/if}-->
+});
+
+var hbButtomClickStatus = 0;
+function hongbaoFilter(){
+    <!--{if $tchongbaoConfig['mp3_link']}-->
+    var audio2 = $('#music_media');
+    audio2[0].play();
+    <!--{/if}-->
+    <!--{if $openLocaltionDistance == 2}-->
+    tusi('{lang tom_tongcheng:info_hb_err_wx_open}');
+    return false;
+    <!--{elseif $openLocaltionDistance == 3}-->
+    tusi('[301]{lang tom_tongcheng:info_hb_err_distance_error}');
+    return false;
+    <!--{elseif $openLocaltionDistance == 1}-->
+        
+        <!--{if $hongbaoLocationStatus == 1}-->
+            hbButtomClickStatus = 1;
+            hongbaoBox();
+            return false;
+        <!--{elseif $hongbaoLocationStatus == 2}-->
+            tusi('{lang tom_tongcheng:info_hb_err_distance_303}');
+            return false;
+        <!--{/if}-->
+        
+        if(getLocationStatus == 1){
+            if(hbButtomClickStatus == 1){
+                hongbaoBox();
+            }else{
+                tusi('{lang tom_tongcheng:info_hb_err_distance_303}');
+                return false;
+            }
+        }else if(getLocationStatus == 2){
+            tusi("{lang tom_tongcheng:info_hb_err_no_location_error}");
+            return false;
+        }else{
+            tusi('{lang tom_tcshop:details_hb_location_error}');
+            return false;
+        }
+        
+    <!--{else}-->
+    hbButtomClickStatus = 1;
+    hongbaoBox();
+    return false;
+    <!--{/if}-->
+}
+
+function locationRequest(){
+    var lat = $('#latitude').val();
+    var long = $('#longitude').val();
+    
+    <!--{if $hongbaoLocationStatus == 1}-->
+        getLocationStatus = 1;
+        hbButtomClickStatus = 1;
+        return false;
+    <!--{elseif $hongbaoLocationStatus == 2}-->
+        getLocationStatus = 1;
+        return false;
+    <!--{/if}-->
+    
+    if(lat == '' || long == ''){
+        $('#loadingToast').hide();
+        tusi('[304]{lang tom_tongcheng:info_hb_err_distance_error}');
+        return false;
+    }
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxDistanceHongbaoUrl}",
+        data: {latitude:lat,longitude:long},
+        success: function(msg){
+            getLocationStatus = 1;
+            $('#loadingToast').hide();
+            var data = eval('('+msg+')');
+            if(data == 200){
+                hbButtomClickStatus = 1;
+            }else if(data == 301){
+                tusi('[305]{lang tom_tongcheng:info_hb_err_distance_error}');
+                return false;
+            }else if(data == 302){
+                tusi('[306]{lang tom_tongcheng:info_hb_err_distance_error}');
+                return false;
+            }else if(data == 303){
+                tusi('{lang tom_tongcheng:info_hb_err_distance_303}');
+                return false;
+            }else{
+                tusi('{lang tom_tongcheng:info_hb_err_distance_error}');
+                return false;
+            }
+        }
+    });
+}
+
+function hongbaoBox(){
+    <!--{if $tchongbaoConfig['hb_lq_type'] == 1}-->
+    $('.info-hongbao-box').show();
+    <!--{/if}-->
+}
+    
+function hongbaoBoxHide(){
+    <!--{if $tchongbaoConfig['mp3_link']}-->
+    var audio2 = $('#music_media');
+    audio2[0].pause();
+    <!--{/if}-->
+    $('.info-hongbao-box').hide();
+}
+
+var openHongbaoStatus = 0;
+$('#open_hb').click(function(){
+    <!--{if $tchongbaoInfo['status'] != 1}-->
+    tusi("{lang tom_tongcheng:info_hb_lq_over}");
+    return false;
+    <!--{/if}-->
+    
+    <!--{if $tchongbaoConfig['open_hb_position'] == 1}-->
+    if(hbButtomClickStatus != 1){
+        tusi("{lang tom_tongcheng:info_hb_err_distance_303}");
+        return false;
+    }
+    <!--{/if}-->
+    <!--{if $tchongbaoInfo['open_kouling'] == 1}-->
+    var kouling = $('#kouling').val();
+    if(kouling == ''){
+        tusi("{lang tom_tongcheng:info_hb_input_kouling}");
+        return false;
+    }
+    <!--{/if}-->
+    if(openHongbaoStatus == 1){
+        return false;
+    }
+    openHongbaoStatus = 1;
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxHongbaoUrl}",
+        data: $('#qiang_hongbao_form').serialize(),
+        success: function(msg){
+            openHongbaoStatus = 0;
+            var data = eval('('+msg+')');
+            if(data == 200){
+                setTimeout(function(){window.location.href='{$hongbaoLogListUrl}';},500);
+            }else if(data == 301){
+                tusi("{lang tom_tongcheng:info_hb_err_301}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data == 302){
+                tusi("{lang tom_tongcheng:info_hb_err_302}");
+                return false;
+            }else if(data == 303){
+                tusi("{lang tom_tongcheng:info_hb_err_303}");
+                return false;
+            }else if(data == 304){
+                tusi("{lang tom_tongcheng:info_hb_err_304}");
+                setTimeout(function(){window.location.href='{$hongbaoLogListUrl}';},500);
+            }else if(data == 305){
+                tusi("{lang tom_tongcheng:info_hb_err_305}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else{
+                tusi("{lang tom_tongcheng:info_hb_err}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }
+        }
+    });
+})
+
+</script>
+<!--{/if}-->

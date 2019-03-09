@@ -1,0 +1,18 @@
+{template common/header}
+<!--{if $_G['inajax']}-->
+<!--{if error==1}-->
+<h1>Error!</h1>
+<!--{else}-->
+<div class="tom_jy_add">
+	<div class="tom_jy_add_l">
+        <img src="{$voteConfig['erw_picurl']}" width="200" height="200"/>
+        <h1>{lang tom_weixin_vote:pc_saoyisao}</h1>
+    </div>
+    <div class="tom_jy_add_r">
+        <div class="tom_jy_add_r_desc">{$add_weixin_msg}</div>
+        <div class="tom_jy_add_r_close"><a style="background-color: {$voteBgColor};" href="javascript:;" onclick="hideWindow('tom_weixin_vote_wx');">{lang tom_weixin_vote:index_close}</a></div>
+    </div>
+</div>
+<!--{/if}-->
+<!--{/if}-->
+{template common/footer}

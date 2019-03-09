@@ -1,0 +1,24 @@
+[2019-02-28 00:28:44][debug] start
+[2019-02-28 00:28:44][debug] call back
+[2019-02-28 00:28:44][debug] update order flow:"TC20190228002828-152575"
+[2019-02-28 00:28:44][debug] update order:"TC20190228002828-152575"
+[2019-02-28 00:28:44][debug] success
+[2019-02-28 01:46:55][debug] start
+[2019-02-28 01:46:55][debug] call back
+[2019-02-28 01:46:55][debug] update order flow:"TC20190228014639-386208"
+[2019-02-28 01:46:55][debug] update order:"TC20190228014639-386208"
+[2019-02-28 01:46:55][debug] update shenyu_money:5.6
+[2019-02-28 01:46:55][debug] update child_site_fc_money:0
+[2019-02-28 01:46:55][debug] update tchehuoren_fc_money:2.40
+[2019-02-28 01:46:55][debug] update TCtchehuoren_fc_money:0
+[2019-02-28 01:46:56][debug] success
+[2019-02-28 11:00:24][debug] start
+[2019-02-28 11:00:24][debug] call back
+[2019-02-28 11:00:25][debug] update order flow:"TC20190228110012-284560"
+[2019-02-28 11:00:25][debug] update order:"TC20190228110012-284560"
+[2019-02-28 11:00:25][debug] success
+[2019-02-28 20:36:34][debug] start
+[2019-02-28 20:36:34][debug] call back
+[2019-02-28 20:36:34][debug] update order flow:"TC20190228203627-438687"
+[2019-02-28 20:36:34][debug] update order:"TC20190228203627-438687"
+[2019-02-28 20:36:34][debug] success

@@ -1,0 +1,9 @@
+[2018-11-13 08:36:15][debug] start
+[2018-11-13 08:36:15][debug] call back
+[2018-11-13 08:36:16][debug] update order flow:"TC20181113083604-222500"
+[2018-11-13 08:36:16][debug] update order:"TC20181113083604-222500"
+[2018-11-13 08:36:16][debug] update shenyu_money:1.4
+[2018-11-13 08:36:16][debug] update child_site_fc_money:0
+[2018-11-13 08:36:16][debug] update tchehuoren_fc_money:0.60
+[2018-11-13 08:36:16][debug] update TCtchehuoren_fc_money:0
+[2018-11-13 08:36:16][debug] success

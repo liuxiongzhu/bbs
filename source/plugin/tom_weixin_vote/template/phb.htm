@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+<title>{lang tom_weixin_vote:phb_title}-{$voteInfo['title']}</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="source/plugin/tom_weixin_vote/images/style.css?v={$cssJsVersion}" rel="stylesheet" type="text/css">
+<link href="source/plugin/tom_weixin_vote/images/swiper.min.css" rel="stylesheet" />
+<script type="text/javascript" src="source/plugin/tom_weixin_vote/images/swiper.min.js"></script>
+<script language="javascript" src="source/plugin/tom_weixin_vote/images/jquery.js"></script>
+<base target="_self">
+</head>
+<body>
+<!--{if $voteInfo['focus_status'] == 0}-->
+<section class="top_box clearfix"><img src="{$vote_pic_url}" width="100%"></section>
+<!--{else}-->
+<section class="top_box clearfix">
+    <div id="focus" class="slide-box swiper-container" style="margin-bottom: 10px;">
+        <div class="slide-list swiper-wrapper clearfix">
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url1']}-->{$voteInfo['focus_pic_url1']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic1}"></a></div>
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url2']}-->{$voteInfo['focus_pic_url2']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic2}"></a></div>
+            <div class="item-area swiper-slide"><a href="<!--{if $voteInfo['focus_pic_url3']}-->{$voteInfo['focus_pic_url3']}<!--{else}-->javascript:void(0);<!--{/if}-->"><img src="{$vote_focus_pic3}"></a></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<!--{/if}-->
+<section class="phb_box clearfix">
+    <div class="phb_box_table clearfix">
+    	<table cellpadding="0" cellspacing="0" >
+        	<thead>
+            	<tr style="background-color: {$voteBgColor};">
+                    <th>{lang tom_weixin_vote:phb_paihang}</th>
+                    <th>{lang tom_weixin_vote:phb_xm}</th>
+                    <th>{lang tom_weixin_vote:phb_tp_num}</th>
+                    <th>{lang tom_weixin_vote:phb_tp}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--{loop $itemList $key $val}--> 
+                <tr class="{$val['class']}">
+                	<td>{$val['ph']}</td>
+                    <td><font color="#0099CC">{$val['no']}{lang tom_weixin_vote:index_hao}</font> {$val['name']}</td>
+                    <td>{$val['num']}</td>
+                    <td><a href="{$val['url']}">{lang tom_weixin_vote:phb_tp}</a></td>
+                </tr>
+                <!--{/loop}-->
+            </tbody>
+        	
+        </table>
+    </div>
+</section>
+<section class="search_box clearfix box_hide">
+	<div class="search_box_main clearfix" style="background-color: {$voteBgColor};">
+    	<div class="form_box">
+            <form action="" id="search_form" method="post" onsubmit="return false;">
+        	<table width="100%">
+            	<tr>
+                    <td width=""><input class="input_class" type="text" name="keywords" placeholder="{lang tom_weixin_vote:search_place}"/></td>
+                    <td width="70">
+                        <input type="hidden" name="formhash" value="{$formhash}">
+                        <input type="hidden" name="vid" value="{$vid}">
+                        <input name="dosubmit" class="a_class id_search_btn" type="button" value="{lang tom_weixin_vote:search_btn}">
+                    </td>
+                </tr>
+            </table>
+            </form>
+            <script>
+            $(".id_search_btn").click( function () { 
+                $.ajax({
+                    type: "GET",
+                    url: "{$searchUrl}",
+                    data: $('#search_form').serialize(),
+                    success: function(msg){
+                        window.location = msg;
+                    }
+                });
+            });
+            </script>
+        </div>
+    </div>
+    <div class="close_box search_close_box"></div>
+</section>
+<!-- footer start-->
+<section class="footer_block clearfix "></section>
+<footer class="footer_main clearfix">
+	<ul class="clearfix">
+    	<li class="footer_nav_index"><a href="plugin.php?id=tom_weixin_vote&mod=index&vid={$vid}&nav=1"><span class="nav">{lang tom_weixin_vote:nav_index}</span></a></li>
+        <li class="footer_nav_search"><a href="javascript:void(0);"><span class="nav">{lang tom_weixin_vote:nav_search}</span></a></li>
+        <li class="footer_nav_ph"><a href="plugin.php?id=tom_weixin_vote&mod=phb&vid={$vid}&nav=1"><span class="nav">{lang tom_weixin_vote:nav_phb}</span></a></li>
+        <li class="footer_nav_gz"><a href="plugin.php?id=tom_weixin_vote&mod=add&vid={$vid}"><span class="nav">{lang tom_weixin_vote:nav_bm}</span></a></li>
+    </ul>
+</footer>
+<!-- footer end-->
+<!--{if $open_tousu == 1}-->
+<section id="tousu" style=" z-index:9999; text-align:center; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border:1px solid #ccc; background:#403e3e; position:fixed; bottom:20%; left:-24px; width:50px; padding:10px 0 10px 12px;"><a style="display:block; color:#fff; font-size:16px; line-height:25px; font-family: fantasy;" href="{$tousuUrl}">{lang tom_weixin_vote:tousu_msg_1}<br/>{lang tom_weixin_vote:tousu_msg_2}</a></section>
+<!--{/if}-->
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+});
+
+$(".footer_nav_search").on("click", function(event){
+    $(window).scrollTop(0);
+    $(".search_box").removeClass('box_hide');
+});
+
+$(".search_close_box").on("click", function(event){
+    $(".search_box").addClass('box_hide');
+});
+
+$(document).ready(function(){
+  $.get("{$ajaxClicksUrl}");
+});
+</script>
+</body>
+</html>

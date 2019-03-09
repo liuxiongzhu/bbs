@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[tom_tcmajia.plugin]]></item>
+	<item id="RevisionID"><![CDATA[76081]]></item>
+	<item id="SN"><![CDATA[2017111700rRAvkCKRyg]]></item>
+	<item id="RevisionDateline"><![CDATA[1510020002]]></item>
+	<item id="Data">
+		<item id="/class/function.admin.php"><![CDATA[6eabe82e4aef690a75f88958d3aa3914]]></item>
+		<item id="/class/tom.upload.php"><![CDATA[58e790ecb14278b1de56d6c5b55c1165]]></item>
+		<item id="/class/tom.form.php"><![CDATA[6d461edabe25f4207bbbbe2114dc026c]]></item>
+		<item id="/admin.inc.php"><![CDATA[3d762a98dd9b69080c3142e2400a7942]]></item>
+		<item id="/install.php"><![CDATA[ad79823b91f29f1050ff9cee6a396697]]></item>
+		<item id="/uninstall.php"><![CDATA[be52f697ef7b4753d36c746fb2ea1ff0]]></item>
+		<item id="/tom_tcmajia.inc.php"><![CDATA[7c68d70f60e9e20098a4c448e5499067]]></item>
+		<item id="/discuz_plugin_tom_tcmajia_SC_GBK.xml"><![CDATA[89cb216018aba7d41014e8d62f82696c]]></item>
+		<item id="/admin/majia.php"><![CDATA[336cfab7ed9a9ee8f76a1b6a3d5e8a88]]></item>
+		<item id="/admin/addon.php"><![CDATA[9054e6a7de7a76c89ca563e28e5a21eb]]></item>
+		<item id="/table/table_common_plugin.php"><![CDATA[c2b2683bfd086246ba748de25bad6120]]></item>
+		<item id="/discuz_plugin_tom_tcmajia_SC_UTF8.xml"><![CDATA[818685c812987e88a5af4cfff16b0539]]></item>
+		<item id="/upgrade.php"><![CDATA[d549bacd9392571964de0a9b52de125f]]></item>
+	</item>
+</root>

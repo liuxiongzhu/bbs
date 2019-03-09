@@ -1,0 +1,390 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{lang tom_tongcheng:personal_title} - {$__SitesInfo['name']}</title>
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/iconfont/iconfont.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/jquery.min-2.1.3.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/layer_mobile/layer.js?v={$cssJsVersion}"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+{template tom_tongcheng:template_css}
+<style>
+.layui-m-layer0 .layui-m-layerchild{width: 70%;}
+.layui-m-layercont{padding: 5px 3px;}
+.top__bg{background: {$tongchengConfig['template_color']} url(source/plugin/tom_tongcheng/images/personal/bg.png)no-repeat;background-size: 100% 100%;}
+.personal_nav .nav-nav__mall a .mall_hd .tciconfont{color: {$tongchengConfig['template_color']};}
+</style>
+</head>
+<body>
+<!--{if $subscribeFlag==2}-->
+<section id="subscribe_box" class="personal_guanzu_pormpt">
+    <div class="guanzu_pormpt_area guanzu_pormpt_left">
+        <div class="guanzu_pic"><img src="{$tongchengConfig['fwh_logo']}"></div>
+        <div class="guanzu_text">
+            <h5>{$tongchengConfig['fwh_name']}</h5>
+            <p>{$tongchengConfig['fwh_desc']}</p>
+        </div>
+    </div>
+    <div class="guanzu_pormpt_area guanzu_pormpt_right">
+        <div class="guanzu_button tc-template__bg" onclick="guanzu();">{lang tom_tongcheng:index_guanzu_btn}</div>
+        <div class="guanzu_close" onclick="hide_guanzu();"></div>
+    </div>
+</section>
+<!--{/if}-->
+<section class="mainer">
+   <section class="wrap">
+        <section class="user-page">
+            <section class="user-wrap top__bg" style="position: relative;overflow: hidden;">
+                  <section class="user-page-avatar">
+                       <section class="user-avatar-pic">
+                            <img src="{$__UserInfo['picurl']}" />
+                       </section>
+                  </section>
+                  <section class="user-avatar-extend">
+                       <h3><a>{$__UserInfo['nickname']}</a></h3>
+                       <p><a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=myedit">{lang tom_tongcheng:personal_edit}(UID:{$__UserInfo['id']})</a></p>
+                  </section>
+                 <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=personal&act=set">
+                    <div class="personal_set">
+                        <img src="source/plugin/tom_tongcheng/images/personal/set.png">
+                    </div>
+                 </a>
+                  <!--{if $__ShowTcyikatong==1}-->
+                  <a href="plugin.php?id=tom_tcyikatong&site={$site_id}&mod=index">
+                      <div class="personal_vip">
+                         <div class="personal_vip_box">{$tcyikatongConfig['card_name']}</div>
+                         <div class="personal_vip_msg">{lang tom_tongcheng:personal_vip_msg}</div>
+                     </div>
+                  </a>
+                  <!--{/if}-->
+            </section>
+            <section class="personal_tongji clearfix">
+                <ul class="clearfix">
+                    <li>
+                        <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=scorelog">
+                            <p class="num">{$__UserInfo['score']}</p>
+                            <p class="title">{lang tom_tongcheng:personal_myorder_score}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=money">
+                            <p class="num">{$__UserInfo['money']}</p>
+                            <p class="title">{lang tom_tongcheng:personal_money_title}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=message">
+                            <!--{if $pmNewNum > 0}-->
+                            <p class="num"><span>{$pmNewNum}</span></p>
+                            <!--{else}-->
+                            <p class="num">{$pmNewNum}</p>
+                            <!--{/if}-->
+                            <p class="title">{lang tom_tongcheng:personal_message_title}</p>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <!--{if $__ShowTcmall == 1}-->
+            <section class="personal_nav_title clearfix">
+                <div class="personal_nav_title_left personal_mall_title">{lang tom_tongcheng:personal_mall_nav_title}<a class="more" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=order">{lang tom_tongcheng:personal_mall_all}<i class="tciconfont tcicon-jiantou__you"></i></a></div>
+            </section>
+            <section class="personal_nav">
+                <div class="nav-nav__mall clearfix dislay-flex">
+                    <a class="flex" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=order&type=1">
+                        <div class="mall_hd">
+                            <i class="tciconfont tcicon-mall__daifukuan"></i>
+                            <!--{if $daiFuKuanCount > 0}-->
+                            <span class="num">{$daiFuKuanCount}</span>
+                            <!--{/if}-->
+                        </div>
+                        <p>{lang tom_tcmall:order_nav_1}</p>
+                    </a>
+                    <a class="flex" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=order&type=2">
+                        <div class="mall_hd">
+                            <i class="tciconfont tcicon-mall__daifahuo"></i>
+                            <!--{if $daiFaHuoCount > 0}-->
+                            <span class="num">{$daiFaHuoCount}</span>
+                            <!--{/if}-->
+                        </div>
+                        <p>{lang tom_tcmall:order_nav_2}</p>
+                    </a>
+                    <a class="flex" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=order&type=3">
+                        <div class="mall_hd">
+                            <i class="tciconfont tcicon-mall__daishouhuo"></i>
+                            <!--{if $daiShouHuoCount > 0}-->
+                            <span class="num">{$daiShouHuoCount}</span>
+                            <!--{/if}-->
+                        </div>
+                        <p>{lang tom_tcmall:order_nav_3}</p>
+                    </a>
+                    <a class="flex" href="plugin.php?id=tom_tcmall&site={$site_id}&mod=order&type=4">
+                        <div class="mall_hd">
+                            <i class="tciconfont tcicon-mall__daipingjia"></i>
+                            <!--{if $daiPinglunCount > 0}-->
+                            <span class="num">{$daiPinglunCount}</span>
+                            <!--{/if}-->
+                        </div>
+                        <p>{lang tom_tcmall:order_nav_4}</p>
+                    </a>
+                </div>
+            </section>
+            <!--{/if}-->
+            <section class="personal_nav_title clearfix">
+                <div class="personal_nav_title_left">{lang tom_tongcheng:personal_fuwu_title}</div>
+            </section>
+            <section class="personal_nav">
+                <div class="nav-nav clearfix">
+                    <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=mylist">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tc.png">
+                        <p>{lang tom_tongcheng:personal_mylist_title}</p>
+                    </a>
+                    <!--{if $__ShowTcqianggou == 1}-->
+                    <a href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=mylist&type=1">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tcqianggou.png">
+                        <p>{lang tom_tongcheng:personal_my_qiang_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowTcptuan == 1}-->
+                    <a href="plugin.php?id=tom_tcptuan&site={$site_id}&mod=order">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tcptuan.png">
+                        <p>{lang tom_tongcheng:personal_my_ptuan_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowTckjia == 1}-->
+                    <a href="plugin.php?id=tom_tckjia&site={$site_id}&mod=mylist">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tckjia.png">
+                        <p>{lang tom_tongcheng:personal_my_kjia_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowTcqianggou == 1}-->
+                    <a href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=mylist&type=2">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tckaquan.png">
+                        <p>{lang tom_tongcheng:personal_my_coupon_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowTc114 == 1}-->
+                    <a href="plugin.php?id=tom_tc114&site={$site_id}&mod=mylist">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tc114.png">
+                        <p>{lang tom_tongcheng:personal_my_114_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowLove == 1}-->
+                    <a href="plugin.php?id=tom_love&mod=index" style="display:none;">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-love.png">
+                        <p>{lang tom_tongcheng:personal_love_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowTchehuoren == 1}-->
+                    <a href="plugin.php?id=tom_tchehuoren&site={$site_id}&mod=index">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tchehuoren.png">
+                        <p>{lang tom_tongcheng:personal_hehuoren_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=myorder" style="display:none;">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-order.png">
+                        <p>{lang tom_tongcheng:personal_myorder_title}</p>
+                    </a>
+                    <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=mycollect">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-zan.png">
+                        <p>{lang tom_tongcheng:personal_mycollect_title}</p>
+                    </a>
+                    <!--{if $__ShowTcmall == 1}-->
+                    <a href="plugin.php?id=tom_tcmall&site={$site_id}&mod=collect">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-shoucang.png">
+                        <p>{lang tom_tongcheng:personal_mall_collect_title}</p>
+                    </a>
+                    <!--{/if}-->
+                    <!--{if $__ShowTcshop == 1}-->
+                    <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=guanzulist">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-guanzu.png?v=2">
+                        <p>{lang tom_tongcheng:personal_shopguanzu_title}</p>
+                    </a>
+                    <!--{/if}-->
+                </div>
+            </section>
+            <!--{if $showTcshopBtn == 1}-->
+            <section class="personal_nav_title clearfix">
+                <div class="personal_nav_title_left">{lang tom_tongcheng:personal_shopfuwu_title}</div>
+            </section>
+            <section class="personal_nav">
+                <div class="nav-nav2 clearfix">
+                    <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=store">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-store.png">
+                        <p>{lang tom_tongcheng:personal_store_title}</p>
+                    </a>
+                    <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=mylist">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tcshop.png">
+                        <p>{lang tom_tongcheng:personal_myshop_title}</p>
+                    </a>
+                    <a href="plugin.php?id=tom_tcshop&site={$site_id}&mod=money">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-money.png">
+                        <p>{lang tom_tongcheng:personal_shopmoney_title}</p>
+                    </a>
+                </div>
+            </section>
+            <!--{/if}-->
+            <section class="personal_nav_title clearfix">
+                <div class="personal_nav_title_left">{lang tom_tongcheng:personal_tool_title}</div>
+            </section>
+            <section class="personal_nav">
+                <div class="nav-nav2 clearfix">
+                    <a  href="javascript:void(0);" onclick="tongzhi();">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-tongzhi.png">
+                        <p>{lang tom_tongcheng:personal_tongzhi_title}</p>
+                    </a>
+                    <a  href="javascript:void(0);" onclick="kefu();">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-kefu.png">
+                        <p>{lang tom_tongcheng:personal_kefu_title}</p>
+                    </a>
+                    <a  href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=help">
+                        <img src="source/plugin/tom_tongcheng/images/personal/nav-help.png">
+                        <p>{lang tom_tongcheng:personal_help_title}</p>
+                    </a>
+                </div>
+            </section>
+        </section>
+       <section class="page_rgs">
+           <section class="btn-group" style="background-color: #f2f2f2;">
+                <!--{if $openMajiaStatus ==1 }-->
+                <input onclick="location.href='plugin.php?id=tom_tongcheng&site={$site_id}&mod=majia';" type="button" class="tcui-btn tcui-btn_primary tc-template__bg" value="{lang tom_tongcheng:personal_majia_title}">
+                <!--{/if}-->
+                <!--{if $__UserInfo['groupid']==1 && $site_id ==1 }-->
+                <input onclick="location.href='plugin.php?id=tom_tongcheng&site=1&mod=managerList';" type="button" class="tcui-btn tcui-btn_primary tc-template__bg" value="{lang tom_tongcheng:personal_manage_btn}">
+                <!--{/if}-->
+                <!--{if $__UserInfo['groupid']==2 && $site_id ==$__UserInfo['groupsiteid'] }-->
+                <input onclick="location.href='plugin.php?id=tom_tcadmin&site={$site_id}&mod=index';" type="button" class="tcui-btn tcui-btn_primary tc-template__bg" value="{lang tom_tongcheng:personal_manage_btn}">
+                <!--{/if}-->
+            </section>
+        </section>
+       <!--{if $__MemberInfo }-->
+           <!--{if $__IsWeixin == 1 && $ucenterConfig['login_type'] == 3 }-->
+           <section class="page_rgs">
+                <section class="btn-group" style="background-color: #f2f2f2;">
+                    <input type="button" id="id_login_out" style="color: #FFF;background-color: #04be02;" class="tcui-btn tcui-btn_primary" value="{lang tom_tongcheng:personal_login_out}">
+                </section>
+            </section>
+           <!--{/if}-->
+           <!--{if $__IsWeixin == 0 }-->
+           <section class="page_rgs">
+                <section class="btn-group" style="background-color: #f2f2f2;">
+                    <input type="button" id="id_login_out" style="color: #FFF;background-color: #04be02;" class="tcui-btn tcui-btn_primary" value="{lang tom_tongcheng:personal_login_out}">
+                </section>
+            </section>
+           <!--{/if}-->
+       <!--{/if}-->
+   </section>
+</section>
+{template tom_tongcheng:footer}
+<div style="display: none;">{$tongchengConfig['tongji_code']}</div>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+
+function kefu(){
+    layer.open({
+        content: '<img src="{$kefuQrcodeSrc}"><p>{lang tom_tongcheng:index_ts_kefu_msg}<p/>'
+        ,btn: '{lang tom_tongcheng:index_kefu_ok}'
+      });
+}
+
+function guanzu(){
+    layer.open({
+        content: '<img src="{$tongchengConfig['fwh_qrcode']}"><p>{lang tom_tongcheng:index_ts_guanz_msg2}<p/>'
+        ,btn: '{lang tom_tongcheng:index_kefu_ok}'
+      });
+}
+
+function tongzhi(){
+    layer.open({
+        content: '<img src="{$tongchengConfig['fwh_qrcode']}"><p>{lang tom_tongcheng:index_ts_tongzhi_msg}<p/>'
+        ,btn: '{lang tom_tongcheng:index_kefu_ok}'
+      });
+}
+
+function hide_guanzu(){
+    $("#subscribe_box").hide();
+}
+    
+$(document).ready(function(){
+    <!--{if $__UserInfo['status'] == 2}-->
+    tusi("{lang tom_tongcheng:fenghao_my_msg}");
+    <!--{/if}-->
+   $.get("{$ajaxCommonClicksUrl}");
+   $.get("{$ajaxUpdateTopstatusUrl}");
+   
+});
+
+$("#id_login_out").click(function(){
+    $.ajax({
+        type: "GET",
+        url: "{$ajaxLoginOutUrl}",
+        data: "a="+1,
+        success: function(msg){
+            if(msg == '200'){
+                tusi("{lang tom_tongcheng:personal_login_out_succ}");
+                <!--{if $__IsWeixin == 1 && $ucenterConfig['login_type'] == 3 }-->
+                setTimeout(function(){window.location.href='{$bbsLoginOut}';},1888);
+                <!--{/if}-->
+                <!--{if $__IsWeixin == 0 && $ucenterConfig['login_type'] == 3 }-->
+                setTimeout(function(){window.location.href='{$bbsLoginOut}';},1888);
+                <!--{/if}-->
+                <!--{if $__IsWeixin == 0 && $ucenterConfig['login_type'] == 4 }-->
+                setTimeout(function(){window.location.href='{$bbsLoginOut}';},1888);
+                <!--{/if}-->
+                <!--{if $__IsWeixin == 0 && $ucenterConfig['login_type'] == 2 }-->
+                setTimeout(function(){window.location.href='plugin.php?id=tom_tongcheng&site={$site_id}&mod=index';},1888);
+                <!--{/if}-->
+            }else{
+                tusi("{lang tom_tongcheng:personal_login_out_error}");
+            }
+        }
+    })
+});
+
+</script>
+<script>
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: '{$shareTitle}',
+        link: '{$shareUrl}', 
+        imgUrl: '{$shareLogo}', 
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '{$shareTitle}',
+        desc: '{$shareDesc}',
+        link: '{$shareUrl}',
+        imgUrl: '{$shareLogo}',
+        type: 'link',
+        dataUrl: '',
+        success: function () { 
+        },
+        cancel: function () { 
+        }
+    });
+});
+</script>
+</body>
+</html>

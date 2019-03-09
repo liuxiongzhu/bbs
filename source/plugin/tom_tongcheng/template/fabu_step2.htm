@@ -1,0 +1,796 @@
+<!DOCTYPE html><html>
+<head>
+<!--{if $isGbk}-->
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--{else}-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--{/if}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>{$modelInfo['name']} - {$__SitesInfo['name']}</title>
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/style.css?v={$cssJsVersion}" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/mobiscroll/mobiscroll.css" />
+<link rel="stylesheet" href="source/plugin/tom_tongcheng/images/jquery-popups.css?v={$cssJsVersion}" />
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/jquery-popups.js?v={$cssJsVersion}"></script>
+<script type="text/javascript">
+    var commonjspath = 'source/plugin/tom_tongcheng/images';
+</script>
+<script src="source/plugin/tom_tongcheng/images/common.js?v={$cssJsVersion}" type="text/javascript"></script>
+<script>
+var tomBrowser = {
+    versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return { /*移动终端浏览器版本信息*/
+            trident: u.indexOf('Trident') > -1, /*IE内核*/
+            presto: u.indexOf('Presto') > -1, /*opera内核*/
+            webKit: u.indexOf('AppleWebKit') > -1, /*苹果、谷歌内核*/
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, /*火狐内核*/
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), /*是否为移动终端*/
+            ios: !!u.match(/i[^;]+;( U;)? CPU.+Mac OS X/), /*ios终端*/
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, /*android终端或者uc浏览器*/
+            iPhone: u.indexOf('iPhone') > -1 || (u.indexOf('Mac') > -1 && u.indexOf('Macintosh') < 0), /*是否为iPhone或者QQHD浏览器*/
+            iPad: u.indexOf('iPad') > -1, /*是否iPad*/
+            webApp: u.indexOf('Safari') == -1, /*是否web应该程序，没有头部与底部*/
+            WindowsWechat: u.indexOf('WindowsWechat') > 0 /*是否web应该程序，没有头部与底部*/
+        };
+    }(),
+    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+</script>
+{template tom_tongcheng:template_css}
+<style>
+.tcui-actionsheet__cell:before{border:0}
+.tcui-actionsheet__cell{border-bottom:1px solid #EFEFF4;padding:20px 0}
+.dialog-btns a{ color:{$tongchengConfig['template_color']}; border-color:{$tongchengConfig['template_color']};}
+.dialog-btns a:first-child{ background-color:{$tongchengConfig['template_color']};}
+.dialog-btns a.hb-link{ background-color:#F23039;border-color:#F23039;}
+.fabu_over_days_box ul li .buyitem .days{color: {$tongchengConfig['template_color']};}
+.fabu_over_days_box ul li .on{background-color: {$tongchengConfig['template_color']};}
+.fabu_over_days_box ul li .on .days{color: #fff;}
+.fabu_over_days_box ul li .on .msg{color: #fff;}
+</style>
+</head>
+<body>
+<div id="over-days-box" class='pop-ups__container'>
+  <div class="pop-ups__overlay"></div>
+  <div class="pop-ups__modal">
+      <div class="pop-ups__box">
+          <div class="fabu_over_days_title">{lang tom_tongcheng:fabu_step2_over_days}</div>
+            <div class="fabu_over_days_box">
+                <ul>
+                    <!--{loop $over_days_item $key $val}-->
+                    <li>
+                        <!--{if $isVipFabu == 2 || $__UserInfo['editor']==1 }-->
+                        <div id="over-days-item-{$val['days']}" class="id-over-days buyitem tc-template__border" onclick="chooseOverDaysItem({$val['days']},'0','0');">
+                        <!--{else}-->
+                        <div id="over-days-item-{$val['days']}" class="id-over-days buyitem tc-template__border" onclick="chooseOverDaysItem({$val['days']},'{$val['price']}','{$val['vipprice']}');">
+                        <!--{/if}-->
+                            <!--{if $val['msg'] == 'NULL' }-->
+                            <!--{if $isVipFabu == 1}-->
+                            <div class="days ">{$val['vipprice']}{lang tom_tongcheng:yuan}</div>
+                            <!--{elseif $isVipFabu == 2  || $__UserInfo['editor']==1}-->
+                            <div class="days ">0{lang tom_tongcheng:yuan}</div>
+                            <!--{else}-->
+                            <div class="days ">{$val['price']}{lang tom_tongcheng:yuan}</div>
+                            <!--{/if}-->
+                            <div class="msg">{lang tom_tongcheng:fabu_step2_youxiaoqi}{$val['days']}{lang tom_tongcheng:tian}</div>
+                            <!--{else}-->
+                            <!--{if $isVipFabu == 1}-->
+                            <div class="days ">{lang tom_tongcheng:fabu_step2_youxiaoqi}{$val['days']}{lang tom_tongcheng:tian}/{$val['vipprice']}{lang tom_tongcheng:yuan}</div>
+                            <!--{elseif $isVipFabu == 2  || $__UserInfo['editor']==1}-->
+                            <div class="days ">{lang tom_tongcheng:fabu_step2_youxiaoqi}{$val['days']}{lang tom_tongcheng:tian}/0{lang tom_tongcheng:yuan}</div>
+                            <!--{else}-->
+                            <div class="days ">{lang tom_tongcheng:fabu_step2_youxiaoqi}{$val['days']}{lang tom_tongcheng:tian}/{$val['price']}{lang tom_tongcheng:yuan}</div>
+                            <!--{/if}-->
+                            <div class="msg">{$val['msg']}</div>
+                            <!--{/if}-->
+                        </div>
+                    </li>
+                    <!--{/loop}--> 
+                </ul>
+                <div class="clear5"></div>
+            </div>
+          <div class="pop-ups__block"></div>
+      </div>
+      <div class="pop-ups__close">
+          <a href="javascript:void(0);" class="tcui-btn tcui-btn_default close-popups">{lang tom_tongcheng:lbs_close_btn}</a>
+      </div>
+  </div>
+</div>
+<header class="header header-index on in2 tc-template__bg">
+   <section class="wrap">
+       <!--{if $__HideHeader == 0 }-->
+       <section class="sec-ico go-back" onclick="history.back();">{lang tom_tongcheng:back}</section>
+       <!--{/if}-->
+        <h2>{lang tom_tongcheng:fabu_step2_title_1}{$typeInfo['name']}{lang tom_tongcheng:fabu_step2_title_2}</h2>
+        <section class="sec-ico btn slide-btn">
+            <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=article">{lang tom_tongcheng:fabu_xuzhi_title}</a>
+        </section>
+   </section>
+</header>
+<form class="mainer" name="payForm" id="payForm" >
+   <section class="wrap edit-form">
+        <!--{if $typeInfo['warning_msg']}-->
+        <div class="tcui-cells__title">
+             <section style="padding:10px;background: #eff9ff;line-height:1.5;letter-spacing: 1px;">
+                <p class="tc-template__color" style="color:#f8a543">{$typeInfo['warning_msg']}</p>
+             </section>
+        </div>
+       <!--{/if}-->
+        <section class="edit-item">
+            <!--{if $tcadminConfig['open_fabu_sites'] == 1}-->
+            <!--{if $sitesList}-->
+             <section class="input-control ">
+                  <span>{lang tom_tongcheng:fabu_step2_sites}</span>
+                  <section class="user-fav">
+                       <section class="sec-input">
+                            <select name="site_id" id="site_id" class="tcui-select" onchange="refreshsites();">
+                                <option value="1" <!--{if $site_id == 1}-->selected<!--{/if}-->> {$tongchengConfig['plugin_name']}</option>
+                                <!--{loop $sitesList $key $val}-->
+                                <option value="{$val['id']}" <!--{if $site_id == $val['id']}-->selected<!--{/if}-->> {$val['lbs_name']}</option>
+                                <!--{/loop}-->
+                            </select>
+                       </section>
+                       <div class="frt">
+                            <div class="right-arrow"></div>
+                       </div>
+                  </section>
+             </section>
+            <!--{/if}-->
+            <!--{/if}-->
+            <!--{if $typeInfo['jifei_type'] == 2 }-->
+            <section class="input-control ">
+                 <span>{lang tom_tongcheng:fabu_step2_over_days}</span>
+                 <section class="user-fav">
+                      <section class="sec-input">
+                          <div id="choseOverDays" class="open-popups" style="cursor: pointer;" data-target="#over-days-box"><font color="#8e8e8e">{lang tom_tongcheng:fabu_step2_over_days_msg}</font></div>
+                           <input type="hidden" name="over_days" id="over_days" value="0">
+                      </section>
+                      <div class="frt"></div>
+                 </section>
+            </section>
+            <!--{/if}-->
+            <!--{if $__ShowTcshop == 1}-->
+            <!--{if $tcshopList}-->
+             <section class="input-control ">
+                  <span>{lang tom_tongcheng:fabu_step2_tcshop_id}</span>
+                  <section class="user-fav">
+                       <section class="sec-input">
+                            <select name="tcshop_id" id="tcshop_id" class="tcui-select">
+                                <option value="0"> {lang tom_tongcheng:fabu_step2_tcshop_all_name}</option>
+                                <!--{loop $tcshopList $key $val}-->
+                                <option value="{$val['id']}"> {$val['name']}</option>
+                                <!--{/loop}-->
+                            </select>
+                       </section>
+                       <div class="frt">
+                            <div class="right-arrow"></div>
+                       </div>
+                  </section>
+             </section>
+            <!--{/if}-->
+            <!--{/if}-->
+            <!--{if $tongchengConfig['open_fabu_title'] == 1}-->
+            <section class="input-control ">
+                <span>{lang tom_tongcheng:fabu_step2_title}</span>
+                <section class="user-fav">
+                    <section class="sec-input">
+                        <input type="text" name="title" id="title" placeholder="{lang tom_tongcheng:fabu_step2_title_msg}" value="" />
+                    </section>
+                    <div class="frt"></div>
+                </section>
+            </section>
+            <!--{/if}-->
+            <!--{if $cateList}-->
+             <section class="input-control ">
+                  <span>{$typeInfo['cate_title']}</span>
+                  <section class="user-fav">
+                       <section class="sec-input">
+                            <select name="cate_id" id="cate_id" class="tcui-select">
+                                <option value="0">{lang tom_tongcheng:fabu_step2_choose}</option>
+                                <!--{loop $cateList $key $val}-->
+                                <option value="{$val['id']}"> {$val['name']}</option>
+                                <!--{/loop}-->
+                            </select>
+                       </section>
+                       <div class="frt">
+                            <div class="right-arrow"></div>
+                       </div>
+                  </section>
+             </section>
+            <!--{/if}-->
+            <!--{if $attrList}-->
+            <!--{loop $attrList $key $val}-->
+                <section class="input-control ">
+                      <span>{$val['name']}</span>
+                      <input type="hidden" name="attrname_{$val['id']}" value="{$val['name']}">
+                      <input type="hidden" name="attrpaixu_{$val['id']}" value="{$val['paixu']}">
+                      <input type="hidden" name="attrunit_{$val['id']}" value="{$val['unit']}">
+                      <section class="user-fav">
+                           <section class="sec-input">
+                               <!--{if $val['type'] == 1}-->
+                               <input type="text" name="attr_{$val['id']}" id="attr_{$val['id']}" placeholder="{$val['name']}" value=""  />
+                               <!--{/if}-->
+                               <!--{if $val['type'] == 2}-->
+                               <select name="attr_{$val['id']}" id="attr_{$val['id']}" class="tcui-select" >
+                                    <option value="0">{lang tom_tongcheng:fabu_step2_choose}{$val['name']}</option>
+                                    <!--{loop $val['list'] $kk $vv}-->
+                                    <option value="{$vv}">{$vv}</option>
+                                    <!--{/loop}-->
+                                </select>
+                               <!--{/if}-->
+                               <!--{if $val['type'] == 3}-->
+                               <input class="tcui-input" type="datetime-local" name="attrdate_{$val['id']}" id="attrdate_{$val['id']}" value="" max="{$maxDateTime}" min="{$minDateTime}" />
+                               <input type="hidden" name="attrdatetmp_{$val['id']}" id="attrdatetmp_{$val['id']}" value="">
+                               <!--{/if}-->
+                               <!--{if $val['type'] == 4}-->
+                               <div class="tcui-cells tcui-cells_checkbox" style="margin-top: 0px;line-height: 30px;">
+                                   <!--{loop $val['list'] $kk $vv}-->
+                                    <label class="tcui-cell-cell tcui-check__label clearfix" for="s_{$val['id']}_{$kk}">
+                                        <div class="tcui-cell__hd" style="float: left;">
+                                            <input type="checkbox" class="tcui-check" name="attr_{$val['id']}[]" value="{$vv}" id="s_{$val['id']}_{$kk}">
+                                            <i class="tcui-icon-checked"></i>
+                                        </div>
+                                        <div class="tcui-cell__bd" style="float: left;">
+                                            <p>{$vv}</p>
+                                        </div>
+                                    </label>
+                                   <!--{/loop}-->
+                                </div>
+                               <!--{/if}-->
+                               <!--{if $val['type'] == 5}-->
+                               <input type="number" name="attr_{$val['id']}" id="attr_{$val['id']}" placeholder="{$val['name']}" value=""  />
+                               <!--{/if}-->
+                           </section>
+                           <div class="frt"><!--{if $val['unit']}-->{$val['unit']}<!--{elseif $val['type'] == 3}--><div class="right-arrow"></div><!--{/if}--></div>
+                      </section>
+                 </section>
+            <!--{/loop}-->
+            <!--{/if}-->
+            <section class="input-control " <!--{if $modelInfo['area_select'] == 0  }-->style="display: none;"<!--{/if}-->>
+                 <span>{lang tom_tongcheng:fabu_step2_city}</span>
+                 <section class="user-fav">
+                      <section class="sec-input">
+                           <div id="choseCity"><font color="#8e8e8e">{lang tom_tongcheng:fabu_step2_city_msg}</font></div>
+                           <input type="hidden" name="area_id" id="area_id" value="">
+                           <input type="hidden" name="street_id" id="street_id" value="">
+                      </section>
+                      <div class="frt"></div>
+                 </section>
+            </section>
+            <!--{if $modelInfo['open_dingwei'] == 1 }-->
+            <section class="input-control ">
+                 <span>{lang tom_tongcheng:fabu_step2_address}</span>
+                 <section class="user-fav">
+                      <section class="sec-input">
+                           <input type="text" id="address" name="address" placeholder="{lang tom_tongcheng:fabu_step2_address_msg}" value=""  />
+                           <input type="hidden" name="lng" id="hidlng" value="" />
+                           <input type="hidden" name="lat" id="hidlat" value="" />
+                      </section>
+                     <div id="showActionSheet" class="frt"><i class="tciconfont tcicon-dingwei tc-template__color"  style="color: #F60;"></i><i id="locationtext" class="tc-template__color" style="color: #F60;">{lang tom_tongcheng:fabu_step2_address_dw}</i></div>
+                 </section>
+            </section>
+            <!--{/if}-->
+             <section class="input-control clear bb0">
+                  <div style="line-height: 3em;">{$typeInfo['desc_title']}</div>
+                  <section class="textarea">
+                       <section class="sec-input">
+                            <textarea name="content" id="content" maxlength="10000" placeholder="{$typeInfo['desc_content']}"></textarea>
+                       </section>
+                  </section>
+             </section>
+            <!--{if $tagList}-->
+             <section class="input-control clear input-control-hide-title">
+                  <span>-</span>
+                  <section class="user-fav">
+                       <section class="sec-input small-line">
+                            <div data-max="5">
+                                 <!--{loop $tagList $key $val}-->
+                                 <input type="checkbox" id="check-fuli-{$val['id']}" name="tag[]" value="{$val['id']}" class="file-hide checkbox-label-item" />
+                                 <label for="check-fuli-{$val['id']}">{$val['name']}</label>
+                                 <input type="hidden" name="tagname_{$val['id']}" value="{$val['name']}">
+                                 <!--{/loop}-->
+                            </div>
+                       </section>
+                  </section>
+             </section>
+            <!--{/if}-->
+             <section class="input-control ">
+                  <ul>
+                      <div id="photolist" class="clearfix"></div>
+                       <li>
+                            <section class="img pic-upload-btn" id="picpic-btn">
+                                <!--{if $is_weixin == 0 || $tongchengConfig['open_many_pic_upload'] == 0}-->
+                                <input type="file" name="filedata1" id="filedata1" class="post-upload-fileprew"  />
+                                <!--{/if}-->
+                                <img src="source/plugin/tom_tongcheng/images/img7.png" />
+                            </section>
+                       </li>
+                       <li class="li_text"><span>{lang tom_tongcheng:fabu_step2_photo_1}{$tongchengConfig['max_photo_num']}{lang tom_tongcheng:fabu_step2_photo_2} </span></li>
+                  </ul>
+             </section>
+        </section>
+        <section class="input-control ">
+             <span>{lang tom_tongcheng:fabu_step2_xm}</span>
+             <section class="user-fav">
+                  <section class="sec-input">
+                       <input type="text" name="xm" id="xm" placeholder="{lang tom_tongcheng:fabu_step2_xm_msg}" value="{$defaultXm}" />
+                  </section>
+                  <div class="frt"></div>
+             </section>
+        </section>
+        <section class="input-control ">
+             <span>{lang tom_tongcheng:fabu_step2_tel}</span>
+             <section class="user-fav">
+                  <section class="sec-input">
+                       <input class="tcui-input" type="tel" name="tel" id="tel" placeholder="{lang tom_tongcheng:fabu_step2_tel_msg}" value="{$defaultTel}"  />
+                  </section>
+                  <div class="frt"></div>
+             </section>
+        </section>
+        <section class="input-control">
+             <span class="slide-btn" data-target="advance-slide" data-html="1">{lang tom_tongcheng:fabu_step2_tiaok_title}</span>
+             <section>
+                 <input type="checkbox" name="xieyi" id="xieyi" value="1" checked/> <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=article">{lang tom_tongcheng:fabu_step2_agree_msg}</a> 
+             </section>
+        </section>
+        <!--{if $openMajiaStatus == 1}-->
+        <section class="input-majia tcui-cell tcui-cell_switch">
+            <div class="tcui-cell__bd">{lang tom_tongcheng:fabu_step2_open_majia}</div>
+            <div class="tcui-cell__ft">
+                <input class="tcui-switch" type="checkbox" id="open_majia" name="open_majia" value="1">
+            </div>
+        </section>
+        <!--{/if}-->
+   </section>
+   <section class="btn-group-block">
+       <!--{if $fabuPayStatus == 1}-->
+           <button type="button" id="id_fabu_btn" class="id_fabu_btn tc-template__bg">{lang tom_tongcheng:fabu_step2_pay_btn}<span class="id_fabu_price">{$typeInfo['fabu_price']}</span></button>
+           <!--{if $isVipFabu == 1}-->
+           <br/>{lang tom_tongcheng:fabu_step2_vip1_times_msg_1}<font color="#fd0d0d">{$tcyikatongConfig['card_name']}</font>{lang tom_tongcheng:fabu_step2_vip1_times_msg_2}
+           <!--{/if}-->
+           <div class="id_fabu_msg"></div>
+       <!--{elseif $fabuPayStatus == 2}-->
+           <button type="button" id="id_fabu_btn" class="id_fabu_btn tc-template__bg">{lang tom_tongcheng:fabu_step2_score_btn}</button>
+           <br/>{lang tom_tongcheng:fabu_step2_score_my_title}<font color="#fd0d0d">{$__UserInfo['score']}</font>{lang tom_tongcheng:fabu_step2_score_use_title}<font color="#fd0d0d">{$useScore}</font>
+       <!--{else}-->
+           <button type="button" id="id_fabu_btn" class="id_fabu_btn tc-template__bg">{lang tom_tongcheng:fabu_step2_fabu_btn}</button>
+           <!--{if $isVipFabu == 2}-->
+           <br/>{lang tom_tongcheng:fabu_step2_vip2_times_msg_1}<font color="#fd0d0d">{$tcyikatongConfig['card_name']}</font>{lang tom_tongcheng:fabu_step2_vip2_times_msg_2}<font color="#fd0d0d">{$shengyuVipTimes}</font>{lang tom_tongcheng:fabu_step2_vip2_times_msg_3}
+           <!--{/if}-->
+       <!--{/if}-->
+        <input type="hidden" name="formhash" value="{$formhash}">
+        <input type="hidden" name="model_id" value="{$typeInfo['model_id']}">
+        <input type="hidden" name="type_id" value="{$type_id}">
+        <input type="hidden" name="user_id" value="{$__UserInfo['id']}">
+        <input type="hidden" name="city_id" id="city_id" value="{$__CityInfo['id']}">
+        <div class="clear10"></div>
+        <!--{if $__IsMiniprogram == 1 && $__Ios == 1 && $tongchengConfig['closed_ios_pay'] == 1 }--><!--{else}-->
+            <!--{if $isVipFabu == 3}-->
+            <div class="fabu_card-box__tishi dislay-flex">
+                <div class="box-tishi__lt flex">{$tcyikatongConfig['card_name']}{lang tom_tongcheng:fabu_step2_vip1_btn_msg}</div>
+                <a class="box-tishi__rt" href="plugin.php?id=tom_tcyikatong&site={$site_id}&mod=card">{lang tom_tongcheng:fabu_step2_vip_btn}</a>
+            </div>
+            <!--{/if}-->
+            <!--{if $isVipFabu == 4}-->
+            <div class="fabu_card-box__tishi dislay-flex">
+                <div class="box-tishi__lt flex">{$tcyikatongConfig['card_name']}{lang tom_tongcheng:fabu_step2_vip2_btn_msg}</div>
+                <a class="box-tishi__rt" href="plugin.php?id=tom_tcyikatong&site={$site_id}&mod=card">{lang tom_tongcheng:fabu_step2_vip_btn}</a>
+            </div>
+            <!--{/if}-->
+        <!--{/if}-->
+        <div class="clear10"></div>
+        <div class="clear10"></div>
+        <div class="clear10"></div>
+        <div class="clear10"></div>
+   </section>
+</form>
+<!--{if $__IsMiniprogram == 1 && $__Ios == 1 && $fabuPayStatus == 1 && $tongchengConfig['closed_ios_pay'] == 1 }-->
+<div class="js_dialog">
+    <div class="tcui-mask"></div>
+    <div class="tcui-dialog">
+        <div class="tcui-dialog__hd"><strong class="tcui-dialog__title">{lang tom_tongcheng:closed_ios_pay_title}</strong></div>
+        <div class="tcui-dialog__bd">{lang tom_tongcheng:closed_ios_pay_msg}</div>
+        <div class="tcui-dialog__ft">
+            <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=fabu&prand={$prand}" class="tcui-dialog__btn tcui-dialog__btn_default">{lang tom_tongcheng:closed_ios_pay_btn}</a>
+        </div>
+    </div>
+</div>
+<!--{/if}-->
+<section class="dialog succ-dialog id-fabu-succ" style="display: none;">
+   <section class="dialog-wrap">
+        <section class="dialog-center">
+            <a href="javascript:void(0);" onclick="hideFabuSucc();" class="group-link close"></a>
+             <section class="dialog-body">
+                  <h1>{lang tom_tongcheng:fabu_step2_succ_title}</h1>
+                  <p><span class="tc-template__border">{lang tom_tongcheng:fabu_step2_succ_msg_1} </span><label class="tc-template__color tc-template__border">{lang tom_tongcheng:fabu_step2_succ_msg_2}</label><span class="tc-template__border"> {lang tom_tongcheng:fabu_step2_succ_msg_3}</span></p>
+                  <section class="dialog-btns clear">
+                       <!--{if $__IsMiniprogram == 1 }-->
+                       <a href="javascript:void(0);" class="share-link id-share-link">{lang tom_tongcheng:fabu_step2_succ_btn_1}</a>
+                       <!--{else}-->
+                       <a href="#" class="share-link id-share-link">{lang tom_tongcheng:fabu_step2_succ_btn_1}</a>
+                       <!--{/if}-->
+                       <a href="#" class="buy-link id-buy-link">{lang tom_tongcheng:fabu_step2_succ_btn_2}</a>
+                       <!--{if $__ShowTchongbao == 1}-->
+                       <a href="#" class="hb-link id-hb-link">{lang tom_tongcheng:fabu_step2_hb_tuiguang}</a>
+                       <!--{/if}-->
+                  </section>
+             </section>
+        </section>
+   </section>
+</section>
+<!--{if $modelInfo['open_dingwei'] == 1 }-->
+<div id="baidumap" style="position: fixed;bottom: 0px; height:100%; width:100%;z-index:9999;display:none">
+    <iframe style="border:0px;width:100%;height:100%"></iframe>
+</div>
+<div class="tcui-actionsheet" id="actionSheet_wrap">
+    <header class="header on in2 tc-template__bg">
+        <section class="wrap"><h2>{lang tom_tongcheng:fabu_step2_choose_address}</h2></section>
+    </header>
+    <div class="tcui-actionsheet__menu">
+        <a class="tcui-actionsheet__cell" href="javascript:void(0);" id="mylocation">{lang tom_tongcheng:fabu_step2_choose_mylocation}</a>
+        <a class="tcui-actionsheet__cell" href="javascript:void(0);" id="maplocation">{lang tom_tongcheng:fabu_step2_choose_maplocation}</a>
+    </div>
+    <div class="clear"></div>
+    <div class="tcui-actionsheet__action">
+        <div class="tcui-actionsheet__cell" id="actionsheet_cancel">{lang tom_tongcheng:fabu_step2_choose_close}</div>
+    </div>
+</div>
+<!--{/if}-->
+<!--{if $showPhoneDialog == 1  }-->
+<section class="dialog succ-dialog">
+   <section class="dialog-wrap">
+        <section class="dialog-center">
+             <section class="dialog-body">
+                  <h1>{lang tom_tongcheng:fabu_step2_phone_title}</h1>
+                  <p><span class="tc-template__border">{lang tom_tongcheng:fabu_step2_phone_msg}</span></p>
+                  <section class="dialog-btns clear">
+                      <a href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=phone&phone_back={$phone_back_url}" class="share-link" style="width: 90%;">{lang tom_tongcheng:fabu_step2_phone_btn}</a>
+                  </section>
+             </section>
+        </section>
+   </section>
+</section>
+<!--{/if}-->
+<script>var city = eval(decodeURIComponent('{$cityData}'));var selectedIndex = [0, 0];</script>
+<!--{if $isGbk}-->
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/mobiscroll/mobiscroll.gbk.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/picker/picker.min.gbk.js?v=2"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/picker/picker.fabu.gbk.js"></script>
+<!--{else}-->
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/mobiscroll/mobiscroll.utf8.js"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/picker/picker.min.utf8.js?v=2"></script>
+<script type="text/javascript" src="source/plugin/tom_tongcheng/images/picker/picker.fabu.utf8.js"></script>
+<!--{/if}-->
+<!--{if $modelInfo['open_dingwei'] == 1 }-->
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={$tongchengConfig['baidu_js_ak']}"></script>
+<!--{/if}-->
+<script src="//res.wx.qq.com/open/js/jweixin-1.3.2.js" type="text/javascript"></script>
+<script>
+var li_i = 1;
+var count = 0;
+var tongcheng_id    = "{$tongcheng_id}";
+var max_photo_num   = "{$tongchengConfig['max_photo_num']}";
+max_photo_num       = max_photo_num*1;
+var shareLinkUrl    = "{$shareLinkUrl}";
+var buyLinkUrl      = "{$buyLinkUrl}";
+var hbLinkUrl       = "{$hbLinkUrl}";
+var score           = "{$__UserInfo['score']}";
+score               = score*1;
+var pay_score_yuan  = "{$tongchengConfig['pay_score_yuan']}";
+pay_score_yuan      = pay_score_yuan*1;
+var score_fabu_status = 0;
+
+wx.config({
+    debug: false,
+    appId: '{$wxJssdkConfig["appId"]}',
+    timestamp: {$wxJssdkConfig["timestamp"]},
+    nonceStr: '{$wxJssdkConfig["nonceStr"]}',
+    signature: '{$wxJssdkConfig["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'previewImage',
+      'chooseImage',
+      'uploadImage',
+      'downloadImage'
+    ]
+});
+
+$('#open_majia').change(function(){
+    if($('#open_majia').attr("checked")) {
+        $('#xm').val('');
+    }
+})
+
+function chooseOverDaysItem(days,price,vipprice){
+    $('#choseOverDays').html('<font color="#fd0d0d">{lang tom_tongcheng:fabu_step2_youxiaoqi}'+days+'{lang tom_tongcheng:tian}/'+price+'{lang tom_tongcheng:yuan}</font>');
+    $(".id-over-days").removeClass("on");
+    $("#over-days-item-"+days).addClass("on");
+    $('#over_days').val(days);
+    <!--{if $isVipFabu == 1}-->
+    $('.id_fabu_price').html(vipprice);
+    var use_score = vipprice*pay_score_yuan;
+    <!--{else}-->
+    $('.id_fabu_price').html(price);
+    var use_score = price*pay_score_yuan;
+    <!--{/if}-->
+    use_score = Math.ceil(use_score);
+    <!--{if $isVipFabu != 2}-->
+    if(score >= use_score && pay_score_yuan > 0){
+        score_fabu_status = 1;
+        $('.id_fabu_btn').html('{lang tom_tongcheng:fabu_step2_score_btn}');
+        $('.id_fabu_msg').html('<br/>{lang tom_tongcheng:fabu_step2_score_my_title}<font color="#fd0d0d">'+score+'</font>{lang tom_tongcheng:fabu_step2_score_use_title}<font color="#fd0d0d">'+use_score+'</font>');
+    }else{
+        $('.id_fabu_msg').html('');
+         <!--{if $isVipFabu == 1}-->
+         $('.id_fabu_btn').html('{lang tom_tongcheng:fabu_step2_pay_btn}<span class="id_fabu_price">'+vipprice+'</span>');
+         <!--{else}-->
+         $('.id_fabu_btn').html('{lang tom_tongcheng:fabu_step2_pay_btn}<span class="id_fabu_price">'+price+'</span>');
+         <!--{/if}-->
+    }
+    <!--{/if}-->
+    $.closePopup();
+}
+
+function refreshsites() {
+	location.href = 'plugin.php?id=tom_tongcheng&site='+$('#site_id').val()+'&mod=fabu&act=step2&type_id={$type_id}&lbs_no=1';
+}
+
+var submintPayStatus = 0;
+$(".id_fabu_btn").click( function (){
+    if(submintPayStatus == 1){
+        return false;
+    }
+    
+    var xm          = $("#xm").val();
+    var tel         = $("#tel").val();
+    var content      = $("#content").val();
+    var area_id      = $("#area_id").val();
+    var street_id      = $("#street_id").val();
+    
+    <!--{if $typeInfo['jifei_type'] == 2 }-->
+    var over_days      = $("#over_days").val();
+    if(over_days == 0){
+        tusi('{lang tom_tongcheng:fabu_step2_over_days_must}');
+        return false;
+    }
+    <!--{/if}-->
+
+    <!--{if $cateList}-->
+    var cate_id      = $("#cate_id").val();
+    if(cate_id == 0){
+        tusi('{lang tom_tongcheng:fabu_step2_must}{$typeInfo['cate_title']}');
+        return false;
+    }
+    <!--{/if}-->
+    
+    <!--{if $attrList}-->
+    <!--{loop $attrList $key $val}-->
+        <!--{if $val['is_must'] == 1}-->
+            <!--{if $val['type'] == 1 || $val['type'] == 5}-->
+            var attr_{$val['id']} = $('#attr_{$val["id"]}').val();
+            if(attr_{$val['id']} == ''){
+                tusi('{lang tom_tongcheng:fabu_step2_must}{$val["name"]}');
+                return false;
+            }
+            <!--{elseif $val['type'] == 2}-->
+            var attr_{$val['id']} = $('#attr_{$val["id"]}').val();
+            if(attr_{$val['id']} == 0){
+                tusi('{lang tom_tongcheng:fabu_step2_must}{$val["name"]}');
+                return false;
+            }
+            <!--{elseif $val['type'] == 3}-->
+            var attrdate_{$val['id']} = $('#attrdate_{$val["id"]}').val();
+            if(attrdate_{$val['id']} == ''){
+                tusi('{lang tom_tongcheng:fabu_step2_must}{$val["name"]}');
+                return false;
+            }
+            <!--{/if}-->
+        <!--{/if}-->
+    <!--{/loop}-->        
+    <!--{/if}-->
+    
+    if($('#xieyi').attr("checked")) {
+    }else{
+        tusi("{lang tom_tongcheng:fabu_step2_must_xieyi}");
+        return false;
+    }
+    <!--{if $tongchengConfig['open_fabu_title'] == 1}-->
+    var title          = $("#title").val();
+    if(title == ""){
+        tusi("{lang tom_tongcheng:fabu_step2_must_title}");
+        return false;
+    }
+    <!--{/if}-->
+    <!--{if $modelInfo['area_select'] == 1  }-->
+    if(area_id == ""){
+        tusi("{lang tom_tongcheng:fabu_step2_must_area}");
+        return false;
+    }
+    <!--{/if}-->
+    
+    if(xm == ""){
+        tusi("{lang tom_tongcheng:fabu_step2_must_xm}");
+        return false;
+    }
+    <!--{if $tongchengConfig['fabu_phone_check'] == 1  }-->
+    if(tel == "" || !checkMobile(tel)){
+        tusi("{lang tom_tongcheng:fabu_step2_must_tel}");
+        return false;
+    }
+    <!--{else}-->
+    if(tel == ""){
+        tusi("{lang tom_tongcheng:fabu_step2_must_tel}");
+        return false;
+    }
+    <!--{/if}-->
+    <!--{if $modelInfo['open_dingwei'] == 1 }-->
+    <!--{if $__Ios == 1 || $__Android == 1 }-->
+        var address     = $("#address").val();
+        var hidlat      = $("#hidlat").val();
+        if(hidlat == "" || address == ""){
+            tusi("{lang tom_tongcheng:fabu_step2_address_must}");
+            return false;
+        }
+    <!--{/if}-->
+    <!--{/if}-->
+    if(content == ""){
+        tusi("{lang tom_tongcheng:fabu_step2_must}{$typeInfo['desc_title']}");
+        return false;
+    }
+    
+    if(count > max_photo_num){
+        tusi("{lang tom_tongcheng:fabu_step2_over_photo}");
+        return false;
+    }
+    
+    loading('{lang tom_tongcheng:doing}');
+    submintPayStatus = 1;
+    $.ajax({
+        type: "POST",
+        url: "{$payUrl}",
+        dataType : "json",
+        data: $('#payForm').serialize(),
+        success: function(data){
+            loading(false);
+            if(data.status == 200 && score_fabu_status == 0) {
+                <!--{if $fabuPayStatus == 1}-->
+                tusi("{lang tom_tongcheng:pay_succ_200}");
+                setTimeout(function(){window.location.href=data.payurl+"&prand={$prand}";},500);
+                <!--{else}-->
+                tongcheng_id = data.tongcheng_id;
+                submintPayStatus = 0;
+                setTimeout(function(){window.location.href="{$succLinkUrl}"+tongcheng_id+"&prand={$prand}";},500);
+                //showFabuSucc();
+                <!--{/if}-->
+            }else if(data.status == 200  && score_fabu_status == 1){
+                tongcheng_id = data.tongcheng_id;
+                submintPayStatus = 0;
+                setTimeout(function(){window.location.href="{$succLinkUrl}"+tongcheng_id+"&prand={$prand}";},500);
+            }else if(data.status == 301){
+                tusi("{lang tom_tongcheng:fabu_step2_error_301}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 303){
+                tusi("{lang tom_tongcheng:pay_error_303}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 304){
+                tusi("{lang tom_tongcheng:pay_error_304}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 305){
+                tusi("{$tongchengConfig['fabu_next_minute']}{lang tom_tongcheng:pay_error_305}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 306){
+                tusi("{lang tom_tongcheng:pay_error_306}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 307){
+                tusi("{lang tom_tongcheng:pay_error_307}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 404){
+                tusi("{lang tom_tongcheng:fabu_step2_error_404}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 500){
+                tusi("{lang tom_tongcheng:fabu_step2_error_500}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else if(data.status == 501){
+                submintPayStatus = 0;
+                tusi("{lang tom_tongcheng:fabu_step2_error_501}");
+            }else if(data.status == 502){
+                submintPayStatus = 0;
+                tusi("{lang tom_tongcheng:fabu_step2_error_502}");
+            }else if(data.status == 505){
+                submintPayStatus = 0;
+                tusi("{lang tom_tongcheng:fabu_step2_error_505}"+data.word);
+                //setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }else{
+                tusi("{lang tom_tongcheng:fabu_step2_error}");
+                setTimeout(function(){window.location.href=window.location.href+"&prand={$prand}";},1888);
+            }
+        }
+    });
+});
+
+function showFabuSucc(){
+    <!--{if $tongchengConfig['open_yun'] == 2}-->
+    $.get("{$ossBatchUrl}");
+    <!--{/if}-->
+    <!--{if $tongchengConfig['open_yun'] == 3}-->
+    $.get("{$qiniuBatchUrl}");
+    <!--{/if}-->
+    <!--{if $__IsMiniprogram == 1 }--><!--{else}-->
+    $(".id-share-link").attr("href",shareLinkUrl+tongcheng_id); 
+    <!--{/if}-->
+    $(".id-buy-link").attr("href",buyLinkUrl+tongcheng_id); 
+    <!--{if $__ShowTchongbao == 1}-->
+    $(".id-hb-link").attr("href",hbLinkUrl+tongcheng_id); 
+    <!--{/if}-->
+    $(".id-fabu-succ").show();
+    return false;
+}
+<!--{if $__IsMiniprogram == 1 }-->
+$(".id-share-link").click( function (){
+    jumpMiniprogram('{$_G['siteurl']}'+shareLinkUrl+tongcheng_id);
+});
+<!--{/if}-->
+function hideFabuSucc(){
+    //$(".id-fabu-succ").hide();
+    setTimeout(function(){window.location.href="{$myListAllUrl}";},1);
+    return false;
+}
+
+function checkMobile(s){
+    var regu =/^[1][0-9]{10}$/;
+	var re = new RegExp(regu);
+	if (re.test(s)) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
+$(document).ready(function() {
+    var a = (new Date).getFullYear();
+    $("input[type=date]").each(function() {
+        $(this).mobiscroll().date({
+            startYear: a - 60,
+            endYear: a + 10
+        })
+    }),
+    $("input[type=datetime-local]").mobiscroll().datetime({
+        startYear: a - 60,
+        endYear: a + 10
+    })
+});
+
+function picremove(i){
+    $(".li_"+i).remove();
+    count--;
+}
+
+$(document).on("click", ".checkbox-label-item",function() {
+    var t = $(this).parent(),
+    a = parseInt(t.data("max"), 10) || 0;
+    a > 0 && $(this).is(":checked") && t.find("input:checked").length > a && ($(this).prop("checked", !1), tusi("{lang tom_tongcheng:fabu_step2_only_choose_1}" + a + "{lang tom_tongcheng:fabu_step2_only_choose_2}"))
+});
+
+$(document).ready(function() {
+    <!--{if $pay_ok == 1 && $tongchengInfo['pay_status'] == 2}-->
+    showFabuSucc();
+    <!--{/if}-->
+});
+</script>
+<!--{if $is_weixin == 1 && $tongchengConfig['open_many_pic_upload'] == 1}-->
+{template tom_tongcheng:wx_upload}
+<!--{else}-->
+{template tom_tongcheng:new_upload}
+<!--{/if}-->
+<!--{if $modelInfo['open_dingwei'] == 1 }-->
+<!--{if $__IsWeixin == 1}-->
+{template tom_tongcheng:wx_map}
+<!--{else}-->
+{template tom_tongcheng:baidu_map}
+<!--{/if}-->
+<!--{/if}-->
+</body>
+</html>

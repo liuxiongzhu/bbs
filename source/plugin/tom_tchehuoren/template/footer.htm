@@ -1,0 +1,71 @@
+<footer class="new-footer">
+    <section class="new-footer__box dislay-flex">
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-nav__index"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_index}</section>
+        </a>
+        <!--{if $__ShowTcshop == 1 }-->
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tcshop&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-shop"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_shop}</section>
+        </a>
+        <!--{else}-->
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=search&prand={$prand}">
+            <i class="tciconfont tcicon-nav__shoucang"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_search}</section>
+        </a>
+        <!--{/if}-->
+        <a class="flex footer-box__item footer-box__fabu tc-template__color" href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=fabu&prand={$prand}">
+            <i class="tciconfont tcicon-fabu"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_fabu}</section>
+        </a>
+        <!--{if $tongchengConfig['footer_nav_mod'] == 1 }-->
+        <a class="flex footer-box__item " href="{$footer_nav_content_link}">
+            <i class="tciconfont tcicon-nav_fenlei"></i>
+            <section class="text1">{$footer_nav_content_name}</section>
+        </a>
+        <!--{/if}-->
+        <!--{if $tongchengConfig['footer_nav_mod'] == 2 }-->
+        <a class="flex footer-box__item  <!--{if $_GET['mod'] == 'message' }-->on<!--{/if}-->" href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=message&prand={$prand}">
+            <font class="iconfont">
+            <!--{if $pmNewNum > 0 }--><i>{$pmNewNum}</i><!--{/if}-->
+                <em class="tciconfont tcicon-nav__message"></em>
+            </font>
+            <section class="text1">{lang tom_tongcheng:footer_nav_message}</section>
+        </a>
+        <!--{/if}-->
+        <!--{if $tongchengConfig['footer_nav_mod'] == 3 }-->
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tchongbao&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-hongbao"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_hongbao}</section>
+        </a>
+        <!--{/if}-->
+        <!--{if $tongchengConfig['footer_nav_mod'] == 4 }-->
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tcqianggou&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-qianggou"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_qianggou}</section>
+        </a>
+        <!--{/if}-->
+        <!--{if $tongchengConfig['footer_nav_mod'] == 5 }-->
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tcptuan&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-ptuan"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_ptuan}</section>
+        </a>
+        <!--{/if}-->
+        <!--{if $tongchengConfig['footer_nav_mod'] == 6 }-->
+        <a class="flex footer-box__item " href="plugin.php?id=tom_tcmall&site={$site_id}&mod=index&prand={$prand}">
+            <i class="tciconfont tcicon-mall"></i>
+            <section class="text1">{lang tom_tongcheng:footer_nav_mall}</section>
+        </a>
+        <!--{/if}-->
+        <a class="flex footer-box__item  " href="plugin.php?id=tom_tongcheng&site={$site_id}&mod=personal&prand={$prand}">
+            <font class="iconfont">
+            <!--{if $tongchengConfig['footer_nav_mod'] != 2 }-->
+              <!--{if $pmNewNum > 0 }--><i>{$pmNewNum}</i><!--{/if}-->
+            <!--{/if}-->
+            <em class="tciconfont tcicon-nav__my"></em>
+            </font>
+            <section class="text1">{lang tom_tongcheng:footer_nav_personal}</section>
+        </a>
+    </section>
+</footer>
